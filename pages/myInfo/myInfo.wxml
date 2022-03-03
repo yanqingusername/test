@@ -1,0 +1,68 @@
+<cu-custom isBack="{{false}}" bgColor="bg-gradual-blue">
+</cu-custom>
+
+<view wx:if="{{isHide}}">
+  <view wx:if="{{canIUse}}">
+    <view class='header'>
+      <image src='/static/images/weixin_1.png'></image>
+    </view>
+
+    <view class='content'>
+      <view>申请获取以下权限</view>
+      <text>获得你的公开信息(昵称，头像等)</text>
+    </view>
+
+    <button class='bottom' type='primary' open-type="getUserInfo" lang="zh_CN" bindgetuserinfo="bindGetUserInfo">
+      授权登录
+    </button>
+  </view>
+  <view wx:else>请升级微信版本</view>
+</view>
+
+<view wx:else>
+  <view class="userinfo app_flex">
+    <view class="P5_1 app_font" style="width: 22%;height:100%;">
+      <!-- <image style="margin-bottom:25%;margin-left: 20%;" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" background-size="cover"></image> -->
+      <open-data type="userAvatarUrl"></open-data>
+    </view>
+    <view class="grid col-1 margin-bottom text-center" style="width: 73%;height:76%;">
+      <view class="bg-cyan padding" style="text-align:left;height: 35%;background-color:#469DE8">{{name}}</view>
+      <view class="bg-blue padding" style="text-align:left;height:100%;background-color:#469DE8;">{{area}}</view>
+    </view>
+  </view>
+<view style="background-color:#F5F5F5">
+  <view wx:if="{{role == 1}}" style="height:50rpx"></view>
+  <view class="P2">
+    <view class="item" style="height:250rpx" bindtap="bindStatistics">
+      <view class="title">
+        <text>数据统计</text>
+        <text style="color:#9A9A9A">查看更多 ></text>
+      </view>
+      <view class="content_test_1">
+        <text >{{uncatched}}</text> 
+        <text >{{ongoing}}</text>
+        <text >{{today_done}}</text>
+      </view>
+      <view class="content_test_2">
+        <text >待接单</text>
+        <text >进行中</text>
+        <text >今日完成</text>
+      </view>
+    </view>
+    <view wx:if="{{role == 1}}" class="hr"></view>
+    <view wx:if="{{role == 1}}" bindtap="addAccount">
+      <view class="item">
+        <view class="title" >
+          <text>添加账号</text>
+          <text style="color:#9A9A9A">></text>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>
+  <!-- 退出 -->
+  <view style="width:100%;margin-top:12%;height:80rpx;" bindtap="toExit">
+    <view class="app_btn"
+      style="height:100%;width:40%;margin-left:30%;/*align-items:center*/background-color: #469DE8;">退出登录</view>
+  </view>
+</view>

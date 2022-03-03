@@ -1,0 +1,51 @@
+/* pages/myOrder/myOrder.wxss */
+.P1{
+  width: 690rpx;
+  margin: 30rpx;
+}
+.P2{
+  border-radius: 29rpx;
+  width: 95%;
+  padding: 20rpx 0;
+  margin-bottom: 30rpx;
+  margin-left: 2.5%;
+  margin-right: 2.5%;
+  box-shadow: 0px 4px 16px 0px rgba(0,0,0,0.06);
+}
+
+.P2_1{
+  width: 100%;
+  height: auto;
+}
+
+.P2_1_1{
+    width: 30%;
+    padding: 24rpx;
+    text-align-last: justify;
+    /* height: 80rpx; */
+    color: #BBBBBB;
+}
+.P2_1_2{
+  margin-right: 5%;
+  width: 65%;
+  text-align: right;
+  /* padding-left: 10rpx; */
+  word-break: break-all;
+}
+.title{
+  margin-left: 5%;
+  border-bottom: 1px solid #F9F9F9;
+  height: 20%;
+  text-align: left;  
+  width: 30%;
+  font-size: 32rpx;
+}
+.img {
+  width: 34rpx;
+  height: 35rpx;
+  margin-right: 11rpx;
+}
+.page{
+  width:100%;
+  overflow-x:hidden;
+}

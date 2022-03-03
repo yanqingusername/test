@@ -1,0 +1,107 @@
+/* pages/addInstrument/addInstrument.wxss *//* pages/addCustomer/addCustomer.wxss */
+
+.userinfo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.userinfo-avatar {
+  width: 128rpx;
+  height: 128rpx;
+  margin: 20rpx;
+  border-radius: 50%;
+}
+
+.userinfo-nickname {
+  color: #aaa;
+}
+
+.usermotto {
+  margin-top: 200px;
+}
+
+.P1{
+  width: 690rpx;
+  margin: 30rpx;
+  height: 60rpx;
+}
+.P1_1{
+  text-align: left;
+}
+.P1_2{
+  margin-left: 30rpx;
+  width: 200rpx;
+  height: 50rpx;
+}
+.P2{
+  background-color: #F2F2F2;
+  width: 690rpx;
+  margin: 30rpx;
+  padding: 20rpx;
+}
+.P2_1{
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  /* 数字英文不换行 */
+  word-break:break-all;
+}
+.P3{
+  width: 690rpx;
+  color: red;
+  margin: 30rpx;
+  font-size: 30rpx;
+}
+.P4{
+  background-color: #F2F2F2;
+  width: 690rpx;
+  margin: 30rpx;
+  padding: 20rpx;
+}
+.P5{
+  width: 690rpx;
+  margin: 30rpx;
+  height:auto;
+  border-bottom: 1px solid #F9F9F9;
+  color: #BBBBBB;
+}
+.P5_1{
+  width: 30%;
+  padding: 20rpx;
+  height: 80rpx;
+  color: #080808;
+}
+.P5_2{
+  width: 70%;
+  padding: 20rpx;
+  height: 80rpx;
+  color: #2D2D2D;
+  text-align: right;
+}
+.P6{
+  margin: 0 125rpx;
+  height: 80rpx;
+}
+
+.P7{
+  margin: 30rpx 225rpx;
+  width: 200rpx;
+  height: 50rpx; 
+}
+
+.customPicker{
+  font-size: 32rpx;
+  color: #2D2D2D;
+  text-align: right;
+}
+.icon-box-desc{
+  font-size: 12px;
+  font-weight: 100;
+}
+.icon-box-ctn{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 40rpx;
+}

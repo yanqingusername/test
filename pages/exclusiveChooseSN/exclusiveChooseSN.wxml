@@ -1,0 +1,35 @@
+<!--pages/exclusiveChooseSN/exclusiveChooseSN.wxml-->
+<cu-custom isBack="{{true}}" bgColor="bg-gradual-white">
+  <view slot="backText" bindtap="bindBack"></view>
+  <view slot="content">选择仪器序列号</view>
+</cu-custom>
+<!-- <label for="searchTest"> -->
+<view class='search'>
+  
+    <icon  style="position:relative;left:166rpx" type="search" size="20" />
+    <input id="search_checked" type='text' placeholder='搜索序列号' confirm-type='search' value="{{searchText}}" bindinput='searchChangeHandle' ></input>
+
+  <view class="weui-icon-clear" wx:if="{{searchText}}" bindtap="clearSearchHandle">
+    <icon type="clear" size="16" />
+  </view>
+
+  <view class="search_close" wx:if="{{searchText}}" bindtap="clearSearchHandle">取消</view>
+</view>
+<!-- </label> -->
+
+<view class='container'>
+    <block wx:if="{{flag1}}" wx:for="{{SNlist}}" wx:key="instrument_SN" >
+      <view class='text-content' data-sn='{{item.instrument_SN}}'  bindtap="bindCheckSN"> 
+          {{item.instrument_SN}}
+      </view> 
+    </block>
+    <block wx:if="{{flag2}}" wx:for="{{SNlistPlus}}" wx:key="instrument_SN" >
+      <view class='text-content' data-sn='{{item.instrument_SN}}' bindtap="bindCheckSN">
+          {{item.instrument_SN}}
+      </view> 
+    </block>
+
+
+  <view>{{tips}}</view>
+</view>
+

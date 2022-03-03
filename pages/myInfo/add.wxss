@@ -1,0 +1,81 @@
+.P1{
+  width:690rpx;
+  margin-right:30rpx;
+  margin-left:30rpx;
+}
+
+.P2{
+  position:relative;
+  margin:30rpx;
+  height:auto;
+  box-shadow: 0 1px 0 0 rgba(242,242,242,1);
+}
+
+.P3{
+  display:flex;
+  flex-direction:row;
+  position:absolute;
+  bottom:10rpx;
+  width: 100%;
+}
+
+.P3_title{
+  width:30%;
+  align-self: center;
+  padding: 0 30rpx;
+  text-align-last: justify;
+}
+
+.P3_input{
+  width:500rpx;
+  align-self: center;
+  text-align: left;
+  color:#101010;
+}
+
+.P3_input_1{
+  width:200rpx;
+  align-self: center;
+  text-align: left;
+}
+
+.P3_code{
+  align-self: center;
+  width:250rpx;
+  margin: 0 25rpx;
+  height: 70rpx;
+}
+
+.P4{
+  margin: 0 125rpx;
+  height: 80rpx;
+}
+.customPicker{
+  font-size: 32rpx;
+  color: #2D2D2D;
+  text-align: right;
+}
+.choose{
+background-color: #469DE8;
+}
+
+.P5{
+  width: 640rpx;
+  margin: 30rpx;
+  height:auto;
+  border-bottom: 1px solid #F9F9F9;
+  /* color: #BBBBBB; */
+}
+.P5_1{
+  width: 30%;
+  padding: 20rpx;
+  height: 80rpx;
+  color: #2D2D2D;
+}
+.P5_2{
+  width: 70%;
+  padding: 20rpx;
+  height: 80rpx;
+  color: #2D2D2D;
+  text-align: right;
+}

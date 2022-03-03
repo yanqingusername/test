@@ -1,0 +1,67 @@
+/* pages/chooseCustomer/chooseCustomer.wxss */
+/* 搜索框样式 */
+.search
+{
+  display: flex;
+  flex-direction: row;
+  justify-content:center;
+  align-items: center;
+  width:70%;
+  height:60rpx;
+  background-color:whitesmoke;
+  margin-top: 5%;
+  border:1rpx solid whitesmoke;
+  border-radius: 20rpx;
+  margin-left: 120rpx;
+}
+
+/* 搜索框提示文字样式 */
+.search input
+{
+  font-size:27rpx;
+  font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  /* padding-left:30rpx;  */
+}
+
+/* 搜索框小图标 */
+/*.weui-icon-search_in-box
+{ 
+  position: relative;
+  margin-left: 150rpx;
+}
+*/
+.container{
+  padding: 10px 20px;
+  align-content: center;
+}
+.text-content{
+  padding: 10px;
+  align-content: center;
+  border-bottom: 1rpx solid #F5F5F5;
+  background-color: #FFFFFF
+}
+.button-bottom{
+  background-color: #1673EC;
+  color:#FFFFFF;
+  position: fixed;
+  bottom: 20rpx;
+  left: 75rpx;
+  width: 80% !important;
+}
+.search_close{
+  position: absolute;
+  margin-left: 600rpx;
+}
+.weui-icon-clear{
+  position: absolute;
+  margin-left: 460rpx;
+}
+.tip_style{
+  text-align: center;
+  font-size: 35rpx;
+  margin-top: 50rpx;
+}
+#search_checked{
+  width:90%;
+  text-align: center;
+}

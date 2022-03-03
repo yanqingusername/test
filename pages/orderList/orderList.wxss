@@ -1,0 +1,55 @@
+.P1{
+    width: 690rpx;
+    margin: 30rpx;
+}
+.P2{
+    border-radius: 29rpx;
+    width: 90%;
+    padding: 20rpx 0;
+    margin-bottom: 30rpx;
+    margin-left: 5%;
+    margin-right: 5%;
+    box-shadow: 0px 4px 16px 0px rgba(0,0,0,0.06);
+}
+.more {
+    width: 100%;
+  text-align: center;
+  margin-top: 20rpx;
+  }
+
+.P2_1{
+    width: 100%;
+    height: auto;
+}
+
+.P2_1_1{
+    width: 190rpx;
+    padding: 20rpx;
+    text-align-last: justify;
+    height: 80rpx;
+    color: #BBBBBB;
+}
+.P2_1_2{
+    margin-right: 5%;
+    width: 60%;
+    text-align: right;
+    padding-left: 10rpx;
+    /* 数字英文不换行 */
+    word-break:break-all;
+}
+.title{
+    margin-left: 5%;
+    height: 20%;
+    text-align: left;  
+    width: 30%;
+    font-size: 32rpx;
+}
+.img {
+    width: 34rpx;
+    height: 35rpx;
+    margin-right: 11rpx;
+  }
+  .page{
+    width:100%;
+    overflow-x:hidden;
+  }

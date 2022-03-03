@@ -1,0 +1,57 @@
+<!--pages/statistics/statistics.wxml-->
+<cu-custom isBack="{{true}}" bgColor="bg-white">
+  <view slot="backText"></view>
+  <view slot="content">数据统计</view>
+</cu-custom>
+
+<view  class="pages" style="background-color:#F5F5F5">
+  <view class="hr"></view>
+  
+  <view class="P2">
+    <view class="font_title" >已完成工单</view>
+    <view class="view_left_num1">{{today_done}}</view>
+    <view class="view_center_num1">{{week_done}}</view>
+    <view class="view_right_num1">{{month_done}}</view>
+    <view class="view_left1">今日</view>
+    <view class="view_center1">本周</view>
+    <view class="view_right1">本月</view>
+
+  </view>
+
+  <view class="P2">
+    <view class="font_title">未完成工单</view>
+    <view class="view_left_num2">{{uncatched}}</view>
+    <view class="view_center_num2">{{ongoing}}</view>
+    <view class="view_left2">待接单</view>
+    <view class="view_center2">进行中</view>
+   
+  </view>
+  <view class="P3">
+    <view class="font_title2">各区域数据</view>
+    <view style="display: inline-block;position:relative;bottom:20rpx">
+      <view class="view_time {{num1==1?'active':''}}" data-num1='1' bindtap="changeTime1">今日</view>
+      <view class="view_time {{num1==2?'active':''}}" data-num1='2' bindtap="changeTime1">近7天</view>
+      <view class="view_time {{num1==3?'active':''}}" data-num1='3' bindtap="changeTime1">近30天</view>
+    </view>
+    <view style="position:absolute;left:280rpx;top:1040rpx" wx:if="{{num1==1&&existData==0}}">今日暂无数据</view>
+    <view style="position:absolute;left:280rpx;top:1040rpx" wx:if="{{num1==2&&existData==0}}">近7天暂无数据</view>
+    <view style="position:absolute;left:280rpx;top:1040rpx" wx:if="{{num1==3&&existData==0}}">近30天暂无数据</view>
+    <view class="container1">
+      <ec-canvas id="mychart-dom-bar" canvas-id="mychart-bar" ec="{{ ec1 }}" ></ec-canvas>
+    </view>
+  </view>
+  <!-- force-use-old-canvas="true" -->
+  <view class="P3">
+    <view class="font_title2">服务类型</view>
+    <view style="display: inline;position:relative;bottom:30rpx">
+      <view class="view_time2 {{num2==1?'active':''}}" data-num2='1' bindtap="changeTime2">今日</view>
+      <view class="view_time2 {{num2==2?'active':''}}" data-num2='2' bindtap="changeTime2">本周</view>
+      <view class="view_time2 {{num2==3?'active':''}}" data-num2='3' bindtap="changeTime2">本月</view>
+    </view>
+    <view class="container2">
+      <ec-canvas id="mychart-dom-bar" canvas-id="serviceType-bar" ec="{{ ec2 }}" ></ec-canvas>
+    </view>
+  
+  </view>
+
+</view>

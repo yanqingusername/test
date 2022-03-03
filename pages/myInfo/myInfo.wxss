@@ -1,0 +1,133 @@
+.userinfo {
+  display: flex;
+  align-items: center;
+  background: #469DE8;
+  width: 100%;
+}
+
+.userinfo-avatar {
+  width: 128rpx;
+  height: 128rpx;
+  margin: 20rpx;
+  border-radius: 50%;
+}
+
+.userinfo-nickname {
+  color: black;
+}
+
+.header {
+  margin: 90rpx 0 90rpx 50rpx;
+  border-bottom: 1px solid #ccc;
+  text-align: center;
+  width: 650rpx;
+  height: 300rpx;
+  line-height: 450rpx;
+}
+
+.header image {
+  width: 200rpx;
+  height: 200rpx;
+}
+
+.content {
+  margin-left: 50rpx;
+  margin-bottom: 90rpx;
+}
+
+.content text {
+  display: block;
+  color: #9d9d9d;
+  margin-top: 40rpx;
+}
+
+.bottom {
+  border-radius: 80rpx;
+  margin: 70rpx 50rpx;
+  font-size: 35rpx;
+}
+
+/* 用户中心 */
+
+.hr {
+  width: 100%;
+  height: 20px;
+  background-color: #F3F3F3;
+}
+.item {
+  border-radius: 29rpx;
+  background-color:white;
+  
+  flex-direction: row;
+}
+.title {
+  padding-top: 30rpx;
+  padding-bottom: 30rpx;
+  padding-left: 30rpx;
+  padding-right: 30rpx;
+  font-size: 15px;
+  justify-content: space-between;
+  display:flex
+}
+
+.detail2 {
+  font-size: 15px;
+  position: absolute;
+  right: 80rpx;
+  line-height: 100rpx;
+  color: #888;
+}
+
+.line {
+  border: 1px solid #ccc;
+  opacity: 0.2;
+}
+.P5{
+  width: 90%;
+  height: 18%;
+  color: #BBBBBB;
+  margin-left: 5%;
+  margin-right: 5%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  font-size: 32rpx;
+}
+.P5_1{
+    border-radius: 12%;
+    overflow: hidden;
+}
+.P2{
+  border-radius: 29rpx;
+  width: 90%;
+  padding: 20rpx 0;
+  margin-bottom: 30rpx;
+  margin-left: 5%;
+  margin-right: 5%;
+  /* box-shadow: 0px 4px 16px 0px rgba(0,0,0,0.06); */
+}
+
+.content_test_1{
+  display: flex;
+  justify-content: space-around;
+  
+  width:80%;
+  height: 60rpx;
+  margin:auto
+}
+.content_test_2{
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin-left:70rpx;
+  margin-right: 50rpx
+}
+.content_test_1 text{
+  font-size: 42rpx;
+  font-weight: 500;
+}
+.content_test_2 text{
+  color: #999999;
+  font-size: 28rpx;
+}

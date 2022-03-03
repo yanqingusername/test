@@ -1,0 +1,7 @@
+{
+  "usingComponents": {
+    "right-picker": "../right-picker/right-picker"
+
+  },
+  "navigationBarTitleText": "添加技术支持"
+}

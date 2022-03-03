@@ -1,0 +1,44 @@
+<!--pages/addCustomer/chooseCustodian.wxml-->
+<cu-custom isBack="{{true}}" bgColor="bg-white" >
+  <view slot="backText"></view>
+  <view slot="content">添加客户</view>
+</cu-custom>
+
+<form bindsubmit="submit">
+  <view class="P5 app_flex">
+    <view class="P5_1 app_font">企业名称</view>
+    <input class='P5_2 app_font' bindinput="bindSetData1" placeholder='请填写企业名称' type="text" name="company_name" value="{{company_name}}"></input>
+  </view>
+
+  <view class="P5 app_flex">
+    <view class="P5_1 app_font">联系人</view>
+      <input class='P5_2 app_font' bindinput="bindSetData2" placeholder='请填写联系人姓名' type="text" name="name" value="{{name}}" ></input>
+  </view>
+
+  <view class="P5 app_flex">
+    <view class="P5_1 app_font">手机号</view>
+    <input class='P5_2 app_font' bindinput="bindSetData3" placeholder='请填写联系人手机号' maxlength="11" name="phone" type="number" ></input>
+  </view>
+  <view class="P5 app_flex">
+    <view class="P5_1 app_font">所在区域</view>
+    <view class="section" style="width: 70%;">
+      <view class='P5_2 app_font' style="white-space:nowrap;width:40%;margin-left:45%;height:65rpx;">
+        <picker class="picker_1" bindchange="bindPickerChangeArea" value="{{areaIndex}}" range-key="{{'area_name'}}" range="{{areaList}}">
+          <view class="picker">
+            {{areaList[areaIndex].area_name}}
+          </view>
+        </picker>
+      </view>
+    </view>
+  </view>
+
+
+  <view style="margin-top:100rpx;">
+    <button class='P6 app_btn' style='width:500rpx;' form-type="submit" disabled="{{submitState}}">保存</button>
+  </view>
+</form>
+
+<view class="icon-box-ctn">
+      <icon class="weui-icon-search_in-box" type="warn" size="14" bindtap="searchHandle"/>
+      <view class="icon-box-desc">信息提交后不可修改，如需修改请联系管理员</view>
+</view>

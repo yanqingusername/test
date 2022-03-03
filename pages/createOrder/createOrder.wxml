@@ -1,0 +1,158 @@
+<!--pages/createOrder/createOrder.wxml-->
+<cu-custom isBack="{{true}}" bgColor="bg-white" >
+  <view slot="backText"></view>
+  <view slot="content">创建工单</view>
+</cu-custom>
+<!-- <cu-custom bgColor="bg-gradual-white" isBack="{{false}}" isCustom="{{true}}"><view slot="content">我的工单</view></cu-custom> -->
+
+<view class="page">
+  <form bindsubmit="submit">
+  <view> 
+    <view class="P5 app_flex">
+      <view class="P5_1 app_font" style="font-size:38rpx">客户信息</view>
+      <view></view>
+    </view>
+    <view class="P5 app_flex">
+      <view class="P5_1 app_font" >客户名称</view>
+      <!-- <pickerinput list="{{list}}" style="width: 70%;" class="customPicker" _width="500rpx" _height="80rpx"
+        bind:action="change" value="account" actualvalue="account" showvalue="company_name"></pickerinput> -->
+       <!--<picker style="width: 70%;"  class="customPicker" _width="500rpx" _height="80rpx" bindchange="change" range-key="{{'company_name'}}" value="{{index}}" range="{{list}}">
+            <view class="picker">
+              {{list[companyIndex].company_name}}
+              <image  
+          src="../../image/down.png" class='img'   style="width:10%;height: 15px;"/>
+            </view>
+        </picker>
+        -->
+        <input class="text-cut P5_2 app_font" placeholder="请选择客户" bindtap="bindChooseCustomerTest" value="{{company_name}}" disabled></input>
+    </view>
+    <view class="P5 app_flex">
+      <view class="P5_1 app_font">联系人</view>
+        <input class="P5_2 app_font" placeholder="请选择联系人"  bindtap="bindChooseCustodian" value="{{name}}" disabled></input>
+        <!-- <picker bindchange="bindPickerChangeCustomer" value="{{index}}" range-key="{{'name'}}" range="{{customerList}}">
+          <view class="picker">
+            {{customerList[customerIndex].name}}
+            <image  
+          src="../../image/down.png" class='img' bindtap="change"   style="width:10%;height: 15px;"/>
+          </view>
+        </picker> -->
+    </view>
+    <view class="P5 app_flex">
+      <view class="P5_1 app_font">手机号</view>
+      <input class='P5_2 app_font' placeholder='联系人手机号' disabled="true" maxlength="11" value="{{phone}}"></input>
+    </view>
+    <view class="P5 app_flex">
+      <view class="P5_1 app_font" style="width: 25%;">所在地区</view>
+      <input class='P5_2 app_font' placeholder='请选择客户所在地区' bindtap="showMap" name="address" type="text" style="width: 68%;" disabled="true" value="{{address}}"></input>
+      <text class="cuIcon-locationfill lg text-gray" style="width: 7%;" bindtap="showMap"></text>
+    </view>
+    <view class="P5 app_flex">
+      <view class="P5_1 app_font">详细地址</view>
+      <input class='P5_2 app_font' placeholder='请填写详细地址' name="locationName" type="text"  bindinput="updateLocation" value="{{locationName}}"></input>
+    </view>
+    </view>
+    <!-- <view class="P5 app_flex">
+      <view class="P5_1 app_font">技术支持</view>
+      <input class='P5_2 app_font' disabled="true" type="text" value="{{supportName}}"></input>
+    </view>
+    <view class="P5 app_flex">
+      <view class="P5_1 app_font">联系方式</view>
+      <input class='P5_2 app_font' disabled="true" type="text" value="{{supportPhone}}"></input>
+    </view> -->
+    <view style="height:20rpx;background-color:#F6F6F6"></view>
+    <!-- <view class="P5 app_flex">
+      <view class="P5_1 app_font">工单编号</view>
+      <view class='P5_2 app_font' name="order_num" value="{{order_num}}">{{order_num}}</view>
+    </view> -->
+    <view> 
+      <view class="P5 app_flex">
+        <view class="P5_1 app_font" style="font-size:38rpx">服务信息</view>
+        <view></view>
+      </view>
+      <view class="P5 app_flex">
+        <view class="P5_1 app_font">服务类型</view>
+        <view class="section" style="width: 70%;">
+            <!-- <picker bindchange="bindPickerChangeTwo"  range="{{serviceTypeArray}}">
+              <view class="picker">
+                {{serviceTypeArray[serviceIndex]}}
+              </view>
+            </picker> -->
+            <view>
+              <view class="view_center {{num==1?'active':''}}" data-num='1' bindtap="changeType">现场服务</view>
+              <view class="view_center {{num==2?'active':''}}" data-num='2' bindtap="changeType">返厂维修</view>
+              <view class="view_center {{num==3?'active':''}}" data-num='3' bindtap="changeType">装机培训</view>
+              <view class="view_center {{num==4?'active':''}}" data-num='4' bindtap="changeType">试剂培训</view>
+              <view class="view_center {{num==5?'active':''}}" data-num='5' bindtap="changeType">远程服务</view>
+            </view>
+        </view>
+      </view>
+      
+      <view wx:if="{{flag_1}}" class="P5 app_flex">
+        <view class="P5_1 app_font">预约时间</view>
+        <view class="P2_1 app_font" style="width: 70%;">
+          <view class="P5_2  app_font" style="width: 100%;" bindtap="start_time_show" name="time" value="{{time}}">
+            {{startTime}}</view>
+        </view>
+      </view>
+      <view  wx:if="{{flag_2}}" class="P5 app_flex">
+        <view class="P5_1 app_font">仪器类型</view>
+        <!-- <view class="section" style="width: 70%;">
+          <view class='P5_2 app_font' style="white-space:nowrap;width:40%;margin-left:45%;height:65rpx;">
+            <picker bindchange="bindPickerChangeInstrument" value="{{instrumentIndex}}" range-key="{{'instrument_name'}}" range="{{instrumentList}}">
+              <view class="picker">
+                {{instrumentList[instrumentIndex].instrument_name}}
+              </view>
+            </picker>
+          </view>
+        </view> -->
+        <input class="P5_2 app_font" placeholder="请选择仪器类型" bindtap="bindChooseInstrument" value="{{instrument_name}}" disabled></input>
+      </view>
+      <view wx:if="{{flag_3}}" class="P5 app_flex">
+        <view class="P5_1 app_font">序列号</view>
+        <input class="text-cut P5_2 app_font" placeholder="请选择故障仪器序列号"  bindtap="bindChooseSN" value="{{SN}}" disabled></input>
+      </view>
+      <!-- <button bindtap="showMap" class="app_btn">选择地址</button> -->
+      <view  wx:if="{{flag_4}}" class="P5 app_flex">
+        <view class="P5_1 app_font">试剂类型</view>
+        <view class="section" style="width: 70%;">
+          <view class='P5_2 app_font' style="white-space:nowrap;width:40%;margin-left:45%;height:65rpx;">
+            <picker bindchange="bindPickerChangeReagent" value="{{reagentIndex}}" range-key="{{'reagent_name'}}" range="{{reagentList}}">
+              <view class="picker">
+                {{reagentList[reagentIndex].reagent_name}}
+              </view>
+            </picker>
+          </view>
+        </view>
+      </view>
+
+      <view wx:if="{{flag_5}}" class="P5 app_flex">
+        <view class="P5_1 app_font">问题描述</view>
+        <input class="P5_2 app_font text-cut" placeholder="请填写仪器故障描述" bindtap="bindProblemDescription" value="{{question_desc}}" disabled></input>
+      </view>
+      
+    </view>
+    <view class="P5 app_flex">
+      <view class="P5_1 app_font">是否接单</view>
+      <view class='P5_2 app_font' style="width: 70%;">
+        <!-- <radio-group class="radio-group" bindchange="handleChange">
+          <label class="radio">
+            是
+            <radio value="1" />
+          </label>
+          <label class="radio">
+            否
+            <radio value="0" />
+          </label>
+        </radio-group> -->
+        <switch type="switch" bindchange="handleChange" checked="true" class='blue'></switch>
+      </view>
+    </view>
+    <!-- 提交按钮 -->
+    <view style="margin-top:100rpx;">
+      <button class='P6 app_btn' style='width:500rpx;' form-type="submit" disabled="{{submitState}}">提交</button>
+    </view>
+    <view style="height:200rpx"></view>
+  </form>
+</view>
+<timePicker pickerShow="{{startIsPickerShow}}" id="picker" wx:if="{{startIsPickerRender}}"
+  bind:hidePicker="start_time_hide" bind:setPickerTime="set_start_time" config="{{pickerConfig}}"></timePicker>

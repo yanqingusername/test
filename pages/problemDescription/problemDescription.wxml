@@ -1,0 +1,51 @@
+<!--pages/problemDescription/problemDescription.wxml-->
+<cu-custom isBack="{{true}}" bgColor="bg-white" >
+  <view slot="backText"></view>
+  <view slot="content">仪器故障描述</view>
+</cu-custom>
+<view class="page">
+  <form bindsubmit="submit">
+    <view> 
+      <view class="P5 app_flex">
+        <view class="P5_1 app_font" style="font-size:38rpx">文字描述</view>
+          <textarea maxlength="300" bindinput="textareaAInput" placeholder="请简单描述仪器发生什么故障" value="{{description}}">    
+          </textarea>
+        <text class='text_count'>{{count}}/300</text>
+      </view>
+      <!-- <view style="height:20rpx;background-color:#F6F6F6"></view> -->
+      <view class="P5 app_flex">
+        <view class="P5_1 app_font" >图片描述</view>
+
+        <view class="P5 app_flex" style="height: auto;">
+          <block>  
+            <view class="img_box" style="margin-bottom:50rpx;" >
+              <block wx:if="{{img_arr.length!=0}}">
+                <view class="img_item" wx:for="{{img_arr}}" wx:for-item="item">
+                  <image bindtap="previewImg" data-src="{{item}}" class="img_item_i" data-index='{{index}}' src="{{item}}"
+                    mode="aspectFill"></image>
+                  <block>
+                    <image bindtap="delImg" data-index="{{index}}" src="../../image/deleteTest.png" class="closeImv"></image>
+                  </block>
+                </view>
+              </block>
+              <block >
+                <block wx:if="{{img_arr.length<9}}">
+                  <view class="img_item" bindtap="upimg" style=" display: flex;justify-content: center;align-items: center;">
+                    <image  class="add_icon"
+                      style="width:30%;height:30%;display:flex;justify-content:center;align-item:center" 
+                      mode="aspectFill" src="../../image/add.png"></image>
+                  </view>
+                </block>
+              </block>
+            </view>
+          </block>
+        </view>
+      </view>
+    </view>
+    <!-- 保存按钮 -->
+    <view style="margin-top:70rpx;">
+      <button class='P6 app_btn' style='width:500rpx;' form-type="submit" disabled="{{submitState}}">保存</button>
+    </view>
+    <view style="height:200rpx"></view>
+  </form>
+</view>

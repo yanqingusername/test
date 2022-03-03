@@ -1,0 +1,46 @@
+<!--pages/addCustomer/chooseCustodian.wxml-->
+<cu-custom isBack="{{true}}" bgColor="bg-white" >
+  <view slot="backText"></view>
+  <view slot="content">添加仪器</view>
+</cu-custom>
+
+<form bindsubmit="submit">
+  <view class="P5 app_flex">
+      <view class="P5_1 app_font" style="font-size:38rpx">仪器信息</view>
+      <view></view>
+  </view>
+  <view class="P5 app_flex">
+    <view class="P5_1 app_font">仪器类型</view>
+    <input class='P5_2 app_font' disabled="true" type="text" name="instrument_name" value="{{instrument_name}}"></input>
+  </view>
+
+  <view class="P5 app_flex">
+    <view class="P5_1 app_font">序列号</view>
+      <input class='P5_2 app_font' bindinput="bindSetData1" placeholder='请填写仪器序列号' type="text" name="SN"></input>
+  </view>
+
+  <view class="P5 app_flex">
+    <view class="P5_1 app_font">备注</view>
+      <input class='P5_2 app_font' placeholder='试用机/备用机/新机(选填)' type="text" name="remark"></input>
+  </view>
+
+  <view class="P5 app_flex">
+      <view class="P5_1 app_font" style="width:40%">是否为替换机</view>
+      <view class='P5_2 app_font' style="width:60%;">
+        <switch type="switch" bindchange="handleChange" checked="{{false}}"></switch>
+      </view>
+  </view>
+  <view wx:if="{{flag_1}}" class="P5 app_flex">
+        <view class="P5_1 app_font">被替换机</view>
+        <input class="P5_2 app_font" disabled placeholder="请选择被替换仪器序列号"  bindtap="bindExclusiveChooseSN" value="{{replaced_SN}}" disabled></input>
+  </view>
+
+  <view style="margin-top:100rpx;">
+    <button class='P6 app_btn' style='width:500rpx;' form-type="submit" disabled="{{submitState}}">保存</button>
+  </view>
+</form>
+
+<view class="icon-box-ctn">
+      <icon class="weui-icon-search_in-box" type="warn" size="14" bindtap="searchHandle"/>
+      <view class="icon-box-desc">信息提交后不可修改，如需修改请联系管理员</view>
+</view>

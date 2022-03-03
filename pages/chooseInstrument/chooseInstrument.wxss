@@ -1,0 +1,97 @@
+/* pages/chooseInstrument/chooseInstrument.wxss */
+/* 搜索框样式 */
+.search
+{
+  display: flex;
+  flex-direction: row;
+  justify-content:center;
+  align-items: center;
+  width:70%;
+  height:60rpx;
+  background-color:whitesmoke;
+  margin-top: 5%;
+  border:1rpx solid whitesmoke;
+  border-radius: 20rpx;
+  margin-left: 120rpx;
+}
+
+/* 搜索框提示文字样式 */
+.search input
+{
+  font-size:27rpx;
+  font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  /* padding-left:30rpx;  */
+}
+
+/* 搜索框小图标 */
+/*.weui-icon-search_in-box
+{ 
+  position: relative;
+  margin-left: 150rpx;
+}
+*/
+.container{
+  padding: 10px 20px;
+  align-content: center;
+}
+.text-content{
+  padding: 10px;
+  align-content: center;
+  border-bottom: 1rpx solid #F5F5F5;
+  background-color: #FFFFFF
+}
+.button-bottom{
+  background-color: #1673EC;
+  color:#FFFFFF;
+  position: fixed;
+  bottom: 50rpx;
+  left: 75rpx;
+  width: 80% !important;
+}
+.search_close{
+  position: absolute;
+  margin-left: 600rpx;
+}
+.weui-icon-clear{
+  position: absolute;
+  margin-left: 460rpx;
+}
+.tip_style{
+  text-align: center;
+  font-size: 35rpx;
+  margin-top: 50rpx;
+}
+/* 选中后的 背景样式 （红色背景 无边框 可根据UI需求自己修改） */
+ 
+radio .wx-radio-input.wx-radio-input-checked {
+  /* border: none; */
+  border-color: gray !important;
+  /* background-color: #fff!important; *//* background-color: transparent!important; *//* 居中 *//* 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  */
+}
+ 
+/* 选中后的 对勾样式 （白色对勾 可根据UI需求自己修改） */
+ radio{
+  position: absolute;
+  right: 100rpx;
+ }
+
+radio .wx-radio-input.wx-radio-input-checked::before {
+  /* 去除对号 */
+  /* background: #fff; */
+  width: 36rpx;
+  height: 36rpx;
+  border-radius: 50%;
+  /* background: red; */
+  background-color: gray;
+  /* 居中 *//* margin-top: 0rpx; *//* display: flex; *//* position: relative; */
+}
+textarea{
+    background: #F5F5F5;
+    font-size: large;
+    border-radius: 10rpx;
+    height:250rpx
+}

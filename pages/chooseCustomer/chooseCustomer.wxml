@@ -1,0 +1,41 @@
+<!--pages/chooseCustomer/chooseCustomer.wxml-->
+<cu-custom isBack="{{true}}" bgColor="bg-white">
+  <view slot="backText" bindtap="bindBack"></view>
+  <view slot="content">选择客户</view>
+</cu-custom>
+<view class='search'>
+  <icon style="position:relative;left:140rpx"  type="search" size="20" bindtap="searchHandle"/>
+  <input id="search_checked" type='text' placeholder='请输入客户名称' placeholder-class="center" confirm-type='search' value="{{searchText}}" bindinput='searchChangeHandle' bindconfirm='searchHandle'>
+  </input>
+  <view class="weui-icon-clear" wx:if="{{searchText}}" bindtap="clearSearchHandle">
+    <icon type="clear" size="16" />
+  </view>
+  <view class="search_close" wx:if="{{searchText}}" bindtap="clearSearchHandle">取消</view>
+</view>
+ 
+
+<view class='container'>
+  <block wx:if="{{flag1}}" wx:for="{{list}}" wx:key="account" >
+    <view class='text-content' data-name='{{item.company_name}}' data-account='{{item.account}}' 
+    data-address='{{item.address}}' data-locationname='{{item.locationName}}'
+    bindtap="bindCheckCompany">{{item.company_name}}
+    </view> 
+  </block>
+  <block wx:if="{{flag2}}" wx:for="{{listPlus}}" wx:key="account" >
+    <view class='text-content' data-name='{{item.company_name}}' data-account='{{item.account}}' 
+    data-address='{{item.address}}' data-locationname='{{item.locationName}}'
+    bindtap="bindCheckCompany">{{item.company_name}}
+    </view> 
+  </block>
+  <view class="tip_style">{{tips}}</view>
+</view>
+<button class="button-bottom" bindtap="bindAddCustomer">添加客户</button>
+
+    <!--<picker style="width: 70%;"  class="customPicker" _width="500rpx" _height="80rpx" bindchange="change" range-key="{{'company_name'}}" value="{{index}}" range="{{list}}">
+            <view class="picker">
+              {{list[companyIndex].company_name}}
+              <image  
+          src="../../image/down.png" class='img'   style="width:10%;height: 15px;"/>
+            </view>
+        </picker>
+    -->

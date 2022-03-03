@@ -1,0 +1,77 @@
+/* pages/exclusiveChooseSN/exclusiveChooseSN.wxss */
+.search
+{
+  display: flex;
+  flex-direction: row;
+  justify-content:flex-end;
+  align-items: center;
+  width:70%;
+  height:60rpx;
+  background-color:whitesmoke;
+  margin-top: 5%;
+  border:1rpx solid whitesmoke;
+  border-radius: 20rpx;
+   margin-left: 120rpx; 
+}
+
+/* 搜索框提示文字样式 */
+.search input
+{
+  font-size:27rpx;
+  font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  /* padding-left:30rpx;  */
+}
+
+/* 搜索框小图标 */
+/*.weui-icon-search_in-box
+{ 
+  position: relative;
+  margin-left: 150rpx;
+}
+*/
+.container{
+  padding: 10px 20px;
+  align-content: center;
+}
+.text-content{
+  padding: 10px;
+  align-content: center;
+  border-bottom: 1rpx solid #F5F5F5;
+  background-color: #FFFFFF
+}
+/*全选checkbox*/
+.bottom_1{
+  background-color: #FFFFFF;
+  position: fixed;
+  bottom: 35rpx;
+  left: 40rpx;
+  width: 20% !important;
+}
+/*添加仪器按钮*/
+.button-bottom_1{
+  background-color: #FFFFFF;
+  color:#1673EC;
+  position: fixed;
+  bottom: 20rpx;
+  left: 215rpx;
+  width: 35% !important;
+  border: 1rpx solid #1673EC;
+}
+/*完成按钮*/
+.button-bottom_2{
+  background-color: #1673EC;
+  color:#FFFFFF;
+  position: fixed;
+  bottom: 20rpx;
+  left: 510rpx;
+  width: 30% !important;
+  border: 1rpx solid #1673EC;
+}
+.search_close{
+  position: absolute;
+  margin-left: 530rpx;
+}
+#search_checked{
+  width:90%;
+  text-align: center;
+}

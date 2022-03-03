@@ -1,0 +1,22 @@
+<!--pages/chooseInstrument/chooseInstrument.wxml-->
+<cu-custom isBack="{{true}}" bgColor="bg-gradual-white">
+  <view slot="backText" bindtap="bindBack"></view>
+  <view slot="content">选择仪器类型</view>
+</cu-custom>
+
+<view class='container'>
+  <radio-group class='block' bindchange="radioChange">
+    <label wx:for="{{instrumentList}}" wx:key="*this" >
+      <view class='text-content' data-name='{{item.instrument_name}}'>
+      {{item.instrument_name}}
+      <radio class='blue justify-end' value="{{item.instrument_name}}" checked="{{item.checked}}"></radio>
+      </view> 
+    </label>  
+  </radio-group>
+   <view hidden="{{flag_1}}" class="cu-form-group"> 
+		<textarea bindinput="textareaAInput" placeholder="请填写仪器类型名称" >
+       
+    </textarea>
+	 </view> 
+</view>
+<button class="button-bottom" bindtap="bindBack">完成</button>

@@ -1,0 +1,22 @@
+<view class='showPicker' bindtap='showPicker'>点击选择大区</view>
+
+<cover-view class='{{ showPicker ? ".shade-container" : "hide-container" }}' wx:if='{{ firstShow }}'>
+	<cover-view class='left-shade' bindtap='hidePicker'></cover-view>
+	<cover-view class='right-choose'>
+		<cover-view class='button-container'>
+			<cover-view class='cancal' bindtap='cancal'>取消</cover-view>
+			<cover-view class='sure' bindtap='sure'>确定</cover-view>
+		</cover-view>	
+		<cover-view class='picker-container'>
+			<cover-view
+				class='picker-item {{ item.flag ? "picker-item-choose" : "" }}'
+				wx:for='{{ chooseList }}'
+				wx:key='index' wx:for-item='item'
+				bindtap='chooseItem'
+				data-value='{{ item.value }}'
+			>
+				{{ item.name }}
+			</cover-view>
+		</cover-view>
+	</cover-view>
+</cover-view>

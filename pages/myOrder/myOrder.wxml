@@ -1,0 +1,55 @@
+<!--pages/myOrder/myOrder.wxml-->
+<cu-custom bgColor="bg-white" isBack="{{false}}" isCustom="{{true}}">
+  <view slot="content">我的工单</view>
+</cu-custom>
+<scroll-view scroll-x class="bg-white nav text-center"
+  style="background-color: #FFF;position:fixed;top:10%;z-index:9999;">
+  <view class="cu-item {{index==TabCur?'text-blue cur':''}}" wx:for="{{statusList}}" wx:key bindtap="tabSelect"   data-id="{{index}}">
+    {{statusList[index]}}
+  </view>
+</scroll-view>
+<view class="page" style="position:absolute;top: 15%;">
+  <view class="P1">
+
+    <block wx:for="{{orderList}}">
+      <view class="P2 app_font" bindtap="toInfo" data-id="{{item.id}}" data-type="{{item.type}}">
+        <view style="display: flex;align-items: center;flex-wrap: wrap;border-bottom: 1px solid #F6F6F6;">
+          <view class="title" wx:if="{{item.type==1}}">
+            <image src="../../image/repair.png" class='img' />现场服务</view>
+          <view class="title" wx:if="{{item.type==2}}">
+            <image src="../../image/repairTest1.png" class='img' />返厂维修</view>
+            <view class="title" wx:if="{{item.type==3}}">
+            <image src="../../image/computer.png" class='img' />装机培训</view>
+            <view class="title" wx:if="{{item.type==4}}">
+            <image src="../../image/reagent.png" class='img' />试剂培训</view>
+            <view class="title" wx:if="{{item.type==5}}">
+                <image src="../../image/phone.png" class='img' />远程服务</view>
+          <!-- <view style="text-align: right;margin-right: 2%;color:#C1C1C1;width: 60%;">></view> -->
+          <text class="cuIcon-right lg text-gray" style="text-align:right;width:60%;margin-right: 5%;"></text>
+        </view>
+        <view class="P2_1 app_flex">
+          <view class="P2_1_1">工单编号</view>
+          <view class="P2_1_2">{{item.order_num}}</view>
+        </view>
+
+        <view class="P2_1 app_flex">
+          <view class="P2_1_1">预约时间</view>
+          <view class="P2_1_2">{{item.time}}</view>
+        </view>
+        <view class="P2_1 app_flex">
+          <view class="P2_1_1">服务地址</view>
+          <view class="P2_1_2">{{item.address}}</view>
+        </view>
+      </view>
+    </block>
+    
+    <view hidden wx:if="{{alreadyChecked==true}}">
+      <image class="app_noinfo_img" src="../../image/nodata.png" mode="widthFix"></image>
+      <view class="app_noinfo_desc">{{tip}}</view>
+    </view>
+    <view  wx:if="{{alreadyChecked_temp==true}}">
+            <image class="app_noinfo_img" src="../../image/nodata.png" mode="widthFix"></image>
+            <view class="app_noinfo_desc">{{tip_temp}}</view>
+        </view>
+  </view>
+</view>

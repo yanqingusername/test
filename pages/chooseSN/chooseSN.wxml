@@ -1,0 +1,42 @@
+<!--pages/chooseSN/chooseSN.wxml-->
+<cu-custom isBack="{{true}}" bgColor="bg-gradual-white">
+  <view slot="backText" bindtap="bindBack"></view>
+  <view slot="content">选择仪器序列号</view>
+</cu-custom>
+<!-- <label for="searchTest"> -->
+<view  for="search_checked" class='search'>
+  
+  <icon  style="position:relative;left:166rpx" type="search" size="20" />
+    <input id="search_checked" type='text' placeholder='搜索序列号' confirm-type='search' value="{{searchText}}" bindinput='searchChangeHandle' >
+    </input>
+
+  <view class="weui-icon-clear" wx:if="{{searchText}}" bindtap="clearSearchHandle">
+    <icon type="clear" size="16" />
+  </view>
+
+  <view class="search_close" wx:if="{{searchText}}" bindtap="clearSearchHandle">取消</view>
+</view>
+<!-- </label> -->
+
+<view class='container'>
+  <checkbox-group bindchange="checkboxChange">
+    <label wx:if="{{flag1}}" wx:for="{{SNlist}}" wx:key="instrument_SN" >
+      <view class='text-content' data-sn='{{item.instrument_SN}}'  >
+        <checkbox class="round blue" value="{{item.instrument_SN}}" checked="{{item.checked}}"/>
+          {{item.instrument_SN}}
+      </view> 
+    </label>
+  </checkbox-group>
+  <checkbox-group bindchange="checkboxChange">
+    <label wx:if="{{flag2}}" wx:for="{{SNlistPlus}}" wx:key="instrument_SN" >
+      <view class='text-content' data-sn='{{item.instrument_SN}}' >
+        <checkbox class="round blue" value="{{item.instrument_SN}}" checked="{{item.checked}}"/>
+          {{item.instrument_SN}}
+      </view> 
+    </label>
+  </checkbox-group> 
+  <view class="tip_style">{{tips}}</view>
+</view>
+<checkbox class="bottom_1 round blue" checked="{{isAll}}" bindtap="checkAll"/><view class="bottom_view_1">全选</view>
+<button class="button-bottom_1" bindtap="bindAddInstrument">添加仪器</button>
+<button class="button-bottom_2" bindtap="bindCheckSN" >完成({{sn_count}})</button>

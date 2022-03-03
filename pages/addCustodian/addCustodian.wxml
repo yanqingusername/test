@@ -1,0 +1,26 @@
+<!--pages/addCustodian/addCustodian.wxml-->
+<cu-custom isBack="{{true}}" bgColor="bg-white" >
+  <view slot="backText"></view>
+  <view slot="content">添加联系人</view>
+</cu-custom>
+
+<form bindsubmit="submit">
+  <view class="P5 app_flex">
+    <view class="P5_1 app_font">姓名</view>
+      <input class='P5_2 app_font' bindinput="bindSetData2" placeholder='请填写联系人姓名' type="text" name="name"></input>
+  </view>
+
+  <view class="P5 app_flex">
+    <view class="P5_1 app_font">手机号</view>
+    <input class='P5_2 app_font' bindinput="bindSetData3" placeholder='请填写联系人手机号' maxlength="11" name="phone" type="number" ></input>
+  </view>
+
+  <view style="margin-top:100rpx;">
+    <button class='P6 app_btn' style='width:500rpx;' form-type="submit" disabled="{{submitState}}">保存</button>
+  </view>
+</form>
+
+<view class="icon-box-ctn">
+      <icon class="weui-icon-search_in-box" type="warn" size="14" bindtap="searchHandle"/>
+      <view class="icon-box-desc">信息提交后不可修改，如需修改请联系管理员</view>
+</view>

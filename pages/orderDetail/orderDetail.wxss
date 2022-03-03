@@ -1,0 +1,285 @@
+/* pages/orderDetail/orderDetail.wxss */
+.userinfo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.userinfo-avatar {
+  width: 128rpx;
+  height: 128rpx;
+  margin: 20rpx;
+  border-radius: 50%;
+}
+
+.userinfo-nickname {
+  color: #aaa;
+}
+
+.usermotto {
+  margin-top: 200px;
+}
+
+.P1{
+  width: 690rpx;
+  margin: 30rpx;
+  height: 60rpx;
+}
+.P1_1{
+  text-align: left;
+}
+.P1_2{
+  margin-left: 30rpx;
+  width: 200rpx;
+  height: 50rpx;
+}
+.P2{
+  background-color: #F2F2F2;
+  width: 690rpx;
+  margin: 30rpx;
+  padding: 20rpx;
+}
+.P2_1{
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  /* 数字英文不换行 */
+  word-break:break-all;
+}
+.P3{
+  width: 690rpx;
+  color: red;
+  margin: 30rpx;
+  font-size: 30rpx;
+}
+.P4{
+  background-color: #F2F2F2;
+  width: 690rpx;
+  margin: 30rpx;
+  padding: 20rpx;
+}
+.P5{
+  width: 90%;
+  height: 18%;
+  /* border-bottom: 1px solid #F9F9F9; */
+  color: #BBBBBB;
+  margin-left: 5%;
+  margin-right: 5%;
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  flex-wrap: wrap;
+  font-size: 32rpx;
+}
+.P5_1{
+  width: 30%;
+  margin-top: 20rpx;
+  height: 80rpx;
+  color: #BBBBBB;
+  font-size: 32rpx;
+  
+}
+.P5_2{
+  width: 70%;
+  /* padding: 20rpx; */
+  height: 80rpx;
+  color: #2D2D2D;
+  text-align: left;
+  margin-top: 15rpx;
+  font-size: 32rpx;
+  font-family: Microsoft YaHei;
+}
+.P6{
+  margin: 0 125rpx;
+  height: 80rpx;
+}
+
+.P7{
+  margin: 30rpx 225rpx;
+  width: 200rpx;
+  height: 50rpx; 
+}
+
+.customPicker{
+  font-size: 32rpx;
+  color: #2D2D2D;
+  text-align: right;
+}
+
+.upblue{
+  height: 35%;
+  background-color: #F5F5F5;
+}
+
+.medWhite{
+  background-color: #fff;
+  height: auto;
+  z-index: 999;
+  position: relative;
+  top: -27%;
+  width: 90%;
+  left: 5%;
+  right: 5%;
+  border-radius: 20rpx;
+  box-shadow: 0px 4px 16px 0px rgba(0,0,0,0.06);
+}
+.medWhiteView{
+  display: flex;
+  flex-wrap: wrap;
+  /* margin-top: 5%; */
+  font-size: 32rpx;
+}
+.downWhite{
+  background-color: #fff;
+  height: 55%;
+  margin-top: -42%;
+}
+.medWhiteText{
+  text-align: left;
+  width: 80%;
+  padding-left: 5%;
+  margin-top: 3%;
+}
+.logo{
+  width: 100%;
+  position: fixed;
+  height: 50%;
+  bottom:0px;
+  display: flex;
+  justify-content: center;
+}
+
+.logo_ground{
+  position: fixed;
+  margin-top: 20%;
+margin-bottom: 20%;
+  background-color: blueviolet;
+  z-index: -1;
+  background-color: #469DE8;
+}
+/*删除按钮*/
+.delete {
+  position: absolute;
+  height: 20px;
+  bottom: 0;
+  width: 100%;
+  background: #ccc;
+  opacity: .8;
+}
+.delete image {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+}
+.img_box{
+  display: flex;
+  flex-wrap: wrap;
+  margin: 20rpx;
+  margin-left: 45rpx;
+  width: 100%;
+}
+.img_item_i{
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.add_icon{
+  display: block;
+  width: 50%;
+  height: 50%;
+}
+
+.img_item {
+  width: 30%;
+  height: 210rpx;
+  position: relative;
+  margin-right: 2%;
+  margin-bottom: 2%;
+  border: 1px solid #c0ccda;
+}
+ .closeImv {
+  position: absolute;
+  right: 0rpx;
+  top: 0rpx;
+  width: 50rpx;
+  height: 50rpx;
+}
+.customPicker{
+  font-size: 32rpx;
+  color: #2D2D2D;
+  text-align: right;
+}
+
+radio-group{
+  display: flex;
+  align-items: center;
+  }
+ 
+  radio-group 
+  .radio{
+  margin-left: 20rpx;
+  }
+ 
+ 
+  radio-group 
+  radio{
+  margin-left: 10rpx;
+  }
+  .img_phone{
+    width: 40rpx;
+    height: 35rpx;
+    right: 85rpx;
+    position: absolute;
+  }
+  .img_position{
+    width: 40rpx;
+    height: 40rpx;
+    margin-top: 5%;
+    left: 10rpx;
+  }
+  /*添加仪器按钮*/
+.button-bottom_1{
+  background-color: #FFFFFF;
+  color:#1673EC;
+  position: fixed;
+  bottom: 80rpx;
+  left: 205rpx;
+  width: 30% !important;
+  border: 1rpx solid #1673EC;
+}
+/*完成按钮*/
+.button-bottom_2{
+  background-color: #1673EC;
+  color:#FFFFFF;
+  position: fixed;
+  bottom: 80rpx;
+  left: 465rpx;
+  width: 35% !important;
+  border: 1rpx solid #1673EC;
+}
+.cancel_bottom{
+  color: #666666;
+  position: fixed;
+  bottom: 100rpx;
+  left: 40rpx;
+  /* width: 40% !important; */
+ 
+}
+.button-bottom_3{
+  background-color: #FFFFFF;
+  color:#1673EC;
+  position: fixed;
+  bottom: 80rpx;
+  left: 65rpx;
+  width: 40% !important;
+  border: 1rpx solid #1673EC;
+}
+.button-bottom_4{
+  background-color: #1673EC;
+  color:#FFFFFF;
+  position: fixed;
+  bottom: 80rpx;
+  left: 395rpx;
+  width: 40% !important;
+  border: 1rpx solid #1673EC;
+}
