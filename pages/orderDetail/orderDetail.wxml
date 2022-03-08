@@ -3,7 +3,214 @@
   <view slot="backText"></view>
   <view slot="content">工单详情</view>
 </cu-custom>
-<view style="background-color:#F5F5F5">
+
+<view class="page"> 
+    <view class="new_p1">
+            <view class="new_p1_view">
+                <view class="new_p2" style="align-items: center;">
+                    <textarea style="width: 100%;color: #333333;text-align: left;" auto-height name="company_name"  bindinput="updateCompanyName" value="{{info.company_name}}" ></textarea>
+                </view>
+                <view class="new_p2" style="align-items: center;margin-top:30rpx;">
+                    <view class="new_p2_1">
+                        <view class="new_p2_title" style="font-size: 30rpx;">{{info.name}}</view>
+                        <view class="new_p2_title" style="font-size: 30rpx;margin-left:30rpx;">{{info.phone}}</view>
+                    </view>
+                    <image bindtap="phoneCall" src="../../image/iphone.png" mode="aspectFit" style="width: 40rpx;height: 35rpx;"/>
+                </view>
+
+                <view class="new_p2" style="margin-top:30rpx;">
+                    <view class="new_p2_title" style="font-size: 30rpx;width: 90%;">{{info.address}}{{info.locationName}}</view>
+                    <image bindtap='autoGetLocation' src="../../image/position.png" mode="aspectFit" style="width: 40rpx;height: 40rpx;"/>
+                </view>
+            </view>
+
+            <view class="new_p1_view">
+                <view class="new_p2_title">服务记录</view>
+
+                <view class="new_p2" style="margin-top:30rpx;">
+                    <view class="new_p2_black">服务情况</view>
+                    <textarea wx:if="{{status == 1}}" style="width: 74%;text-align: left;padding-top:2rpx;" auto-height minlength="0" fixed="true" maxlength="300" bindinput="bindprocessing_feedback" placeholder="请详细描述服务情况" name="processing_feedback" value="{{processing_feedback}}"></textarea>
+                    <view wx:if="{{status != 1}}" class="new_p2_title" style="font-size: 30rpx;width: 74%;">{{info.processing_feedback}}</view>
+                </view>
+
+                <view class="new_p2" style="margin-top:50rpx;">
+                    <view class="new_p2_black">现场拍照</view>
+                    <block wx:if="{{status != 1}}"> 
+                      <block wx:if="{{scene_arr.length!=0}}">
+                        <view class="img_box" style="margin:10rpx 0rpx 20rpx 20rpx;margin-left:0rpx;width: 74%;">
+                          <view class="img_item" style="width:120rpx;height:120rpx;margin-right: 5%;margin-bottom: 5%;" wx:for="{{scene_arr}}" wx:for-item="item">
+                            <image bindtap="previewScene" data-src="{{item}}" class="img_item_i" data-index='{{index}}'
+                              src="{{item}}" mode="aspectFill"></image>
+                          </view>
+                        </view>
+                      </block>
+                    </block>
+                    <block wx:if="{{status==1}}">
+                      <view class="img_box" style="margin:10rpx 0rpx 20rpx 20rpx;margin-left:0rpx;width: 74%;">
+                        <block wx:if="{{scene_arr.length!=0}}">
+                          <view class="img_item" style="width:120rpx;height:120rpx;margin-right: 5%;margin-bottom: 5%;" wx:for="{{scene_arr}}" wx:for-item="item">
+                            <image bindtap="previewScene" data-src="{{item}}" class="img_item_i" data-index='{{index}}' src="{{item}}"
+                              mode="aspectFill"></image>
+                            <block >
+                              <image bindtap="delScene" data-index="{{index}}" src="../../image/deleteTest.png" class="closeImv" style="right: -16rpx;top: -16rpx;width: 32rpx;height: 32rpx;"></image>
+                            </block>
+                          </view>
+                        </block>
+                        <block >
+                          <block wx:if="{{scene_arr.length<9}}">
+                            <view class="img_item" bindtap="upScene" style="width:120rpx;height:120rpx;display: flex;justify-content: center;align-items: center;margin-right: 5%;margin-bottom: 5%;">
+                              <image  class="add_icon"
+                                style="width:30%;height:30%;display:flex;justify-content:center;align-item:center" 
+                                mode="aspectFill" src="../../image/add.png"></image>
+                            </view>
+                          </block>
+                        </block>
+                      </view>
+                    </block>
+                </view>
+            </view>
+
+            <view class="new_p1_view">
+                <view class="new_p2_title">试剂使用量</view>
+                <view class="new_pnumber" style="margin-top:30rpx;">
+                   <input class='P5_2 app_font' style="heigth:120rpx;border-bottom:solid 1px #DDDDDD;text-align: center;margin-top: 0rpx;" bindinput="bindSetData" placeholder='请填写客户试剂使用量' maxlength="11" type="number" name="phone" value="{{phone}}"></input>
+                   <view class="new_p2_title" style="font-size: 32rpx;">人份</view>
+                </view>
+            </view>
+
+            <view class="new_p1_view">
+                <view class="new_p2_title">服务信息</view>
+
+                <view class="new_p2" style="margin-top:30rpx;">
+                    <view class="new_p2_black" style="color: #999999;">服务类型</view>
+                    <view class="new_p2_gray" style="font-size: 32rpx;color: #333333;">{{service_type}}</view>
+                </view>
+
+                <view wx:if="{{type != 2}}" class="new_p2" style="margin-top:30rpx;">
+                    <view class="new_p2_black" style="color: #999999;">预约时间</view>
+                    <view class="new_p2_gray" style="font-size: 32rpx;color: #333333;">{{info.time}}</view>
+                </view>
+
+                <view wx:if="{{type != 4}}" class="new_p2" style="margin-top:30rpx;">
+                    <view class="new_p2_black" style="color: #999999;">仪器类型</view>
+                    <view class="new_p2_gray" style="font-size: 32rpx;color: #333333;">{{info.repair_type}}</view>
+                </view>
+
+                <view wx:if="{{type == 4}}" class="new_p2" style="margin-top:30rpx;">
+                    <view class="new_p2_black" style="color: #999999;">试剂类型</view>
+                    <view class="new_p2_gray" style="font-size: 32rpx;color: #333333;">{{info.reagent_name}}</view>
+                </view>
+
+                <view wx:if="{{type != 4}}" class="new_p2" style="margin-top:30rpx;">
+                    <view class="new_p2_black" style="color: #999999;">序列号</view>
+                    <view class="new_p2_gray" style="font-size: 32rpx;color: #333333;">
+                      <view wx:if="{{info.instrument_SN.length == 1}}">
+                        <view >{{info.instrument_SN[0]}}</view>
+                      </view>
+                      <view wx:if="{{info.instrument_SN.length > 1}}">
+                        <view wx:if="{{show_flag1}}">{{info.instrument_SN[0]}}</view>
+                        <view wx:if="{{show_flag1}}" style="color:#307FF5" bindtap="showAll">显示全部</view>
+                        <block wx:if="{{show_flag2}}" wx:for="{{info.instrument_SN}}">
+                          <view>{{item}}</view>
+                        </block>
+                      </view>
+                    </view>
+                </view>
+
+                <view wx:if="{{type == 1 || type == 2 || type == 5}}" class="new_p2" style="margin-top:30rpx;">
+                    <view class="new_p2_black" style="color: #999999;">问题描述</view>
+                    <view class="new_p2_gray" style="font-size: 32rpx;color: #333333;">{{info.question_desc}}</view>
+                </view>
+
+                <view wx:if="{{type == 1 || type == 2 || type == 5}}" class="new_p2" style="margin-top:30rpx;">
+                    <view class="new_p2_black" style="color: #999999;">图片描述</view>
+                    <view class="new_p2_gray" style="font-size: 32rpx;color: #333333;">
+                      <block wx:if="{{img_arr.length!=0}}">
+                        <view class="img_box" style="margin:10rpx 0rpx 20rpx 20rpx;margin-left:0rpx;">
+                          <view class="img_item" style="width:120rpx;height:120rpx;margin-right: 5%;margin-bottom: 5%;" wx:for="{{img_arr}}" wx:for-item="item">
+                            <image bindtap="previewImg" data-src="{{item}}" class="img_item_i" data-index='{{index}}'
+                              src="{{item}}" mode="aspectFill"></image>
+                          </view>
+                        </view>
+                      </block>
+                    </view>
+                </view>
+            </view>
+
+            <view class="new_p1_view">
+                <view class="new_p2_title">工单信息</view>
+
+                <view class="new_p2" style="margin-top:30rpx;">
+                    <view class="new_p2_black" style="color: #999999;">工单编号</view>
+                    <view class="new_p2_gray new_p2" style="font-size: 32rpx;color: #333333;align-items: center;">
+                      <view class="" style="font-size: 32rpx;color: #333333;">{{info.order_num}}</view>
+                      <view class="" style="font-size: 32rpx;color: #307FF5;" bindtap="bindCopy">复制</view>
+                    </view>
+                </view>
+
+                <view class="new_p2" style="margin-top:30rpx;">
+                    <view class="new_p2_black" style="color: #999999;">创建时间</view>
+                    <view class="new_p2_gray" style="font-size: 32rpx;color: #333333;">{{info.createTime}}</view>
+                </view>
+
+                <view class="new_p2" style="margin-top:30rpx;">
+                    <view class="new_p2_black" style="color: #999999;">接单时间</view>
+                    <view class="new_p2_gray" style="font-size: 32rpx;color: #333333;">{{info.createTime}}</view>
+                </view>
+
+                <view class="new_p2" style="margin-top:30rpx;">
+                    <view class="new_p2_black" style="color: #999999;">修改时间</view>
+                    <view class="new_p2_gray" style="font-size: 32rpx;color: #333333;">{{info.createTime}}</view>
+                </view>
+
+                <view wx:if="{{status == 2}}" class="new_p2" style="margin-top:30rpx;">
+                    <view class="new_p2_black" style="color: #999999;">完成时间</view>
+                    <view class="new_p2_gray" style="font-size: 32rpx;color: #333333;">{{info.processingTime}}</view>
+                </view>
+
+                
+            </view>
+        
+    </view>
+
+    <view style="height:200rpx"></view>
+
+    <view class="new_p4" wx:if="{{status==0 || status==1}}">
+      <view class="new_p4_left">
+        <view wx:if="{{role==1||(role==0&&creator_id==userInfoID)}}" class="new_p4_gray" bindtap="cancelOrder">取消工单</view>
+        <view class="new_p3_more_view">
+          <view wx:if="{{(role==0&&creator_id!=userInfoID)}}" class="new_p4_gray" catch:tap="bindMore">更多</view>
+          <view class="new_p3_more_dialog">
+            <view class="new_p3_more" style="font-size: 28rpx;">修改工单</view>
+            <view class="new_p3_more" style="font-size: 28rpx;margin-top:20rpx;">关闭工单</view>
+            <view class="new_p3_more_"></view>
+          </view>
+        </view>
+      </view>
+      
+      <view class="new_p4_right" wx:if="{{status==1}}">
+        <view class="new_p3_2"  bindtap="formSubmitSave">保存</view>
+        <view class="new_p3_1" bindtap="formSubmit">完成服务</view>
+      </view>
+
+      <view class="new_p4_right" wx:if="{{status==0}}">
+        <view wx:if="{{role==1}}">
+          <picker bindchange="onObjArrayPickerChange" value="{{supportList[rangekey].value}}" range-key="{{'name'}}"
+          range="{{supportList}}">
+            <view class='new_p3_2' >派单</view>
+          </picker>
+        </view>
+        <view class='new_p3_1'  bindtap="accept">立即接单</view>
+      </view>
+
+      <view class="new_p4_right" wx:if="{{status==2}}">
+        <view class="new_p3_2" style="margin-right: 0rpx;" bindtap="delete">删除</view>
+      </view>
+      
+    </view>
+</view>
+
+<!-- <view style="background-color:#F5F5F5">
   <view style="height:800rpx;position:relative;">
     <view class="upblue"></view>
     <view class="medWhite">
@@ -21,12 +228,10 @@
         <image bindtap='autoGetLocation' src="../../image/position.png" mode="aspectFit" class="img_position"/>
       </view> 
     </view>
-    <!--服务情况-->
       <block wx:if="{{status>0}}"> 
         <view style="height:50rpx"></view>
         <view class="medWhite">
           <view class="medWhiteView">
-            <!--服务记录-->
             <view class="P5" style="font-size:40rpx;font-weight:400;color:#333333;margin-top: 5%">服务记录</view>
             <view class="P5 app_flex" style="width:90%;height:auto;">
               <view class="P5_1 app_font" style="height:auto;width: 22%;min-height:80rpx;color:#333333;">服务情况</view>
@@ -46,7 +251,7 @@
             </view>
             <view class="P5 app_flex" style="height: auto;">
               <view class="P5_1 app_font" style="height:auto;width: 22%;min-height:80rpx;color:#333333;">现场拍照</view>
-              <block wx:if="{{status != 1}}"> <!--不为已接单状态，只显示图片，不提供图片增删功能-->
+              <block wx:if="{{status != 1}}"> 
                 <block wx:if="{{scene_arr.length!=0}}">
                   <view class="img_box">
                     <view class="img_item" wx:for="{{scene_arr}}" wx:for-item="item">
@@ -56,18 +261,18 @@
                   </view>
                 </block>
               </block>
-              <block wx:if="{{status==1}}">  <!--工单状态 0 待处理 1处理中 2已完成待评价 3已完成已评价 4取消 -->
+              <block wx:if="{{status==1}}">
                 <view class="img_box">
                   <block wx:if="{{scene_arr.length!=0}}">
                     <view class="img_item" wx:for="{{scene_arr}}" wx:for-item="item">
                       <image bindtap="previewScene" data-src="{{item}}" class="img_item_i" data-index='{{index}}' src="{{item}}"
                         mode="aspectFill"></image>
-                      <block ><!--wx:if="{{status==1}}"-->
+                      <block >
                         <image bindtap="delScene" data-index="{{index}}" src="../../image/deleteTest.png" class="closeImv"></image>
                       </block>
                     </view>
                   </block>
-                  <block ><!--wx:if="{{status>0&&status<2}}"-->
+                  <block >
                     <block wx:if="{{scene_arr.length<9}}">
                       <view class="img_item" bindtap="upScene" style=" display: flex;justify-content: center;align-items: center;">
                         <image  class="add_icon"
@@ -79,27 +284,6 @@
                 </view>
               </block>
             </view>
-            <!-- 客户评价
-            <block wx:if="{{status == 3}}">
-              <view class="P5 app_flex" style="width:90%;height:auto;margin-top: 1%;">
-                <view class="P5_1 app_font" style="height:auto;width: 20%;">客户评价</view>
-                <view class='P5_2 app_font' 
-                    style="height:auto;text-overflow:ellipsis;word-wrap:break-word;min-height:80rpx;width:80%"> {{info.customer_reviews}}</view>
-              </view>
-              <view class="P5 app_flex" style="height: auto;">
-                <view class="P5_1 app_font" style="width:100%">
-                  图片评价
-                </view>
-                <view class="img_box">
-                  <block wx:if="{{info.reviews_img.length!=0}}">
-                    <view class="img_item" wx:for="{{info.reviews_img}}" wx:for-item="item">
-                      <image bindtap="previewImgTwo" data-src="{{item}}" class="img_item_i" data-index='{{index}}'
-                        src="{{item}}" mode="aspectFill"></image>
-                    </view>
-                  </block>
-                </view>
-              </view>
-            </block> -->  
           </view>
         </view>
       </block>
@@ -146,7 +330,7 @@
           <view class="P5_1 app_font" style="width:100%">
               图片描述
           </view>
-          <block > <!--不为已接单状态，只显示图片，不提供图片增删功能-->
+          <block >
             <block wx:if="{{img_arr.length!=0}}">
               <view class="img_box">
                 <view class="img_item" wx:for="{{img_arr}}" wx:for-item="item">
@@ -182,7 +366,7 @@
 
   </view>
 </view>
-<!--接单派单-->
+
 <view wx:if="{{status==0}}" style="height: 12%;width:100%;bottom:0%;margin-top:10%;z-index: 999;position:fixed;background-color:#fff">
   <view wx:if="{{role==1||(role==0&&creator_id==userInfoID)}}" class="cancel_bottom" bindtap="cancelOrder">取消工单</view>
   <button class='button-bottom_2'  bindtap="accept" disabled="{{acceptState}}">立即接单</button>
@@ -193,9 +377,9 @@
     </picker>
   </view>
 </view>
-<!--保存提交-->
+
 <view style="width:100%;position:fixed;bottom:0%;display:flex;justify-content:center;height: 15%;background-color:#fff;z-index: 999;"
   wx:if="{{status==1}}">
   <button class='button-bottom_3' bindtap="formSubmitSave" data-value="1">保存</button>
   <button class='button-bottom_4' bindtap="formSubmit" data-value="2" >完成服务</button>
-</view>
+</view> -->

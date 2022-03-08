@@ -4,9 +4,9 @@
       <text class="cuIcon-back"></text>
       <slot name="backText"></slot>
     </view>
-    <view class=" border-custom"  wx:if="{{isCustom}}" style="width:{{Custom.width}}px;height:{{Custom.height}}px;margin-left:calc(750rpx - {{Custom.right}}px)">
+    <view class=" border-custom"  wx:if="{{isCustom}}" style="width:{{Custom.width}}px;height:{{Custom.height}}px;margin-left:calc(750rpx - {{Custom.right}}px);    display: flex;align-items: center;">
 
-      <text class="  bg-blue" style="height:50rpx width:80rpx;border-radius: 20rpx;" bindtap="toHome">新建工单</text>
+      <text style="height:50rpx width:80rpx;border-radius: 20rpx;color:#307FF5;" bindtap="toHome">创建工单</text>
     </view>
     <view class="content" style="top:{{StatusBar}}px">
       <slot name="content"></slot>

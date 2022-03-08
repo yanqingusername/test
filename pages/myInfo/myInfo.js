@@ -172,6 +172,14 @@ Page({
     wx.navigateTo({
       url: '/pages/statistics/statistics',
     })
+  },
+  /**
+   * 新增客户管理
+   */
+  bindManageCustomer(){
+    wx.navigateTo({
+      url: `/pages/chooseCustomer/chooseCustomer?title=客户管理&isMCus=1`
+    });
   }
 
 })

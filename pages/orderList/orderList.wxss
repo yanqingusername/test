@@ -52,4 +52,150 @@
   .page{
     width:100%;
     overflow-x:hidden;
+    position: absolute;
+    margin-top: 90rpx
+  }
+
+  /**
+  *  新增
+  */
+
+  page{
+    background: #f5f5f5;
+  }
+
+  .new_p1{
+    margin: 0rpx 0rpx;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .new_p1_view{
+    /* width: 690rpx; */
+    background: #FFFFFF;
+    border-radius: 12rpx;
+    padding: 30rpx;
+    margin-top: 30rpx;
+    margin-left: 30rpx;
+    margin-right: 30rpx;
+  }
+  
+  .new_p2{
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .new_p2_1{
+    display: flex;
+    align-items: center;
+  }
+
+  .new_p2_title{
+    font-size: 36rpx;
+    color: #333333;
+  }
+
+  .new_p2_type{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 80rpx;
+    height: 50rpx;
+    background: #F5F5F5;
+    border-radius: 25rpx;
+    margin-left: 20rpx;
+    font-size: 24rpx;
+    color: #FF834A;
+  }
+
+  .new_p2_status{
+    font-size: 28rpx;
+    color: #307FF5;
+  }
+
+  .new_p2_gray{
+    font-size: 28rpx;
+    color: #999999;
+    width: 25%;
+  }
+
+  .new_p2_black{
+    font-size: 28rpx;
+    color: #333333;
+    width: 75%;
+  }
+
+  .new_line{
+    height: 1px;
+    background: #DDDDDD;
+    margin: 30rpx 0rpx;
+  }
+
+  .new_p3{
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+  }
+
+  .new_p3_1{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 160rpx;
+    height: 60rpx;
+    background: #307FF5;
+    border-radius: 12rpx;
+    border: 2rpx solid #307FF5;
+    font-size: 28rpx;
+    color: #FFFFFF;
+  }
+
+  .new_p3_2{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 160rpx;
+    height: 60rpx;
+    background: #FFFFFF;
+    border-radius: 12rpx;
+    border: 2rpx solid #DDDDDD;
+    font-size: 28rpx;
+    color: #666666;
+    margin-right: 30rpx;
+  }
+
+  .new_p3_more_view{
+    margin-right: 26rpx;
+    position: relative;
+  }
+
+  .new_p3_more{
+    font-size: 32rpx;
+    color: #666666;
+  }
+
+  .new_p3_more_{
+    width: 0rpx;
+    height: 0rpx;
+    border: 10rpx solid transparent;
+    border-top-color: #FFFFFF;
+    position: absolute;
+    bottom: -20rpx;
+    left: 30rpx;
+  }
+
+  .new_p3_more_dialog{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 172rpx;
+    background: #FFFFFF;
+    box-shadow: 0px 2rpx 8rpx 0px rgba(0, 0, 0, 0.29);
+    padding: 24rpx;
+    position: absolute;
+    top: -125rpx;
+    left: -10rpx;
+    border-radius: 6rpx;
   }

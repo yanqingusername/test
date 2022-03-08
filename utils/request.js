@@ -39,6 +39,32 @@ function request_get(controller, data, cb) {
         }
     })
 }
+
+function request_new_test(controller, data, cb) {
+    let apiurl = 'http://xmr.coyotebio-lab.com:8080/flash20Management'//测试服务器 肖老师
+    var url = apiurl + controller;
+    wx.request({
+        url: url,
+        data: data,
+        method: 'GET',
+        success: function (res) {
+            //console.log(cb(res.data))
+            return typeof cb == "function" && cb(res.data)
+        },
+        fail: function (res) {
+            console.log('request networkTimeout')
+            wx.showModal({
+                title: "提示",
+                showCancel: false,
+                content: '请求超时,请检查网络！'
+            })
+            return typeof cb == "function" && cb(false)
+        }
+    })
+}
+
+
 module.exports = {
-    request_get: request_get
+    request_get: request_get,
+    request_new_test: request_new_test
 }

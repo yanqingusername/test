@@ -18,13 +18,56 @@ Page({
     remark:'',
     ifAccept:0,
     flag_1:false,
-    replaced_SN:''
+    replaced_SN:'',
+    isMCus: 0, // 默认为0  1-则代表从客户详情设备信息跳转页面(添加仪器) 2-则代表从客户详情设备信息跳转页面(编辑仪器) 
+    title: '添加仪器',
+    remarkList: [
+      {"reagent_name":'请选择设备属性'},
+      {"reagent_name":'自有'},
+      {"reagent_name":'备用机'},
+      {"reagent_name":'试用机'},
+      {"reagent_name":'投放机'},
+      {"reagent_name":'新机'}
+    ],
+    remarkIndex: 0,
+    old_SN:'',
+    old_remark:'',
+    showDialog: false,
+    dialogData: {
+      title: "确认删除？",
+      titles:  "删除后数据将无法恢复",
+      cancel: "取消",
+      sure: "确认"
+    },
   },
   onLoad: function (options) {
     this.setData({
       instrument_name:options.instrument_name,
-      company_account:options.company_account
+      company_account:options.company_account,
+      isMCus: options.isMCus,
+      title: options.title || '添加仪器'
     })
+
+    if(options && options.SN){
+      let remarkIndex = 0;
+      if(options.remark){
+        for(let i=0;i<this.data.remarkList.length;i++){
+          let reagent_name = this.data.remarkList[i].reagent_name;
+          if(options.remark == reagent_name){
+            remarkIndex = i;
+          }
+        }
+      }
+      this.setData({
+        SN: options.SN,
+        remark: options.remark,
+        old_SN: options.SN,
+        old_remark: options.remark,
+        remarkIndex: remarkIndex
+      },()=>{
+        this.checkSubmitStatus()
+      });
+    }
   },
   //是否为替换机
   handleChange: function (e) {
@@ -55,7 +98,7 @@ Page({
  
   //保存按钮禁用判断
   checkSubmitStatus: function(e){
-    if(this.data.SN != ''){
+    if(this.data.instrument_name != '' && this.data.SN != ''){
       this.setData({
         submitState: false
       })
@@ -71,7 +114,12 @@ Page({
     var that = this,
     objData = e.detail.value;
     var SN = objData.SN;
-    var remark = objData.remark;
+    let remark = this.data.remark;
+
+    if(remark == '请选择设备属性'){
+      remark = '';
+    }
+
     if(that.data.flag_1 == true){
       if(that.data.replaced_SN == ''){
         wx.showToast({
@@ -95,35 +143,110 @@ Page({
         title: '请输入正确的序列号',
       })
     } else {
-      var data = {
-        instrument_sn: SN,
-        instrument_name: that.data.instrument_name,
-        company_account: that.data.company_account,
-        create_person: app.globalData.userInfo.name,
-        remark:remark,
-        replaced_SN:that.data.replaced_SN
-      }
-      request.request_get('/wxapi/create_instrument.hn', data, function (res) { 
-        console.info('新建仪器回调', res)
-        if (res) {
-          if (res.success) {
+
+      // 根据isMCus来判断
+      if(that.data.isMCus == 1){
+        // 1-则代表从客户详情设备信息跳转页面(添加仪器) 
+
+        var params = {
+          instrument_sn: SN,
+          instrument_name: that.data.instrument_name,
+          company_account: that.data.company_account,
+          create_person: app.globalData.userInfo.name,
+          remark:remark,
+          replaced_SN:that.data.replaced_SN
+        }
+        request.request_get('/wxapi/create_instrument.hn', params, function (res) { 
+          console.info('新建仪器回调', res)
+          if (res) {
+            if (res.success) {
+              wx.showToast({
+                title: '保存成功',
+                icon: 'success',
+              })
+              wx.navigateBack({
+                delta: 1,
+              });
+            } else { 
+              wx.showToast({
+                icon:'none',
+                title: res.msg,
+              })
+            }
+          }else{
             wx.showToast({
-              title: '保存成功',
-              icon: 'success',
-            })
-            that.bindCreateInstrument();
-          } else { 
-            wx.showToast({
-              icon:'none',
-              title: res.msg,
+              title: '网络不稳定，请重试',
             })
           }
-        }else{
-          wx.showToast({
-            title: '网络不稳定，请重试',
-          })
+        })
+
+      } else if(that.data.isMCus == 2){
+        // 2-则代表从客户详情设备信息跳转页面(编辑仪器)
+        var paramData = {
+          update_type: '0',
+          company_account: that.data.company_account,
+          instrument_name: that.data.instrument_name,
+          instrument_SN: that.data.old_SN,
+          instrument_SN_new: SN,
+          instrument_attribute: that.data.old_remark,
+          instrument_attribute_new: remark,
+          name: app.globalData.userInfo.name,
+          phone: app.globalData.userInfo.phone,
         }
-      })
+        request.request_new_test('/instrument/supprot/updateInstrumentInfo.hn', paramData, function (res) { 
+          if (res) {
+            if (res.success) {
+              wx.showToast({
+                title: '编辑成功',
+                icon: 'success',
+              })
+              wx.navigateBack({
+                delta: 1,
+              });
+            } else { 
+              wx.showToast({
+                icon:'none',
+                title: res.msg,
+              })
+            }
+          }else{
+            wx.showToast({
+              title: '网络不稳定，请重试',
+            })
+          }
+        })
+
+      } else {
+        var data = {
+          instrument_sn: SN,
+          instrument_name: that.data.instrument_name,
+          company_account: that.data.company_account,
+          create_person: app.globalData.userInfo.name,
+          remark:remark,
+          replaced_SN:that.data.replaced_SN
+        }
+        request.request_get('/wxapi/create_instrument.hn', data, function (res) { 
+          console.info('新建仪器回调', res)
+          if (res) {
+            if (res.success) {
+              wx.showToast({
+                title: '保存成功',
+                icon: 'success',
+              })
+              that.bindCreateInstrument();
+            } else { 
+              wx.showToast({
+                icon:'none',
+                title: res.msg,
+              })
+            }
+          }else{
+            wx.showToast({
+              title: '网络不稳定，请重试',
+            })
+          }
+        })
+      }
     }     
     //console.log("userInfo" + app.globalData.userInfo)
   },
@@ -153,5 +276,74 @@ Page({
       delta: 2,
     })
    },
+   /**
+    * 客户详情设备信息跳转页面(添加仪器)
+    */
+   bindAddType(){
+     wx.navigateTo({
+       url: `/pages/chooseInstrument/chooseInstrument?instrument_name=${this.data.instrument_name}`
+     });
+   },
+   /**
+    * 由原来的备注 ---> 设备属性
+    */
+   bindSelectrRemark: function (e) {
+    var that = this;
+    console.log('picker发送选择改变，携带值为', e.detail.value)
+    this.setData({
+      remarkIndex: e.detail.value,
+      remark: that.data.remarkList[e.detail.value].reagent_name
+    })
+  },
+  bindShowDialog(){
+    this.setData({
+     showDialog: true
+    });
+  },
+  dialogCancel(){
+   this.setData({
+    showDialog: false
+   });
+ },
+ dialogSure(){
+   this.setData({
+    showDialog: false
+   });
+   this.deleteCompanyContactInfo();
+ },
+  deleteCompanyContactInfo(){
+   let that = this;
+   let paramData = {
+      company_account: that.data.company_account,
+      instrument_name: that.data.instrument_name,
+      instrument_SN: that.data.old_SN,
+      instrument_SN_new: that.data.SN,
+      instrument_attribute: that.data.old_remark,
+      instrument_attribute_new: that.data.remark,
+      name: app.globalData.userInfo.name,
+      phone: app.globalData.userInfo.phone,
+   }
+   request.request_new_test('/instrument/supprot/deleteInstrumentInfo.hn', paramData, function (res) { 
+     if (res) {
+       if (res.success) {
+         wx.showToast({
+           title: '删除成功',
+           icon: 'success',
+         });
+          wx.navigateBack({
+            delta: 1,
+          });
+       } else {
+         wx.showToast({
+           title: res.msg,
+         });
+       }
+     }else{
+       wx.showToast({
+         title: '网络不稳定，请重试',
+       });
+     }
+   });
+  }
   
 })

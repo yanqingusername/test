@@ -1,11 +1,67 @@
 <!--pages/addCustomer/chooseCustodian.wxml-->
 <cu-custom isBack="{{true}}" bgColor="bg-white" >
   <view slot="backText"></view>
-  <view slot="content">添加仪器</view>
+  <view slot="content">{{title}}</view>
 </cu-custom>
 
 <form bindsubmit="submit">
-  <view class="P5 app_flex">
+  <view class="add_container">
+    <view class="add_info">
+      <view class="detail_header">
+        <view class="detail_title">仪器信息</view>
+        <view class="detail_right">
+        </view>
+      </view>
+      <view class="detail_center">
+        <view class="P5_1 app_font" style="padding-left:30rpx;color: #333333;">仪器类型</view>
+        <input wx:if="{{isMCus == 0}}" class='P5_2 app_font' disabled="true" type="text" placeholder='请选择仪器类型' name="instrument_name" value="{{instrument_name}}"></input>
+        <view wx:if="{{isMCus == 1}}" class="detail_center P5_2" style="align-items: center;padding: 20rpx 30rpx 20rpx 20rpx;" bind:tap="bindAddType">
+          <view class="app_font" style="color: {{instrument_name ? '#333333':'#999999'}};">{{instrument_name || '请选择仪器类型'}}</view>
+          <image src="../../image/icon_arrow_gray.png" style="width:20rpx;height:34rpx;"/>
+        </view>
+        <view wx:if="{{isMCus == 2}}" class="detail_center P5_2" style="align-items: center;padding: 20rpx 30rpx 20rpx 20rpx;">
+          <view class="app_font" style="color:#999999;">{{instrument_name || '请选择仪器类型'}}</view>
+        </view>
+      </view>
+      <view class="line"></view>
+      <view class="detail_center">
+        <view class="P5_1 app_font" style="padding-left:30rpx;color: #333333;">序列号</view>
+        <input class='P5_2 app_font' bindinput="bindSetData1" placeholder='请填写仪器序列号' type="text" name="SN" value="{{SN}}"></input>
+      </view>
+      <view class="line"></view>
+      <view class="detail_center">
+        <view class="P5_1 app_font" style="padding-left:30rpx;color: #333333;">设备属性</view>
+        <view class="detail_center P5_2" style="align-items: center;padding: 20rpx 30rpx 20rpx 20rpx;">
+          <!-- <view class="app_font" style="color: {{remark ? '#333333':'#999999'}};">{{remark || '请选择设备属性'}}</view>
+          <image src="../../image/icon_arrow_gray.png" style="width:20rpx;height:34rpx;"/> -->
+          <picker bindchange="bindSelectrRemark" value="{{remarkIndex}}" range-key="{{'reagent_name'}}" range="{{remarkList}}" style="width:100%;">
+            <view class="detail_center P5_2" style="align-items: center;width:100%;">
+              <view class="picker" style="color: {{remarkIndex ==0 ? '#999999' : '#333333'}}">{{remarkList[remarkIndex].reagent_name}}</view>
+              <image src="../../image/icon_arrow_gray.png" style="width:20rpx;height:34rpx;"/>
+            </view>
+          </picker> 
+        </view>
+      </view>
+    </view>
+
+    <view class="add_info" wx:if="{{isMCus != 2}}">
+      <view class="detail_center" style="padding: 20rpx 30rpx;align-items: center;">
+        <view class="app_font" style="padding-left:0rpx;color: #333333;">是否为替换机</view>
+        <switch type="switch" bindchange="handleChange" checked="{{false}}" class='blue'></switch>
+      </view>
+      <view class="detail_center" wx:if="{{flag_1}}">
+        <view class="P5_1 app_font" style="padding-left:30rpx;color: #333333;">被替换机</view>
+        <view class="detail_center P5_2" style="align-items: center;padding: 20rpx 30rpx 20rpx 20rpx;" bindtap="bindExclusiveChooseSN" >
+          <view class="app_font" style="color:#999999;">{{replaced_SN || '请选择被替换仪器序列号'}}</view>
+          <image src="../../image/icon_arrow_gray.png" style="width:20rpx;height:34rpx;"/>
+        </view>
+      </view>
+      
+    </view>
+  </view>
+
+
+  <!-- <view class="P5 app_flex">
       <view class="P5_1 app_font" style="font-size:38rpx">仪器信息</view>
       <view></view>
   </view>
@@ -22,9 +78,9 @@
   <view class="P5 app_flex">
     <view class="P5_1 app_font">备注</view>
       <input class='P5_2 app_font' placeholder='试用机/备用机/新机(选填)' type="text" name="remark"></input>
-  </view>
+  </view> -->
 
-  <view class="P5 app_flex">
+  <!-- <view class="P5 app_flex">
       <view class="P5_1 app_font" style="width:40%">是否为替换机</view>
       <view class='P5_2 app_font' style="width:60%;">
         <switch type="switch" bindchange="handleChange" checked="{{false}}"></switch>
@@ -33,14 +89,22 @@
   <view wx:if="{{flag_1}}" class="P5 app_flex">
         <view class="P5_1 app_font">被替换机</view>
         <input class="P5_2 app_font" disabled placeholder="请选择被替换仪器序列号"  bindtap="bindExclusiveChooseSN" value="{{replaced_SN}}" disabled></input>
-  </view>
+  </view> -->
 
   <view style="margin-top:100rpx;">
-    <button class='P6 app_btn' style='width:500rpx;' form-type="submit" disabled="{{submitState}}">保存</button>
+    <button class='app_btn' style="width: 670rpx;height: 88rpx;background: {{submitState?'#999999':'#307FF5'}};border-radius: 12rpx;color:#FFFFFF;" form-type="submit" disabled="{{submitState}}">保存</button>
   </view>
 </form>
 
-<view class="icon-box-ctn">
+<view class="icon-box-ctn" wx:if="{{isMCus == 0}}">
       <icon class="weui-icon-search_in-box" type="warn" size="14" bindtap="searchHandle"/>
       <view class="icon-box-desc">信息提交后不可修改，如需修改请联系管理员</view>
 </view>
+
+<view class="icon-box-ctn" wx:if="{{isMCus == 2}}">
+  <view class="icon-box-delete" bind:tap="bindShowDialog">删除</view>
+</view>
+
+<!-- 弹框 -->
+  <dialog-cus showDialog='{{showDialog}}' datas="{{dialogData}}" bind:dialogCancel="dialogCancel" bind:dialogSure="dialogSure" />
+

@@ -18,10 +18,18 @@ Page({
     flag2:false,
     tips:'',
     name:'',
-    phone:''
+    phone:'',
+    title: '选择客户', // 判断是否从客户管理
+    isMCus: 0, // 判断是否从客户管理带过来的参数  默认为0  1代表从客户管理跳转过来
   },
-  onLoad: function (e) {
+  onLoad: function (options) {
     var that = this;
+
+    this.setData({
+      title: options.title,
+      isMCus: options.isMCus
+    });
+
     that.getCompanyList();
   },
   //添加客户
@@ -101,14 +109,26 @@ Page({
   
   //选中客户并返回
   bindCheckCompany:function(e){
-    var that = this;
-    that.setData({
-      account: e.currentTarget.dataset.account,
-      company_name:e.currentTarget.dataset.name,
-      address: e.currentTarget.dataset.address,
-      locationName:e.currentTarget.dataset.locationname
-    })
-    that.bindChooseCustodianAndReturn();//根据account查联系人列表，返回第一个（写到page.data）。
+    if (this.data.isMCus == 1){
+      let account = e.currentTarget.dataset.account;
+      let company_name = e.currentTarget.dataset.company_name;
+      let address = e.currentTarget.dataset.address;
+      let locationname = e.currentTarget.dataset.locationname;
+      if(account){
+        wx.navigateTo({
+          url: `/pages/detailCustomer/index?account=${account}`
+        });
+      }
+    } else {
+      var that = this;
+      that.setData({
+        account: e.currentTarget.dataset.account,
+        company_name:e.currentTarget.dataset.name,
+        address: e.currentTarget.dataset.address,
+        locationName:e.currentTarget.dataset.locationname
+      });
+      that.bindChooseCustodianAndReturn();//根据account查联系人列表，返回第一个（写到page.data）。
+    }
    },
    
    //获取该公司的联系人列表

@@ -13,7 +13,7 @@ Page({
     support_id:"",
     TabCur: 0,
     status: 1,
-    statusList: [ '已接单','已完成', '用户评价'],
+    statusList: [ '进行中','已完成', '全部'],
     orderListTemp:[],
 		page:1, //当前页数
 		pageSize:6, //每页六条

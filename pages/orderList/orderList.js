@@ -10,7 +10,10 @@ Page({
 		page:1, //当前页数
 		pageSize:6, //每页六条
 		hasMoreData:true,
-		tip_temp:'暂无数据'
+		tip_temp:'暂无数据',
+		TabCur: 0,
+		status: 1,
+		statusList: [ '进行中','待接单', '全部'],
 	},
 
 	onLoad: function (options) {
@@ -174,5 +177,26 @@ Page({
 			page:1
 		})
 		that.getOrderList();
-	}
+	},
+	tabSelect(e) {
+		var status = e.currentTarget.dataset.id;
+		console.log("tabSelect "+status)
+		var that = this;
+		if (status == 0) {
+		  status = 1
+		} else if (status == 1) {
+		  status = 2;
+		} else {
+		  status = 3;
+		}
+		this.setData({
+		  TabCur: e.currentTarget.dataset.id,
+		  status: status,
+		  page:1,
+		  orderList:[],
+		  tip:'',
+		  alreadyChecked:false
+		})
+		that.getOrderList();
+	  },
 })

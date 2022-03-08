@@ -1,0 +1,35 @@
+<cu-custom isBack="{{true}}" bgColor="bg-white">
+  <view slot="backText"></view>
+  <view slot="content">{{title}}</view>
+</cu-custom>
+
+<view class="detail_container">
+  <view class='class_view'> 
+    <view> 
+      <block wx:for="{{service_result}}" wx:key="{{index}}" wx:for-item="item" wx:if="{{service_result.length > 0}}"> 
+        <view class='view_container'> 
+          <view class='circle_container'> 
+            <view class='title_black'>{{item.title4}}</view> 
+            <view class='title_gray'>{{item.title5}}</view> 
+            <view class='line' wx:if="{{index != (service_result.length -1)}}" style='height: {{ H }}px'/>
+          </view> 
+            <view class='right_container'> 
+                <view class='title_black'>{{item.title}}</view>
+                <view id='schedule'>
+                  <block wx:for="{{item.items}}" wx:for-item="items" wx:key="{{index}}">
+                    <view class='title_gray' style="font-size: 28rpx;margin-top:20rpx;">{{items.title1}}</view> 
+                  </block>
+                  <view style="height: 40rpx;"></view>
+                </view>
+            </view> 
+        </view> 
+      </block>
+      <view wx:if="{{service_result.length == 0}}" class="tip_style">{{tips}}</view>
+    </view> 
+  </view> 
+
+</view>
+
+
+
+

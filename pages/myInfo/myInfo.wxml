@@ -32,7 +32,7 @@
   </view>
 <view style="background-color:#F5F5F5">
   <view wx:if="{{role == 1}}" style="height:50rpx"></view>
-  <view class="P2">
+  <view class="P2" style="margin-bottom: 0rpx;">
     <view class="item" style="height:250rpx" bindtap="bindStatistics">
       <view class="title">
         <text>数据统计</text>
@@ -49,6 +49,16 @@
         <text >今日完成</text>
       </view>
     </view>
+
+    <view bindtap="bindManageCustomer" style="margin-top:40rpx;">
+      <view class="item">
+        <view class="title" >
+          <text>客户管理</text>
+          <text style="color:#9A9A9A">></text>
+        </view>
+      </view>
+    </view>
+
     <view wx:if="{{role == 1}}" class="hr"></view>
     <view wx:if="{{role == 1}}" bindtap="addAccount">
       <view class="item">
@@ -61,8 +71,8 @@
   </view>
 </view>
   <!-- 退出 -->
-  <view style="width:100%;margin-top:12%;height:80rpx;" bindtap="toExit">
-    <view class="app_btn"
-      style="height:100%;width:40%;margin-left:30%;/*align-items:center*/background-color: #469DE8;">退出登录</view>
+  <view style="width: 100%;padding: 30rpx;display: flex;align-items: center;justify-content: center;background-color: #F5F5F5;" >
+    <view class="app_btn" bindtap="toExit"
+      style="height: 88rpx;width: 400rpx;background-color: #FFFFFF;border-radius: 12rpx;border: 1px solid #307FF5;font-size: 32rpx;color: #307FF5;">退出登录</view>
   </view>
 </view>

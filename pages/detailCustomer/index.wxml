@@ -1,0 +1,118 @@
+<cu-custom isBack="{{true}}" bgColor="bg-white">
+  <view slot="backText" bindtap="bindBack"></view>
+  <view slot="content">客户详情</view>
+</cu-custom>
+
+<view class="detail_container">
+
+  <view class="detail_info">
+    <view class="detail_header">
+      <view class="detail_title">基本信息</view>
+      <view class="detail_right" bind:tap="bindManageUpdateInstrument">
+        <image src="../../image/icon_edit.png" class='detail_right_img' />
+        <view class='detail_right_text'>编辑</view>
+      </view>
+    </view>
+    <view class="detail_center">
+      <view class="detail_gray" style="width:30%;">客户名称</view>
+      <view class="detail_black" style="width:70%;">{{company_result[0].company_name}}</view>
+    </view>
+    <view class="detail_center">
+      <view class="detail_gray" style="width:30%;">所在地区</view>
+      <view class="detail_black" style="width:70%;">{{company_result[0].address}}</view>
+    </view>
+     <view class="detail_center">
+      <view class="detail_gray" style="width:30%;">详细地址</view>
+      <view class="detail_black" style="width:70%;">{{company_result[0].locationName}}</view>
+    </view>
+  </view>
+
+  <view class="detail_info">
+    <view class="detail_header">
+      <view class="detail_title">联系人</view>
+      <view class="detail_right" bind:tap="bindAddCustodian">
+        <image src="../../image/add.png" class='detail_right_img' />
+        <view class='detail_right_text'>添加</view>
+      </view>
+    </view>
+    <block wx:for="{{nameList}}" wx:key="index">
+      <view class="detail_center" wx:if="{{nameList.length > 0}}">
+        <view class="detail_black" style="width:20%;">{{item.name}}</view>
+        <view class="detail_black" style="width:60%;">{{item.phone}}</view>
+        <view class="detail_img" style="width:20%;" bind:tap="bindUpdateCustodian" data-name="{{item.name}}" data-phone="{{item.phone}}"><image src="../../image/icon_edit.png" class='detail_right_img' /></view>
+      </view>
+    </block>
+    <view wx:if="{{nameList.length == 0}}" class="tip_style">{{tips}}</view>
+  </view>
+
+  <view class="detail_info">
+    <view class="detail_header">
+      <view class="detail_title">设备信息</view>
+      <view class="detail_right" bind:tap="bindAddInstrument">
+        <image src="../../image/add.png" class='detail_right_img' />
+        <view class='detail_right_text'>添加</view>
+      </view>
+    </view>
+    <block wx:for="{{company_result_status}}" wx:key="index" >
+      <view class="detail_center_view">
+        <view class="detail_center">
+          <view class="detail_black" style="width:32%;">{{item.instrument_name}}</view>
+          <view class="detail_black" style="width:50%;">{{item.instrument_SN}}</view>
+          <view class="detail_img" style="width:18%;justify-content: center;">
+            <view class="detail_img" style="width:100%;justify-content: space-between;">
+              <image src="../../image/myOrder.png" class='detail_right_img' bind:tap="bindTagLog" data-instrumentsn="{{item.instrument_SN}}"/>
+              <image src="../../image/icon_edit.png" class='detail_right_img' bind:tap="bindUpdateInstrument" data-instrumentsn="{{item.instrument_SN}}" data-instrumentname="{{item.instrument_name}}" data-remark="{{item.remark}}"/>
+            </view>
+          </view>
+        </view>
+        <view class="line"></view>
+      </view>
+    </block>
+
+    <view wx:if="{{company_result_delete.length > 0}}" class="detail_gray" style="padding: 30rpx 30rpx 0rpx 30rpx;">已删除</view>
+    <block wx:for="{{company_result_delete}}" wx:key="index" wx:if="{{company_result_delete.length > 0}}">
+      <view class="detail_center_view">
+        <view class="detail_center">
+          <view class="detail_gray" style="width:32%;">{{item.instrument_name}}</view>
+          <view class="detail_gray" style="width:50%;">{{item.instrument_SN}}</view>
+          <view class="detail_img" style="width:18%;">
+              <image src="../../image/myOrder.png" class='detail_right_img' bind:tap="bindTagLog" data-instrumentsn="{{item.instrument_SN}}"/>
+          </view>
+        </view>
+        <view class="line" wx:if="{{index != (company_result_delete.length -1)}}"></view>
+      </view>
+    </block>
+  </view>
+
+  <view class="detail_info">
+    <view class="detail_header">
+      <view class="detail_title">服务记录</view>
+      <view class="detail_right">
+      </view>
+    </view>
+    <block wx:for="{{recordInfoList}}" wx:key="index" >
+      <view class="detail_center_view" wx:if="{{recordInfoList.length > 0}}">
+        <view class="detail_center">
+          <view class="detail_black" style="width:45%;">{{item.service_type}}</view>
+          <view class="detail_img" style="width:55%;justify-content: center;">
+            <view class="detail_img" style="width:100%;justify-content: space-between;">
+              <view class="detail_gray">{{item.create_time}}</view>
+              <image src="../../image/icon_arrow_gray.png" style="width:20rpx;height:34rpx;"/>
+            </view>
+          </view>
+        </view>
+        <view class="line" wx:if="{{index != (recordInfoList.length -1)}}"></view>
+      </view>
+      
+    </block>
+  </view>
+
+  <view class="empty"></view>
+
+</view>
+
+  <!-- 弹框 -->
+  <dialog-cus showDialog='{{showDialog}}' datas="{{dialogData}}" bind:dialogCancel="dialogCancel" bind:dialogSure="dialogSure" />
+
+  <dialog-select pickerShow="{{isShow}}" wx:if="{{isShow}}"
+  bind:hidePicker="hidePicker" bind:onConfirm="onConfirm"></dialog-select>

@@ -1,0 +1,11 @@
+<view wx:if="{{showDialog}}" class="cover" bind:tap="">
+	<view class="concent">
+		<view class="title">{{datas.title}} </view>
+		<view class="explain">{{datas.titles}}</view>
+		<view class="details">
+			<view class="cancel" bind:tap="dialogCancel">{{datas.cancel||"取消"}}</view>
+			<view class="sure" bind:tap="dialogSure">{{datas.sure||"确认"}}</view>
+		</view>
+	</view>
+</view>
+
