@@ -30,12 +30,16 @@ Page({
       isMCus: options.isMCus
     });
 
-    that.getCompanyList();
+    // that.getCompanyList();
+  },
+  onShow(){
+    this.getCompanyList();
+
   },
   //添加客户
   bindAddCustomer: function(){
     wx.navigateTo({
-      url: '../addCustomer/addCustomer',
+      url: `/pages/addCustomer/addCustomer?isMCus=${this.data.isMCus}`,
     })
   },
   //获取客户列表

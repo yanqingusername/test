@@ -18,8 +18,8 @@ Page({
     company_result: [],
     recordInfoList: [],
     nameList: [],
-    company_result_status: [],
-    company_result_delete: [],
+    instrument_result_status: [],
+    instrument_result_delete: [],
 
     instrumentsn: '', // 编辑仪器号
     instrumentname: '', // 编辑仪器类型
@@ -49,20 +49,20 @@ Page({
             company_result: res.company_result
           });
 
-          if(res.company_result.length > 0){
+          if(res && res.instrument_result && res.instrument_result.length > 0){
             let listData = [];
             let listDataDelete = [];
-            for(let i = 0; i < res.company_result.length;i++){
-              let item = res.company_result[i];
+            for(let i = 0; i < res.instrument_result.length;i++){
+              let item = res.instrument_result[i];
               if(item.status == 0){
                 listData.push(item);
-              }else{
+              }else if(item.status == 1){
                 listDataDelete.push(item);
               }
             }
             that.setData({
-              company_result_status: listData,
-              company_result_delete: listDataDelete
+              instrument_result_status: listData,
+              instrument_result_delete: listDataDelete
             });
           }
         } else {
@@ -199,10 +199,18 @@ Page({
   /**
    * 编辑客户信息
    */
-  bindManageUpdateInstrument(){
+  bindManageUpdateInstrument(e){
+    let item = e.currentTarget.dataset.item;
+    item.company_account = this.data.account;
+    let jsondata = JSON.stringify(item);
+    console.log(item)
+
     wx.navigateTo({
-      url: `/pages/manageAddInstrument/index`,
-    });
+      url: `/pages/addCustomer/addCustomer?isMCus=2&title=编辑客户信息&jsondata=${jsondata}`,
+    })
+    // wx.navigateTo({
+    //   url: `/pages/manageAddInstrument/index`,
+    // });
   },
   dialogCancel() {
     this.setData({
@@ -214,4 +222,14 @@ Page({
       showDialog: false
     });
   },
+  /**
+   * 服务记录
+   */
+  bindRecordInfo(e){
+    let item = e.currentTarget.dataset.item;
+    let jsondata = JSON.stringify(item)
+    wx.navigateTo({
+      url: `/pages/recordInfoLog/index?jsondata=${jsondata}`
+    });
+  }
 })

@@ -38,7 +38,35 @@ Page({
     show_flag1:true,
     show_flag2:false,
     creator_id:0,
-    userInfoID:0
+    userInfoID:0,
+
+    dialogData: {
+			title: "确认修改工单？",
+			titles: "自己创建的工单只有 1 次修改机会",
+			cancel: "取消",
+			sure: "确认"
+		},
+		showDialog: false,
+
+		dialogCloseData: {
+			title: "请填写关闭工单原因",
+			titles: "关闭工单后数据无法恢复",
+			cancel: "取消",
+			sure: "确认"
+		},
+		showCloseDialog: false,
+    isShowClose: false, // 更多弹框
+    close_order_num: '',
+
+    deleteDialogData: {
+			title: "确认删除？",
+			titles: "删除后数据将无法恢复",
+			cancel: "取消",
+			sure: "确认"
+		},
+		deleteShowDialog: false,
+    delete_order_num: '',
+    reagent_count: ""
   },
 
   /**
@@ -156,7 +184,7 @@ Page({
     // var type = that.data.type;
     // console.log('type='+type)
     console.log('id='+id)
-    request.request_get('/OrderController/getOrderById.hn', {
+    request.request_new_test('/instrument/supprot/getOrderById.hn', {
       id: id
       // type: type
     }, function (res) {
@@ -181,7 +209,8 @@ Page({
             customerList: info.customer_img,
             info: info,
             creator_id: info.creator_id,
-            service_type:info.service_type
+            service_type:info.service_type,
+            reagent_count: info.reagent_count
           })
           if(that.data.status == 0){
             that.getSupport();
@@ -213,7 +242,7 @@ Page({
     var id = that.data.id; //订单id
     var supportId = app.globalData.userInfo.id;
 
-    request.request_get('/OrderController/Orders.hn', {
+    request.request_get('/instrument/supprot/Orders.hn', {
       id: id,
       supportId: supportId
     }, function (res) {
@@ -272,7 +301,7 @@ Page({
       support_name: support_name,
       order_num: order_num
     }
-    request.request_get('/OrderController/dispatch.hn', data, function (res) {
+    request.request_get('/instrument/supprot/dispatch.hn', data, function (res) {
       console.info('回调', res)
       if (res) {
         if (res.success) {
@@ -315,6 +344,11 @@ Page({
     })
     console.log(that.data.ifDone)
   },
+  bindSetData:function(e){
+    this.setData({
+      reagent_count:e.detail.value
+    });
+  },
   //保存
   formSubmitSave: function (e) {
     var that = this;
@@ -322,13 +356,15 @@ Page({
     var formType = e.currentTarget.dataset.value; // 1保存（工单状态：处理中） 2提交（工单状态：已完成）
     var processing_feedback = that.data.processing_feedback;
     var sceneArr = that.data.scene_arr;
+    var reagent_count = that.data.reagent_count;
     console.log(processing_feedback)
-    request.request_get('/OrderController/updateOrder.hn', {
+    request.request_get('/instrument/supprot/updateOrder.hn', {
       id: id,
       formType: formType,
       // service_status: service_status,
       processing_feedback: processing_feedback,
-      sceneArr: sceneArr
+      sceneArr: sceneArr,
+      reagent_count: reagent_count
     }, function (res) {
       console.info('回调', res)
       if (res) {
@@ -604,5 +640,127 @@ Page({
         duration: 3000
       });
     }
+  },
+  /**
+	 * 更多按钮
+	 */
+	bindMore(e) {
+		this.setData({
+			isShowClose: !this.data.isShowClose
+		});
+	},
+  /**
+	 * 修改工单
+	 */
+	bindUpdateOrder(e) {
+		let id = e.currentTarget.dataset.id; //订单id
+		let supportId = app.globalData.userInfo.id;
+
+		// 普通用户只能修改一次 弹框提示
+		if (this.data.role == 0) {
+			this.setData({
+				showDialog: true
+			});
+		} else {
+			// 管理员可重复修改
+		}
+	},
+	dialogCancel() {
+		this.setData({
+			showDialog: false
+		});
+	},
+	dialogSure() {
+		this.setData({
+			showDialog: false
+		});
+	},
+	/**
+	 * 关闭工单
+	 */
+	bindCloseOrder(e) {
+		let id = e.currentTarget.dataset.id; //订单id
+		this.setData({
+			isShowClose: false,
+			showCloseDialog: true,
+      close_order_num: id
+		});
+	},
+	dialogCloseCancel() {
+		this.setData({
+			showCloseDialog: false
+		});
+	},
+	dialogCloseSure(e) {
+		console.log(e.detail)
+		this.setData({
+			showCloseDialog: false
+		});
+    //
+		var that = this;
+		var data = {
+			order_num: that.data.close_order_num,
+			close_order_reason: e.detail  //关闭原因
+		}
+		request.request_get('/instrument/supprot/closeOrderInfo.hn', data, function (res) {
+			if (res) {
+				if (res.success) {
+          that.setData({
+            page: 1,
+            orderList: [],
+            tip: '',
+            alreadyChecked: false
+          });
+					that.getOrderList();
+				} else {
+					box.showToast(res.msg);
+				}
+			} else {
+				box.showToast("网络不稳定，请重试");
+			}
+		})
+	},
+  /**
+  * 删除工单
+  */
+   deleteInfo(e) {
+    let id = e.currentTarget.dataset.id; //订单id
+      this.setData({
+       deleteShowDialog: true,
+       delete_order_num: id
+      });
+  },
+  deleteDialogCancel() {
+    this.setData({
+     deleteShowDialog: false
+    });
+  },
+  deleteDialogSure() {
+    this.setData({
+     deleteShowDialog: false
+    });
+ 
+    var that = this;
+     var data = {
+       order_num: that.data.close_order_num,
+     }
+     request.request_get('/instrument/supprot/deleteOrderInfo.hn', data, function (res) {
+       if (res) {
+         if (res.success) {
+           that.setData({
+             page: 1,
+             orderList: [],
+             tip: '',
+             alreadyChecked: false
+           });
+           that.getOrderList();
+         } else {
+           box.showToast(res.msg);
+         }
+       } else {
+         box.showToast("网络不稳定，请重试");
+       }
+     })
+ 
   },
 })

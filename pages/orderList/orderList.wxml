@@ -2,27 +2,27 @@
     <view slot="backText"></view>
     <view slot="content">工单列表</view>
 </cu-custom>
-<scroll-view scroll-x class="bg-white nav text-center" style="background-color: #FFF;position:fixed;top:9%;z-index:9999;">
-  <view class="cu-item {{index==TabCur?'text-blue cur':''}}" style="border-bottom: none;" wx:for="{{statusList}}" wx:key="index" bindtap="tabSelect" data-id="{{index}}">
+<scroll-view wx:if="{{role == 1}}" scroll-x class="bg-white nav text-center" style="background-color: #FFF;position:fixed;top:9%;z-index:9999;">
+  <view class="cu-item {{index==TabCur?'text-blue cur':''}}" style="border-bottom: none;" wx:for="{{statusList}}" wx:key="index" catchtap="tabSelect" data-id="{{index}}">
       <span >{{statusList[index]}}</span>
-      <span >({{orderList.length}})</span>
+      <span wx:if="{{index!=2}}">({{orderList.length}})</span>
   </view>
 </scroll-view>
-<view class="page"> 
+<view class="page" style="margin-top: {{role == 1 ? '90':'0'}}rpx;">
     <view class="new_p1">
-        <block wx:for="{{orderList}}" wx:key="index">
+        <block wx:for="{{orderList}}" wx:key="index" wx:if="{{orderList.length > 0}}">
             <view class="new_p1_view" bindtap="toInfo" data-id = "{{item.id}}" data-type="{{item.type}}">
                 <view class="new_p2" style="align-items: center;">
                     <view class="new_p2_1">
-                        <view class="new_p2_title">装机培训</view>
-                        <view class="new_p2_type">派单</view>
+                        <view class="new_p2_title">{{item.service_type}}</view>
+                        <view class="new_p2_type" wx:if="{{item.is_send_order == 1}}">派单</view>
                     </view>
-                    <view class="new_p2_status">进行中</view>
+                    <view class="new_p2_status">{{item.status == 1 ? '进行中' : item.status == 2 ? '已完成' : '待接单'}}</view>
                 </view>
 
                 <view class="new_p2" style="margin-top:30rpx;">
                     <view class="new_p2_gray">客户名称：</view>
-                    <view class="new_p2_black">新疆维吾尔族库尔勒市八音郭楞蒙自治州人民医院</view>
+                    <view class="new_p2_black">{{item.company_name}}</view>
                 </view>
 
                 <view class="new_p2" style="margin-top:30rpx;">
@@ -40,71 +40,81 @@
                     <view class="new_p2_black">{{item.order_num}}</view>
                 </view>
 
-                <view class="new_p2" style="margin-top:30rpx;">
+                <view class="new_p2" style="margin-top:30rpx;" wx:if="{{item.status == 1 || item.status == 2}}">
                     <view class="new_p2_gray">技术支持：</view>
-                    <view class="new_p2_black">李四</view>
+                    <view class="new_p2_black">{{item.name}}</view>
                 </view>
 
                 <view class="new_line"></view>
 
-                <view class="new_p3">
+                <view class="new_p3" wx:if="{{role == 0}}">
                     <view class="new_p3_more_view">
-                        <view class="new_p3_more" catch:tap="bindMore">更多</view>
-                        <view class="new_p3_more_dialog">
-                            <view class="new_p3_more" style="font-size: 28rpx;">关闭工单</view>
+                    </view>
+                    <view class="new_p3_right">
+                        <view class="new_p3_2" wx:if="{{item.creator_id==userInfoID}}" catch:tap="bindCloseOrder" data-id="{{item.order_num}}">关闭工单</view>
+                        <view class="new_p3_2" wx:if="{{item.creator_id==userInfoID && item.allow_update==0}}" catch:tap="bindUpdateOrder" data-id="{{item.order_num}}">修改工单</view>
+                        <view class="new_p3_1" catch:tap="bindAcceptOrder" data-id="{{item.id}}">立即接单</view>
+                    </view>
+                </view>
+
+                <view class="new_p3" wx:if="{{role == 1 && item.status == 0}}">
+                    <view class="new_p3_more_view">
+                        <view class="new_p3_more" catch:tap="bindMore" data-index="{{index}}" wx:if="{{item.is_send_order != 1}}">更多</view>
+                        <view class="new_p3_more_dialog" wx:if="{{isShowClose && indexClose == index}}">
+                            <view class="new_p3_more" style="font-size: 28rpx;" catch:tap="bindCloseOrder" data-id="{{item.order_num}}">关闭工单</view>
                             <view class="new_p3_more_"></view>
                         </view>
                     </view>
-                    <!-- <view class="new_p3_2">关闭工单</view> -->
-                    <view class="new_p3_2">修改工单</view>
-                    <view class="new_p3_2">立即派单</view>
-                    <view class="new_p3_1">完成服务</view>
+                    <view class="new_p3_right">
+                        <view class="new_p3_2" wx:if="{{item.is_send_order == 1}}" catch:tap="bindCloseOrder" data-id="{{item.order_num}}">关闭工单</view>
+                        <view class="new_p3_2" catch:tap="bindUpdateOrder" data-id="{{item.order_num}}">修改工单</view>
+                        <view wx:if="{{item.is_send_order != 1}}" catch:tap="nothing" data-id="{{item.id}}" data-ordernum="{{item.order_num}}" data-ordertype="{{item.type}}">
+                            <picker bindchange="onObjArrayPickerChange" value="{{supportList[rangekey].value}}" range-key="{{'name'}}" range="{{supportList}}">
+                                <view class="new_p3_2">立即派单</view>
+                            </picker>
+                        </view>
+                        <view class="new_p3_1" catch:tap="bindAcceptOrder" data-id="{{item.id}}">立即接单</view>
+                    </view>
                 </view>
-                 
 
-                <!-- <view style="display:flex;align-items:center;flex-wrap:wrap;border-bottom: 1px solid #F9F9F9;">
-                    <view class="title" wx:if="{{item.type==1}}">
-                        <image src="../../image/repair.png" class='img' />现场服务</view>
-                    <view class="title" wx:if="{{item.type==2}}">
-                        <image src="../../image/repairTest1.png" class='img' />返厂维修</view>
-                    <view class="title" wx:if="{{item.type==3}}">
-                        <image src="../../image/computer.png" class='img' />装机培训</view>
-                    <view class="title" wx:if="{{item.type==4}}">
-                        <image src="../../image/reagent.png" class='img' />试剂培训</view>
-                    <view class="title" wx:if="{{item.type==5}}">
-                        <image src="../../image/phone.png" class='img' />远程服务</view>
-                <text class="cuIcon-right lg text-gray" style="text-align:right;width:60%;margin-right: 5%;"></text>
+                <view class="new_p3" wx:if="{{role == 1 && item.status == 1}}">
+                    <view class="new_p3_more_view"></view>
+                    <view class="new_p3_right">
+                        <view class="new_p3_2" catch:tap="bindCloseOrder" data-id="{{item.order_num}}">关闭工单</view>
+                        <view class="new_p3_2" catch:tap="bindUpdateOrder" data-id="{{item.order_num}}" style="margin-right: {{item.creator_id==userInfoID ? '30':'0'}}rpx;">修改工单</view>
+                        <view class="new_p3_1" wx:if="{{item.creator_id==userInfoID}}" bindtap="formSubmit" data-value="2" data-feedback="{{item.processing_feedback}}" data-scenepic="{{item.scene_pic}}">完成服务</view>
+                    </view>
                 </view>
-                <view class="P2_1 app_flex">
-                    <view class="P2_1_1">工单编号</view>
-                    <view class="P2_1_2">{{item.order_num}}</view>
+
+                <view class="new_p3" wx:if="{{role == 1 && item.status == 2}}">
+                    <view class="new_p3_more_view"></view>
+                    <view class="new_p3_right">
+                        <view class="new_p3_2" catch:tap="toInfo" data-id = "{{item.id}}" data-type="{{item.type}}" style="margin-right: 0rpx;">查看详情</view>
+                    </view>
                 </view>
-                <view class="P2_1 app_flex">
-                    <view class="P2_1_1">预约时间</view>
-                    <view class="P2_1_2">{{item.time}}</view>
-                </view>
-                <view class="P2_1 app_flex">
-                    <view class="P2_1_1">服务地址</view>
-                    <view class="P2_1_2">{{item.address}}</view>
-                </view> -->
             </view>
         </block>
         
-        <view hidden wx:if="{{alreadyChecked==true}}">
-            <image class="app_noinfo_img" src="../../image/nodata.png" mode="widthFix"></image>
-            <view class="app_noinfo_desc">{{tip}}</view>
-        </view>
-        <view  wx:if="{{alreadyChecked_temp==true}}">
+        <view wx:if="{{alreadyChecked}}">
             <image class="app_noinfo_img" src="../../image/nodata.png" mode="widthFix"></image>
             <view class="app_noinfo_desc">{{tip_temp}}</view>
         </view>
-        <!-- <view class='more'>
-                <button loading="{{loading}}" disabled="{{disabled}}" catchtap="setLoading">{{loadText}}</button>
-            </view>  -->
+        <view wx:if="{{alreadyChecked_temp}}" style="margin-top: 20rpx;">
+            <!-- <image class="app_noinfo_img" src="../../image/nodata.png" mode="widthFix"></image> -->
+            <view class="app_noinfo_desc">{{tip}}</view>
+        </view>
     </view>
 
     <view class="app_bottom_view"></view>
 </view>
+
+<!-- 弹框 -->
+<dialog-cus showDialog='{{showDialog}}' datas="{{dialogData}}" catch:dialogCancel="dialogCancel" catch:dialogSure="dialogSure"/>
+
+
+<!-- 弹框 -->
+<dialog-cus showDialog='{{showCloseDialog}}' datas="{{dialogCloseData}}" catch:dialogCloseCancel="dialogCloseCancel" catch:dialogCloseSure="dialogCloseSure" types="1"/>
+
 
 <!-- <view class="page"> 
     <view class="P1">

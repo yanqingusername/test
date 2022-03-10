@@ -8,7 +8,7 @@
   <view class="detail_info">
     <view class="detail_header">
       <view class="detail_title">基本信息</view>
-      <view class="detail_right" bind:tap="bindManageUpdateInstrument">
+      <view class="detail_right" bind:tap="bindManageUpdateInstrument" data-item="{{company_result[0]}}">
         <image src="../../image/icon_edit.png" class='detail_right_img' />
         <view class='detail_right_text'>编辑</view>
       </view>
@@ -53,7 +53,7 @@
         <view class='detail_right_text'>添加</view>
       </view>
     </view>
-    <block wx:for="{{company_result_status}}" wx:key="index" >
+    <block wx:for="{{instrument_result_status}}" wx:key="index" >
       <view class="detail_center_view">
         <view class="detail_center">
           <view class="detail_black" style="width:32%;">{{item.instrument_name}}</view>
@@ -65,12 +65,12 @@
             </view>
           </view>
         </view>
-        <view class="line"></view>
+        <view class="line" wx:if="{{instrument_result_delete.length == 0 && index != (instrument_result_status.length -1)}}"></view>
       </view>
     </block>
 
-    <view wx:if="{{company_result_delete.length > 0}}" class="detail_gray" style="padding: 30rpx 30rpx 0rpx 30rpx;">已删除</view>
-    <block wx:for="{{company_result_delete}}" wx:key="index" wx:if="{{company_result_delete.length > 0}}">
+    <view wx:if="{{instrument_result_delete.length > 0}}" class="detail_gray" style="padding: 30rpx 30rpx 0rpx 30rpx;">已删除</view>
+    <block wx:for="{{instrument_result_delete}}" wx:key="index" wx:if="{{instrument_result_delete.length > 0}}">
       <view class="detail_center_view">
         <view class="detail_center">
           <view class="detail_gray" style="width:32%;">{{item.instrument_name}}</view>
@@ -79,7 +79,7 @@
               <image src="../../image/myOrder.png" class='detail_right_img' bind:tap="bindTagLog" data-instrumentsn="{{item.instrument_SN}}"/>
           </view>
         </view>
-        <view class="line" wx:if="{{index != (company_result_delete.length -1)}}"></view>
+        <view class="line" wx:if="{{index != (instrument_result_delete.length -1)}}"></view>
       </view>
     </block>
   </view>
@@ -91,7 +91,7 @@
       </view>
     </view>
     <block wx:for="{{recordInfoList}}" wx:key="index" >
-      <view class="detail_center_view" wx:if="{{recordInfoList.length > 0}}">
+      <view class="detail_center_view" wx:if="{{recordInfoList.length > 0}}" bind:tap="bindRecordInfo" data-item="{{item}}">
         <view class="detail_center">
           <view class="detail_black" style="width:45%;">{{item.service_type}}</view>
           <view class="detail_img" style="width:55%;justify-content: center;">

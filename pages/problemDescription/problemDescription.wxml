@@ -7,18 +7,18 @@
   <form bindsubmit="submit">
     <view> 
       <view class="P5 app_flex">
-        <view class="P5_1 app_font" style="font-size:38rpx">文字描述</view>
-          <textarea maxlength="300" bindinput="textareaAInput" placeholder="请简单描述仪器发生什么故障" value="{{description}}">    
+        <view class="P5_1 app_font" style="font-size:38rpx;">文字描述</view>
+          <textarea maxlength="300" style="padding: 20rpx;" bindinput="textareaAInput" placeholder="请简单描述仪器发生什么故障" value="{{description}}">    
           </textarea>
         <text class='text_count'>{{count}}/300</text>
       </view>
       <!-- <view style="height:20rpx;background-color:#F6F6F6"></view> -->
-      <view class="P5 app_flex">
+      <view class="P5 app_flex" style="border-bottom: none;">
         <view class="P5_1 app_font" >图片描述</view>
 
-        <view class="P5 app_flex" style="height: auto;">
+        <view class="P5 app_flex" style="height: auto;margin-left: 20rpx;border-bottom: none;">
           <block>  
-            <view class="img_box" style="margin-bottom:50rpx;" >
+            <view class="img_box" style="margin:0rpx;margin-bottom:50rpx;margin-left: 0rpx;" >
               <block wx:if="{{img_arr.length!=0}}">
                 <view class="img_item" wx:for="{{img_arr}}" wx:for-item="item">
                   <image bindtap="previewImg" data-src="{{item}}" class="img_item_i" data-index='{{index}}' src="{{item}}"

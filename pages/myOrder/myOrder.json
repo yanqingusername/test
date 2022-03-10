@@ -1,4 +1,6 @@
 {
-  "usingComponents": {},
+  "usingComponents": {
+    "dialog-cus": "/components/dialog-cus/index"
+  },
   "navigationBarTitleText": "我的工单"
 }

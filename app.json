@@ -24,7 +24,8 @@
     "pages/manageCustomer/index",
     "pages/detailCustomer/index",
     "pages/manageAddInstrument/index",
-    "pages/tagsLog/index"
+    "pages/tagsLog/index",
+    "pages/recordInfoLog/index"
   ],
   "window": {
     "navigationBarTitleText": "Color UI",

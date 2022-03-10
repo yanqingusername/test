@@ -21,14 +21,22 @@
 
 <view wx:else>
   <view class="userinfo app_flex">
-    <view class="P5_1 app_font" style="width: 22%;height:100%;">
-      <!-- <image style="margin-bottom:25%;margin-left: 20%;" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" background-size="cover"></image> -->
-      <open-data type="userAvatarUrl"></open-data>
+    <view class="userinfo_left">
+      <view class="userinfo_left_view">
+        <open-data type="userAvatarUrl" style="width:130rpx;height:130rpx;"></open-data>
+      </view>
     </view>
     <view class="grid col-1 margin-bottom text-center" style="width: 73%;height:76%;">
       <view class="bg-cyan padding" style="text-align:left;height: 35%;background-color:#469DE8">{{name}}</view>
       <view class="bg-blue padding" style="text-align:left;height:100%;background-color:#469DE8;">{{area}}</view>
     </view>
+    <!-- <view class="P5_1 app_font" style="width: 22%;height:100%;">
+      <open-data type="userAvatarUrl" style="width:100rpx;height:100rpx"></open-data>
+    </view>
+    <view class="grid col-1 margin-bottom text-center" style="width: 73%;height:76%;">
+      <view class="bg-cyan padding" style="text-align:left;height: 35%;background-color:#469DE8">{{name}}</view>
+      <view class="bg-blue padding" style="text-align:left;height:100%;background-color:#469DE8;">{{area}}</view>
+    </view> -->
   </view>
 <view style="background-color:#F5F5F5">
   <view wx:if="{{role == 1}}" style="height:50rpx"></view>

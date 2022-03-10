@@ -3,26 +3,26 @@
   <view slot="content">我的工单</view>
 </cu-custom>
 <scroll-view scroll-x class="bg-white nav text-center" style="background-color: #FFF;position:fixed;top:9%;z-index:9999;">
-  <view class="cu-item {{index==TabCur?'text-blue cur':''}}" style="border-bottom: none;" wx:for="{{statusList}}" wx:key="index" bindtap="tabSelect" data-id="{{index}}">
+  <view class="cu-item {{index==TabCur?'text-blue cur':''}}" style="border-bottom: none;" wx:for="{{statusList}}" wx:key="index" catchtap="tabSelect" data-id="{{index}}">
       <span >{{statusList[index]}}</span>
-      <span >({{orderList.length}})</span>
+      <span wx:if="{{index==0}}">({{statusNumber}})</span>
   </view>
 </scroll-view>
-<view class="page"> 
+<view class="page">
     <view class="new_p1">
-        <block wx:for="{{orderList}}" wx:key="index">
-              <view class="new_p1_view" bindtap="toInfo" data-id="{{item.id}}" data-type="{{item.type}}">
+        <block wx:for="{{orderList}}" wx:key="index" wx:if="{{orderList.length > 0}}">
+            <view class="new_p1_view" bindtap="toInfo" data-id = "{{item.id}}" data-type="{{item.type}}">
                 <view class="new_p2" style="align-items: center;">
                     <view class="new_p2_1">
-                        <view class="new_p2_title">装机培训</view>
-                        <view class="new_p2_type">派单</view>
+                        <view class="new_p2_title">{{item.service_type}}</view>
+                        <view class="new_p2_type" wx:if="{{item.is_send_order == 1}}">派单</view>
                     </view>
-                    <view class="new_p2_status">进行中</view>
+                    <view class="new_p2_status">{{item.status == 1 ? '进行中' : item.status == 2 ? '已完成' : item.status == 4 ? '已取消' : item.status == 5 ? '已关闭' : ''}}</view>
                 </view>
 
                 <view class="new_p2" style="margin-top:30rpx;">
                     <view class="new_p2_gray">客户名称：</view>
-                    <view class="new_p2_black">新疆维吾尔族库尔勒市八音郭楞蒙自治州人民医院</view>
+                    <view class="new_p2_black">{{item.company_name}}</view>
                 </view>
 
                 <view class="new_p2" style="margin-top:30rpx;">
@@ -40,38 +40,65 @@
                     <view class="new_p2_black">{{item.order_num}}</view>
                 </view>
 
-                <view class="new_p2" style="margin-top:30rpx;">
-                    <view class="new_p2_gray">技术支持：</view>
-                    <view class="new_p2_black">李四</view>
-                </view>
-
                 <view class="new_line"></view>
 
-                <view class="new_p3">
-                    <!-- <view class="new_p3_2" style="margin-right: 0rpx;">删除</view>
-                    <view class="new_p3_2" style="margin-right: 0rpx;">查看详情</view> -->
-                    <view class="new_p3_2">关闭工单</view>
-                    <view class="new_p3_2">修改工单</view>
-                    <view class="new_p3_1">完成服务</view>
+                <view class="new_p3" wx:if="{{role == 0 && item.status == 1}}">
+                    <view class="new_p3_more_view"></view>
+                    <view class="new_p3_right">
+                      <view class="new_p3_2" wx:if="{{item.is_send_order != 1}}" catch:tap="bindCloseOrder" data-id="{{item.order_num}}">关闭工单</view>
+                      <view class="new_p3_2" wx:if="{{item.is_send_order != 1}}" catch:tap="bindUpdateOrder" data-id="{{item.id}}">修改工单</view>
+                      <view class="new_p3_1" bindtap="formSubmit" data-value="2" data-feedback="{{item.processing_feedback}}" data-scenepic="{{item.scene_pic}}">完成服务</view>
+                    </view>
                 </view>
-                 
 
-                
+                <view class="new_p3" wx:if="{{role == 1 && item.status == 1}}">
+                    <view class="new_p3_more_view"></view>
+                    <view class="new_p3_right">
+                      <view class="new_p3_2" catch:tap="bindCloseOrder" data-id="{{item.order_num}}">关闭工单</view>
+                      <view class="new_p3_2" catch:tap="bindUpdateOrder" data-id="{{item.id}}">修改工单</view>
+                      <view class="new_p3_1" bindtap="formSubmit" data-value="2" data-feedback="{{item.processing_feedback}}" data-scenepic="{{item.scene_pic}}">完成服务</view>
+                    </view>
+                </view>
+
+                <view class="new_p3" wx:if="{{item.status == 2}}">
+                    <view class="new_p3_more_view"></view>
+                    <view class="new_p3_right">
+                        <view class="new_p3_2" catch:tap="toInfo" data-id = "{{item.id}}" data-type="{{item.type}}" style="margin-right: 0rpx;">查看详情</view>
+                    </view>
+                </view>
+
+                <view class="new_p3" wx:if="{{item.status == 5}}">
+                    <view class="new_p3_more_view"></view>
+                    <view class="new_p3_right">
+                        <view class="new_p3_2" catch:tap="deleteInfo" data-id = "{{item.order_num}}" style="margin-right: 0rpx;">删除</view>
+                    </view>
+                </view>
             </view>
         </block>
         
-        <view hidden wx:if="{{alreadyChecked==true}}">
-            <image class="app_noinfo_img" src="../../image/nodata.png" mode="widthFix"></image>
-            <view class="app_noinfo_desc">{{tip}}</view>
-        </view>
-        <view  wx:if="{{alreadyChecked_temp==true}}">
+        <view wx:if="{{alreadyChecked}}">
             <image class="app_noinfo_img" src="../../image/nodata.png" mode="widthFix"></image>
             <view class="app_noinfo_desc">{{tip_temp}}</view>
         </view>
-        
+        <view wx:if="{{alreadyChecked_temp}}" style="margin-top: 20rpx;">
+            <!-- <image class="app_noinfo_img" src="../../image/nodata.png" mode="widthFix"></image> -->
+            <view class="app_noinfo_desc">{{tip}}</view>
+        </view>
     </view>
 
+    <view class="app_bottom_view"></view>
 </view>
+
+<!-- 弹框 -->
+<dialog-cus showDialog='{{showDialog}}' datas="{{dialogData}}" catch:dialogCancel="dialogCancel" catch:dialogSure="dialogSure"/>
+
+<!-- 弹框 -->
+<dialog-cus showDialog='{{deleteShowDialog}}' datas="{{deleteDialogData}}" catch:dialogCancel="deleteDialogCancel" catch:dialogSure="deleteDialogSure"/>
+
+
+<!-- 弹框 -->
+<dialog-cus showDialog='{{showCloseDialog}}' datas="{{dialogCloseData}}" catch:dialogCloseCancel="dialogCloseCancel" catch:dialogCloseSure="dialogCloseSure" types="1"/>
+
 
 <!-- <scroll-view scroll-x class="bg-white nav text-center"
   style="background-color: #FFF;position:fixed;top:10%;z-index:9999;">

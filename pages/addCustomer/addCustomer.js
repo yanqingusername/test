@@ -18,12 +18,33 @@ Page({
     areaList:[],
     areaIndex:0,
     area_name:'',
-    area_id:''
-    
-
+    area_id:'',
+    title: '添加客户',
+    address: "",
+    locationName: "",
+    isMCus: 0, // 判断是否从客户管理带过来的参数  默认为0  1代表从客户管理跳转过来  2代表从客户管理-客户详情跳转过来
+    company_account: ''
   },
   onLoad: function (options) {
     var that = this;
+    this.setData({
+      isMCus: options.isMCus,
+      title: options.title,
+    });
+
+    if(options && options.jsondata && this.data.isMCus == 2){
+      let jsondata = JSON.parse(options.jsondata)
+      this.setData({
+        address: jsondata.address,
+        area_id: jsondata.area_id,
+        company_account: jsondata.company_account,
+        company_name: jsondata.company_name,
+        locationName: jsondata.locationName,
+        name: jsondata.name,
+        phone: jsondata.phone,
+      });
+    }
+
     that.getAreaList();
   },
   bindSetData1:function(e){
@@ -50,7 +71,7 @@ Page({
   },
   //保存按钮禁用判断
   checkSubmitStatus: function(e){
-    if(this.data.company_name != '' && this.data.name != '' && this.data.phone != ''){
+    if(this.data.company_name != '' && this.data.name != '' && this.data.phone != '' && this.data.address != '' && this.data.locationName != ''){
       this.setData({
         submitState: false
       })
@@ -118,37 +139,111 @@ Page({
     }else if(that.data.area_id == '0'){
       box.showToast("请选择所属大区")
     }else{
-      var data = {
-        company_name: company_name,
-        name: name,
-        phone: phone,
-        create_person:app.globalData.userInfo.name,
-        area_id:that.data.area_id
-      }
-      request.request_get('/wxapi/CreateCompany.hn', data, function (res) { 
-        console.info('CreateCompany回调', res)
-        if (res) {
-          if (res.success) {
-            that.setData({
-              account: res.company_account
-            })
+      if(that.data.isMCus == 1){
+        var params = {
+          company_name: company_name,
+          name: name,
+          phone: phone,
+          create_person:app.globalData.userInfo.name,
+          area_id:that.data.area_id,
+          address: that.data.address,
+          locationName: that.data.locationName,
+        }
+        request.request_new_test('/instrument/supprot/addCompanyInfo.hn', params, function (res) { 
+          if (res) {
+            if (res.success) {
+              that.setData({
+                account: res.company_account
+              });
+              wx.showToast({
+                title: '保存成功',
+                icon: 'success',
+              })
+              wx.navigateBack({
+                delta: 1, //返回上个页面
+              });
+            } else {
+              wx.showToast({
+                icon: 'none',
+                title: res.msg,
+              })
+            }
+          }else{
             wx.showToast({
-              title: '保存成功',
-              icon: 'success',
-            })
-            that.bindCreateCompany();
-          } else {
-            wx.showToast({
-              icon: 'none',
-              title: res.msg,
+              title: '网络不稳定，请重试',
             })
           }
-        }else{
-          wx.showToast({
-            title: '网络不稳定，请重试',
-          })
+        })
+      } else if(that.data.isMCus == 2){
+
+        var paramdata = {
+          company_name: that.data.company_name,
+          name: that.data.name,
+          phone: that.data.phone,
+          create_person:app.globalData.userInfo.name,
+          area_id: that.data.area_id,
+          address: that.data.address,
+          locationName: that.data.locationName,
+          company_account: that.data.company_account,
         }
-      })
+        request.request_new_test('/instrument/supprot/updateCompanyInfo.hn', paramdata, function (res) { 
+          if (res) {
+            if (res.success) {
+              wx.showToast({
+                title: '保存成功',
+                icon: 'success',
+              })
+              wx.navigateBack({
+                delta: 1, //返回上个页面
+              });
+            } else {
+              wx.showToast({
+                icon: 'none',
+                title: res.msg,
+              })
+            }
+          }else{
+            wx.showToast({
+              title: '网络不稳定，请重试',
+            })
+          }
+        })
+      } else {
+        var data = {
+          company_name: company_name,
+          name: name,
+          phone: phone,
+          create_person:app.globalData.userInfo.name,
+          area_id:that.data.area_id,
+          address: that.data.address,
+          locationName: that.data.locationName,
+          
+        }
+        request.request_new_test('/instrument/supprot/addCompanyInfo.hn', data, function (res) { 
+          console.info('CreateCompany回调', res)
+          if (res) {
+            if (res.success) {
+              that.setData({
+                account: res.company_account
+              })
+              wx.showToast({
+                title: '保存成功',
+                icon: 'success',
+              })
+              that.bindCreateCompany();
+            } else {
+              wx.showToast({
+                icon: 'none',
+                title: res.msg,
+              })
+            }
+          }else{
+            wx.showToast({
+              title: '网络不稳定，请重试',
+            })
+          }
+        })
+      }
     }
   },
   
@@ -163,11 +258,68 @@ Page({
       company_name: that.data.company_name,
       account: that.data.account,
       name: that.data.name,
-      phone: that.data.phone
+      phone: that.data.phone,
+      address: that.data.address,
+      locationName: that.data.locationName,
     })
     
     wx.navigateBack({
       delta: 2, //返回上上个页面
       })
-   }
+   },
+   /**
+   * 生命周期函数--监听页面显示
+   */
+  onShow: function () {
+    //  console.log("*****------------")
+      if(this.data.flag == false){
+      const location = chooseLocation.getLocation();
+      if (location) {
+        let province = location.province;
+        let area_id = 0;
+        for(let i = 0; i< this.data.areaList.length;i++){
+          let item = this.data.areaList[i]
+          if(item.area_name == province){
+            area_id = item.area_id;
+          }
+        }
+        this.setData({
+          address: location.address ? location.address : "",// 所在地区
+          locationName: location.name ? location.name : "",  // 详细地址
+          area_id: area_id
+        });
+        this.checkSubmitStatus()
+      }
+    }
+    },
+   onUnload () {
+    // 页面卸载时设置插件选点数据为null，防止再次进入页面，geLocation返回的是上次选点结果
+    chooseLocation.setLocation(null);
+  },
+   /**
+    * 显示地图
+    */
+  showMap() {
+    var that = this
+    that.setData({
+      flag: false
+    })
+    //使用在腾讯位置服务申请的key（必填）
+    const key = "2SSBZ-BKXKX-FT447-T6O5S-DE3ZV-CIF5L";
+    //调用插件的app的名称（必填）
+    const referer = "闪测技术支持";
+    wx.navigateTo({
+      url: 'plugin://chooseLocation/index?key=' + key + '&referer=' + referer
+    });
+  },
+  //自定义详细地址
+  updateLocation:function(e){
+    console.log(e.detail.value)
+  
+    var str = e.detail.value;
+    str = utils.checkInput(str);
+    this.setData({
+      locationName: str
+    })
+  },
 })

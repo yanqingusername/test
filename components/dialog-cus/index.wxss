@@ -43,6 +43,31 @@
     text-align: center;
 }
 
+.explain_img{
+
+}
+
+.explain_lable{
+    font-size: 28rpx;
+    color: #666666;
+}
+
+.textarea_view{
+    width: 510rpx;
+    /* height: 240rpx; */
+    background: #F5F5F5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20rpx;
+}
+
+textarea{
+	font-size:16px;
+    color:black;
+    width: 510rpx;
+}
+
 .explainType{
     font-size: 34rpx;
     font-weight: bold;

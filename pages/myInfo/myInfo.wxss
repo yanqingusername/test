@@ -131,3 +131,19 @@
   color: #999999;
   font-size: 28rpx;
 }
+
+.userinfo_left {
+  display: flex;
+  flex-direction: row;
+  /* height: 100rpx; */
+  align-items: center;
+  justify-content: center;
+  width: 27%;
+}
+
+.userinfo_left_view {
+  height: 130rpx;
+  width: 130rpx;
+  border-radius: 100%;
+  overflow: hidden;
+}

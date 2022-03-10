@@ -8,7 +8,7 @@
     <view class="new_p1">
             <view class="new_p1_view">
                 <view class="new_p2" style="align-items: center;">
-                    <textarea style="width: 100%;color: #333333;text-align: left;" auto-height name="company_name"  bindinput="updateCompanyName" value="{{info.company_name}}" ></textarea>
+                    <textarea style="width: 100%;color: #333333;text-align: left;" auto-height name="company_name"  bindinput="updateCompanyName" value="{{info.company_name}}" disabled="{{true}}"></textarea>
                 </view>
                 <view class="new_p2" style="align-items: center;margin-top:30rpx;">
                     <view class="new_p2_1">
@@ -24,7 +24,7 @@
                 </view>
             </view>
 
-            <view class="new_p1_view">
+            <view class="new_p1_view" wx:if="{{status>0}}">
                 <view class="new_p2_title">服务记录</view>
 
                 <view class="new_p2" style="margin-top:30rpx;">
@@ -70,10 +70,10 @@
                 </view>
             </view>
 
-            <view class="new_p1_view">
+            <view class="new_p1_view" wx:if="{{status>0}}">
                 <view class="new_p2_title">试剂使用量</view>
                 <view class="new_pnumber" style="margin-top:30rpx;">
-                   <input class='P5_2 app_font' style="heigth:120rpx;border-bottom:solid 1px #DDDDDD;text-align: center;margin-top: 0rpx;" bindinput="bindSetData" placeholder='请填写客户试剂使用量' maxlength="11" type="number" name="phone" value="{{phone}}"></input>
+                   <input class='P5_2 app_font' disabled="{{status == 1 ? false : true}}" style="heigth:120rpx;border-bottom:solid 1px #DDDDDD;text-align: center;margin-top: 0rpx;" bindinput="bindSetData" placeholder='请填写客户试剂使用量' maxlength="10" type="number" name="reagent_count" value="{{reagent_count}}"></input>
                    <view class="new_p2_title" style="font-size: 32rpx;">人份</view>
                 </view>
             </view>
@@ -148,19 +148,19 @@
                     </view>
                 </view>
 
-                <view class="new_p2" style="margin-top:30rpx;">
+                <view class="new_p2" style="margin-top:30rpx;" wx:if="{{info.createTime}}">
                     <view class="new_p2_black" style="color: #999999;">创建时间</view>
                     <view class="new_p2_gray" style="font-size: 32rpx;color: #333333;">{{info.createTime}}</view>
                 </view>
 
-                <view class="new_p2" style="margin-top:30rpx;">
+                <view class="new_p2" style="margin-top:30rpx;" wx:if="{{info.receive_order_time}}">
                     <view class="new_p2_black" style="color: #999999;">接单时间</view>
-                    <view class="new_p2_gray" style="font-size: 32rpx;color: #333333;">{{info.createTime}}</view>
+                    <view class="new_p2_gray" style="font-size: 32rpx;color: #333333;">{{info.receive_order_time}}</view>
                 </view>
 
-                <view class="new_p2" style="margin-top:30rpx;">
+                <view class="new_p2" style="margin-top:30rpx;" wx:if="{{info.alter_order_time}}">
                     <view class="new_p2_black" style="color: #999999;">修改时间</view>
-                    <view class="new_p2_gray" style="font-size: 32rpx;color: #333333;">{{info.createTime}}</view>
+                    <view class="new_p2_gray" style="font-size: 32rpx;color: #333333;">{{info.alter_order_time}}</view>
                 </view>
 
                 <view wx:if="{{status == 2}}" class="new_p2" style="margin-top:30rpx;">
@@ -173,9 +173,58 @@
         
     </view>
 
-    <view style="height:200rpx"></view>
+    <view style="height:{{status == 2 ? '100':'200'}}rpx"></view>
 
-    <view class="new_p4" wx:if="{{status==0 || status==1}}">
+    <view class="new_p4" wx:if="{{status==0}}">
+      <view class="new_p4_left">
+        <view class="new_p3_more_view">
+          <view class="new_p4_gray" catch:tap="bindMore" wx:if="{{role==1 || (role==0 && creator_id==userInfoID)}}">更多</view>
+          <view class="new_p3_more_dialog" wx:if="{{isShowClose}}">
+            <view class="new_p3_more" style="font-size: 28rpx;" wx:if="{{role==1 || (role==0 && creator_id==userInfoID && info.allow_update==0)}}" catch:tap="bindUpdateOrder" data-id="{{info.order_num}}">修改工单</view>
+            <view class="new_p3_more" style="font-size: 28rpx;margin-top:20rpx;" wx:if="{{role==1 || (role==0 && creator_id==userInfoID)}}" catch:tap="bindCloseOrder" data-id="{{info.order_num}}">关闭工单</view>
+            <view class="new_p3_more_"></view>
+          </view>
+        </view>
+      </view>
+      <view class="new_p4_right">
+        <view wx:if="{{role==1 && info.is_send_order != 1}}">
+          <picker bindchange="onObjArrayPickerChange" value="{{supportList[rangekey].value}}" range-key="{{'name'}}"
+          range="{{supportList}}">
+            <view class='new_p3_2' >派单</view>
+          </picker>
+        </view>
+        <view class='new_p3_1'  bindtap="accept">立即接单</view>
+      </view>
+    </view>
+
+    <view class="new_p4" wx:if="{{status==1}}">
+      <view class="new_p4_left">
+        <view wx:if="{{info.is_send_order == 1}}" class="new_p4_gray" bindtap="cancelOrder">取消工单</view>
+        <view class="new_p3_more_view" wx:else>
+          <view class="new_p4_gray" catch:tap="bindMore" wx:if="{{role==1 || (role==0 && creator_id==userInfoID)}}">更多</view>
+          <view class="new_p3_more_dialog" wx:if="{{isShowClose}}">
+            <view class="new_p3_more" style="font-size: 28rpx;" wx:if="{{role==1 || (role==0 && creator_id==userInfoID && info.allow_update==0)}}" catch:tap="bindUpdateOrder" data-id="{{info.order_num}}">修改工单</view>
+            <view class="new_p3_more" style="font-size: 28rpx;margin-top:20rpx;" wx:if="{{role==1 || (role==0 && creator_id==userInfoID)}}" catch:tap="bindCloseOrder" data-id="{{info.order_num}}">关闭工单</view>
+            <view class="new_p3_more_"></view>
+          </view>
+        </view>
+      </view>
+      <view class="new_p4_right">
+        <view class='new_p3_2'  bindtap="formSubmitSave" data-value="1">保存</view>
+        <view class='new_p3_1'  bindtap="formSubmit" data-value="2" >完成服务</view>
+      </view>
+    </view>
+
+    <view class="new_p4" wx:if="{{status==4 || status == 5}}">
+      <view class="new_p4_left"></view>
+      <view class="new_p4_right">
+        <view class="new_p3_2" style="margin-right: 0rpx;" catch:tap="deleteInfo" data-id = "{{item.order_num}}">删除</view>
+      </view>
+    </view>
+
+
+
+    <!-- <view class="new_p4" wx:if="{{status==0 || status==1}}">
       <view class="new_p4_left">
         <view wx:if="{{role==1||(role==0&&creator_id==userInfoID)}}" class="new_p4_gray" bindtap="cancelOrder">取消工单</view>
         <view class="new_p3_more_view">
@@ -206,9 +255,18 @@
       <view class="new_p4_right" wx:if="{{status==2}}">
         <view class="new_p3_2" style="margin-right: 0rpx;" bindtap="delete">删除</view>
       </view>
-      
-    </view>
+    </view> -->
 </view>
+
+<!-- 弹框 -->
+<dialog-cus showDialog='{{showDialog}}' datas="{{dialogData}}" catch:dialogCancel="dialogCancel" catch:dialogSure="dialogSure"/>
+
+<!-- 弹框 -->
+<dialog-cus showDialog='{{deleteShowDialog}}' datas="{{deleteDialogData}}" catch:dialogCancel="deleteDialogCancel" catch:dialogSure="deleteDialogSure"/>
+
+<!-- 弹框 -->
+<dialog-cus showDialog='{{showCloseDialog}}' datas="{{dialogCloseData}}" catch:dialogCloseCancel="dialogCloseCancel" catch:dialogCloseSure="dialogCloseSure" types="1"/>
+
 
 <!-- <view style="background-color:#F5F5F5">
   <view style="height:800rpx;position:relative;">
