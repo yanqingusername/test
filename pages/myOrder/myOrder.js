@@ -42,6 +42,7 @@ Page({
 		},
 		deleteShowDialog: false,
     delete_order_num: '',
+	update_order_num: ''
 	},
 
 	onLoad: function (options) {
@@ -219,17 +220,17 @@ jumpTabSelect(e) {
 
    var that = this;
 		var data = {
-			order_num: that.data.close_order_num,
+			order_num: that.data.delete_order_num,
 		}
 		request.request_get('/instrument/supprot/deleteOrderInfo.hn', data, function (res) {
 			if (res) {
 				if (res.success) {
-          that.setData({
-            page: 1,
-            orderList: [],
-            tip: '',
-            alreadyChecked: false
-          });
+					that.setData({
+						page: 1,
+						orderList: [],
+						tip: '',
+						alreadyChecked: false
+					});
 					that.getOrderList();
 				} else {
 					box.showToast(res.msg);
@@ -243,17 +244,20 @@ jumpTabSelect(e) {
 	/**
 	 * 修改工单
 	 */
-	bindUpdateOrder(e) {
-		let id = e.currentTarget.dataset.id; //订单id
-		let supportId = app.globalData.userInfo.id;
+	 bindUpdateOrder(e) {
+		let id = e.currentTarget.dataset.id; //订单 order_num
 
 		// 普通用户只能修改一次 弹框提示
 		if (this.data.role == 0) {
 			this.setData({
-				showDialog: true
+				showDialog: true,
+				update_order_num: id
 			});
 		} else {
 			// 管理员可重复修改
+			// wx.navigateTo({
+			// 	url.
+			// });
 		}
 	},
 	dialogCancel() {
@@ -265,6 +269,9 @@ jumpTabSelect(e) {
 		this.setData({
 			showDialog: false
 		});
+		// wx.navigateTo({
+			// 	url.
+			// });
 	},
 	/**
 	 * 关闭工单
@@ -343,17 +350,31 @@ jumpTabSelect(e) {
 									confirmText: '确定',
 									success: function (res) {
 										if (res.confirm) {
-											wx.setStorage({
-												key: 'jumpStatus',
-												data: 2
-											})
-											wx.switchTab({
-												url: '../myOrder/myOrder'
+											that.setData({
+												page: 1,
+												orderList: [],
+												tip: '',
+												alreadyChecked: false
 											});
+											that.getOrderList();
+											// wx.setStorage({
+											// 	key: 'jumpStatus',
+											// 	data: 2
+											// })
+											// wx.switchTab({
+											// 	url: '../myOrder/myOrder'
+											// });
 										} else {
-											wx.switchTab({
-												url: '../myOrder/myOrder'
+											that.setData({
+												page: 1,
+												orderList: [],
+												tip: '',
+												alreadyChecked: false
 											});
+											that.getOrderList();
+											// wx.switchTab({
+											// 	url: '../myOrder/myOrder'
+											// });
 										}
 									}
 								})
