@@ -20,12 +20,7 @@
     "pages/timePicker/timePicker",
     "pages/exclusiveChooseSN/exclusiveChooseSN",
     "pages/chooseInstrument/chooseInstrument",
-    "pages/problemDescription/problemDescription",
-    "pages/manageCustomer/index",
-    "pages/detailCustomer/index",
-    "pages/manageAddInstrument/index",
-    "pages/tagsLog/index",
-    "pages/recordInfoLog/index"
+    "pages/problemDescription/problemDescription"
   ],
   "window": {
     "navigationBarTitleText": "Color UI",

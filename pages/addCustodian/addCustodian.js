@@ -13,37 +13,14 @@ Page({
     phone:'',
     submitState: true,
     account:'',
-    create_name:'',
-    isMCus: 0, // 默认为0  1-则代表从客户详情联系人跳转页面(添加联系人) 2-则代表从客户详情联系人跳转页面(编辑联系人) 
-    title: '添加联系人',
-    old_phone:'', // 编辑联系人  保存之前的联系人电话
-    showDialog: false,
-    dialogData: {
-      title: "确认删除？",
-      titles:  "删除后数据将无法恢复",
-      cancel: "取消",
-      sure: "确认"
-    },
+    create_name:''
   },
   onLoad: function (options) {
-    var that = this;
+    var that = this
     that.setData({
-      account: options.account,
-      isMCus: options.isMCus,
-      title: options.title || '添加联系人'
-    });
-
-    if(options && options.name && options.phone){
-      console.log(options.name)
-      that.setData({
-        name: options.name,
-        phone: options.phone,
-        old_phone: options.phone
-      },()=>{
-        this.checkSubmitStatus()
-      });
-    }
-
+      account: options.account
+    })
+  
   },
   bindSetData2:function(e){
     this.setData({
@@ -87,65 +64,32 @@ Page({
     if (!utils.checkContact(phone)) {
       box.showToast("手机号格式不正确")
     }else {
-      if(that.data.isMCus == 2){
-        let params = {
-          company_account:account,
-          name: name,
-          phone: phone,
-          old_phone:that.data.old_phone
-        }
-        request.request_new_test('/instrument/supprot/updateCompanyContactInfo.hn', params, function (res) { 
-          console.info('createCustodian回调', res)
-          if (res) {
-            if (res.success) {
-              wx.showToast({
-                title: '保存成功',
-                icon: 'success',
-              })
-              that.bindCreateCus();
-            } else {
-              wx.showToast({
-                title: res.msg,
-              })
-            }
-          }else{
-            wx.showToast({
-              title: '网络不稳定，请重试',
-            })
-          }
-        })
-      }else{
-        var data = {
-          account:account,
-          name: name,
-          phone: phone,
-          create_name:app.globalData.userInfo.name
-        }
-        request.request_get('/wxapi/addCustodian.hn', data, function (res) {
-          console.info('createCustodian回调', res)
-          if (res) {
-            if (res.success) {
-              wx.showToast({
-                title: '保存成功',
-                icon: 'success',
-              })
-              if(that.data.isMCus == 1){
-                that.bindCreateCus();
-              }else{
-                that.bindCreateCustodian();
-              }
-            } else {
-              wx.showToast({
-                title: res.msg,
-              })
-            }
-          }else{
-            wx.showToast({
-              title: '网络不稳定，请重试',
-            })
-          }
-        })
+      var data = {
+        account:account,
+        name: name,
+        phone: phone,
+        create_name:app.globalData.userInfo.name
       }
+      request.request_get('/wxapi/addCustodian.hn', data, function (res) { 
+        console.info('createCustodian回调', res)
+        if (res) {
+          if (res.success) {
+            wx.showToast({
+              title: '保存成功',
+              icon: 'success',
+            })
+            that.bindCreateCustodian();
+          } else {
+            wx.showToast({
+              title: res.msg,
+            })
+          }
+        }else{
+          wx.showToast({
+            title: '网络不稳定，请重试',
+          })
+        }
+      })
     }
   },
   //新建联系人并返回
@@ -165,53 +109,5 @@ Page({
       delta: 2, //返回上上个页面
       })
   
-   },
-   //1-则代表从客户详情联系人跳转页面(添加联系人) 2-则代表从客户详情联系人跳转页面(编辑联系人) 返回
-   bindCreateCus(){
-     wx.navigateBack({
-       delete: 1
-     });
-   },
-   bindShowDialog(){
-     this.setData({
-      showDialog: true
-     });
-   },
-   dialogCancel(){
-    this.setData({
-     showDialog: false
-    });
-  },
-  dialogSure(){
-    this.setData({
-     showDialog: false
-    });
-    this.deleteCompanyContactInfo();
-  },
-   deleteCompanyContactInfo(){
-    let that = this;
-    let params = {
-      company_account:this.data.account,
-      old_phone:this.data.old_phone
-    }
-    request.request_new_test('/instrument/supprot/deleteCompanyContactInfo.hn', params, function (res) { 
-      if (res) {
-        if (res.success) {
-          wx.showToast({
-            title: '删除成功',
-            icon: 'success',
-          });
-          that.bindCreateCus();
-        } else {
-          wx.showToast({
-            title: res.msg,
-          });
-        }
-      }else{
-        wx.showToast({
-          title: '网络不稳定，请重试',
-        });
-      }
-    });
    }
 })

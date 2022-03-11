@@ -1,5 +1,3 @@
 {
-  "usingComponents": {
-    "dialog-cus": "/components/dialog-cus/index"
-  }
+  "usingComponents": {}
 }

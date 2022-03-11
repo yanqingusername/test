@@ -14,7 +14,7 @@
     </label>  
   </radio-group>
    <view hidden="{{flag_1}}" class="cu-form-group"> 
-		<textarea bindinput="textareaAInput" placeholder="请填写仪器类型名称" style="padding: 20rpx;">
+		<textarea bindinput="textareaAInput" placeholder="请填写仪器类型名称" >
        
     </textarea>
 	 </view> 
