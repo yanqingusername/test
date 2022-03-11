@@ -91,6 +91,12 @@ Page({
       positionsn: this.data.old_positionsn
     });
   },
+  //隐藏遮罩
+  hideCover() {
+    this.setData({
+      isShow: false
+    })
+  },
   // 提交预约信息
   submit(e) {
     var that = this;
@@ -108,22 +114,15 @@ Page({
       request.request_new_test('/position/instrument/bindInstrumentPositionSN.hn', data, function (res) { 
         if (res) {
           if (res.success) {
-            wx.showToast({
-              title: '绑定成功',
-              icon: 'success',
-            })
+            box.showToast('绑定成功')
             wx.navigateBack({
               delta: 1
             });
           } else {
-            wx.showToast({
-              title: res.msg,
-            })
+            box.showToast(res.msg)
           }
         }else{
-          wx.showToast({
-            title: '网络不稳定，请重试',
-          })
+          box.showToast('网络不稳定，请重试')
         }
       });
     }
