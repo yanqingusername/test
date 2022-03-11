@@ -16,7 +16,7 @@ Page({
     companyIndex: -1,
     dialogData: {
       title: "确认解绑GPS？",
-      titles:  "解绑后将无法回复",
+      titles:  "解绑后将无法恢复",
       cancel: "取消",
       sure: "确认"
     },
