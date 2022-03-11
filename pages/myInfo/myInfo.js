@@ -174,11 +174,11 @@ Page({
     })
   },
   /**
-   * 新增客户管理
+   * GPS 管理
    */
-  bindManageCustomer(){
+   bindManageGPS(){
     wx.navigateTo({
-      url: `/pages/chooseCustomer/chooseCustomer?title=客户管理&isMCus=1`
+      url: `/pages/gpsChooseCustomer/index`
     });
   }
 

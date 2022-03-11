@@ -58,10 +58,10 @@
       </view>
     </view>
 
-    <view bindtap="bindManageCustomer" style="margin-top:40rpx;">
+    <view bindtap="bindManageGPS" style="margin-top:40rpx;">
       <view class="item">
         <view class="title" >
-          <text>客户管理</text>
+          <text>GPS 管理</text>
           <text style="color:#9A9A9A">></text>
         </view>
       </view>

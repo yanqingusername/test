@@ -1,0 +1,37 @@
+<cu-custom isBack="{{true}}" bgColor="bg-white">
+  <view slot="backText" bindtap="bindBack"></view>
+  <view slot="content">{{title}}</view>
+</cu-custom>
+
+<view class="manage_search">
+  <view class='search'>
+    <view class="search_view">
+      <icon type="search" size="20" bindtap="searchHandle"/>
+      <input id="search_checked" type='text' placeholder='请输入客户名称' placeholder-class="center" confirm-type='search' value="{{searchText}}" bindinput='searchChangeHandle' bindconfirm='searchHandle'></input>
+    </view>
+    <view class="weui-icon-clear" wx:if="{{searchText}}" bindtap="clearSearchHandle">
+      <icon type="clear" size="20" />
+    </view>
+  </view>
+</view>
+
+<view class='container'>
+  <block wx:if="{{flag1}}" wx:for="{{list}}" wx:key="index" >
+    <view class='container_view' data-name='{{item.company_name}}' data-account='{{item.account}}' 
+    data-address='{{item.address}}' data-locationname='{{item.locationName}}'
+    bindtap="bindCheckCompany">
+      <view class='text-content'>{{item.company_name}}</view>
+      <image src="../../image/icon_arrow_gray.png" class='text_img' />
+    </view> 
+  </block>
+
+  <block wx:if="{{flag2}}" wx:for="{{listPlus}}" wx:key="index" >
+    <view class='container_view' data-name='{{item.company_name}}' data-account='{{item.account}}' 
+    data-address='{{item.address}}' data-locationname='{{item.locationName}}'
+    bindtap="bindCheckCompany">
+      <view class='text-content'>{{item.company_name}}</view>
+      <image src="../../image/icon_arrow_gray.png" class='text_img' />
+    </view> 
+  </block>
+  <view class="tip_style">{{tips}}</view>
+</view>

@@ -20,7 +20,10 @@
     "pages/timePicker/timePicker",
     "pages/exclusiveChooseSN/exclusiveChooseSN",
     "pages/chooseInstrument/chooseInstrument",
-    "pages/problemDescription/problemDescription"
+    "pages/problemDescription/problemDescription",
+    "pages/gpsChooseCustomer/index",
+    "pages/gpsManageInstrument/index",
+    "pages/gpsBind/index"
   ],
   "window": {
     "navigationBarTitleText": "Color UI",

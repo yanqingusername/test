@@ -1,0 +1,46 @@
+<cu-custom isBack="{{true}}" bgColor="bg-white">
+  <view slot="backText" bindtap="bindBack"></view>
+  <view slot="content">{{title}}</view>
+</cu-custom>
+
+<view class="manage_search">
+  <view class='search'>
+    <view class="search_view">
+      <icon type="search" size="20" bindtap="searchHandle"/>
+      <input id="search_checked" type='text' placeholder='请输入仪器序列号/GPS序列号' placeholder-class="center" confirm-type='search' value="{{searchText}}" bindinput='searchChangeHandle' bindconfirm='searchHandle'></input>
+    </view>
+    <view class="weui-icon-clear" wx:if="{{searchText}}" bindtap="clearSearchHandle">
+      <icon type="clear" size="20" />
+    </view>
+  </view>
+</view>
+
+<view class='container'>
+  <block wx:if="{{flag1}}" wx:for="{{list}}" wx:key="index" >
+    <view class='container_view'>
+      <view class='text-content'>
+        <view class='text-content_title'>{{item.instrument_SN}}</view>
+        <view class='text-content_lable'>{{item.position_SN}}</view>
+      </view>
+      <image wx:if="{{item.position_SN}}" data-instrumentsn='{{item.instrument_SN}}' bindtap="UniteCheckGPS" src="../../image/icon_untie.png" class='text_img' />
+      <image wx:else data-instrumentsn='{{item.instrument_SN}}' bindtap="bindCheckGPS" src="../../image/icon_binding.png" class='text_img' />
+    </view> 
+  </block>
+
+  <block wx:if="{{flag2}}" wx:for="{{listPlus}}" wx:key="index" >
+    <view class='container_view'>
+      <view class='text-content'>
+        <view class='text-content_title'>{{item.instrument_SN}}</view>
+        <view class='text-content_lable'>{{item.position_SN}}</view>
+      </view>
+      <image wx:if="{{item.position_SN}}" data-instrumentsn='{{item.instrument_SN}}' bindtap="UniteCheckGPS" src="../../image/icon_untie.png" class='text_img' />
+      <image wx:else data-instrumentsn='{{item.instrument_SN}}' bindtap="bindCheckGPS" src="../../image/icon_binding.png" class='text_img' />
+    </view>
+  </block>
+  <view class="tip_style">{{tips}}</view>
+</view>
+<view style="height:0rpx;"></view>
+
+
+<!-- 弹框 -->
+  <dialog-cus showDialog='{{showDialog}}' datas="{{dialogData}}" bind:dialogCancel="dialogCancel" bind:dialogSure="dialogSure" />
