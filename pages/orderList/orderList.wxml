@@ -52,7 +52,7 @@
                     </view>
                     <view class="new_p3_right">
                         <view class="new_p3_2" wx:if="{{item.creator_id==userInfoID}}" catch:tap="bindCloseOrder" data-id="{{item.order_num}}">关闭工单</view>
-                        <view class="new_p3_2" wx:if="{{item.creator_id==userInfoID && item.allow_update==0}}" catch:tap="bindUpdateOrder" data-id="{{item.order_num}}">修改工单</view>
+                        <view class="new_p3_2" wx:if="{{item.creator_id==userInfoID && item.allow_update==0}}" catch:tap="bindUpdateOrder" data-id="{{item.id}}" data-ordernum="{{item.order_num}}">修改工单</view>
                         <view class="new_p3_1" catch:tap="bindAcceptOrder" data-id="{{item.id}}">立即接单</view>
                     </view>
                 </view>
@@ -67,7 +67,7 @@
                     </view>
                     <view class="new_p3_right">
                         <view class="new_p3_2" wx:if="{{item.is_send_order == 1}}" catch:tap="bindCloseOrder" data-id="{{item.order_num}}">关闭工单</view>
-                        <view class="new_p3_2" catch:tap="bindUpdateOrder" data-id="{{item.order_num}}">修改工单</view>
+                        <view class="new_p3_2" catch:tap="bindUpdateOrder" data-id="{{item.id}}" data-ordernum="{{item.order_num}}">修改工单</view>
                         <view wx:if="{{item.is_send_order != 1}}" catch:tap="nothing" data-id="{{item.id}}" data-ordernum="{{item.order_num}}" data-ordertype="{{item.type}}">
                             <picker bindchange="onObjArrayPickerChange" value="{{supportList[rangekey].value}}" range-key="{{'name'}}" range="{{supportList}}">
                                 <view class="new_p3_2">立即派单</view>
@@ -81,7 +81,7 @@
                     <view class="new_p3_more_view"></view>
                     <view class="new_p3_right">
                         <view class="new_p3_2" catch:tap="bindCloseOrder" data-id="{{item.order_num}}">关闭工单</view>
-                        <view class="new_p3_2" catch:tap="bindUpdateOrder" data-id="{{item.order_num}}" style="margin-right: {{item.creator_id==userInfoID ? '30':'0'}}rpx;">修改工单</view>
+                        <view class="new_p3_2" catch:tap="bindUpdateOrder" data-id="{{item.id}}" data-ordernum="{{item.order_num}}" style="margin-right: {{item.creator_id==userInfoID ? '30':'0'}}rpx;">修改工单</view>
                         <view class="new_p3_1" wx:if="{{item.creator_id==userInfoID}}" bindtap="formSubmit" data-value="2" data-feedback="{{item.processing_feedback}}" data-scenepic="{{item.scene_pic}}">完成服务</view>
                     </view>
                 </view>

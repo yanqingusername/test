@@ -42,7 +42,8 @@ Page({
 		},
 		deleteShowDialog: false,
     delete_order_num: '',
-	update_order_num: ''
+	update_order_num: '',
+	update_order_id: ''
 	},
 
 	onLoad: function (options) {
@@ -222,7 +223,7 @@ jumpTabSelect(e) {
 		var data = {
 			order_num: that.data.delete_order_num,
 		}
-		request.request_get('/instrument/supprot/deleteOrderInfo.hn', data, function (res) {
+		request.request_new_test('/instrument/supprot/deleteOrderInfo.hn', data, function (res) {
 			if (res) {
 				if (res.success) {
 					that.setData({
@@ -245,19 +246,20 @@ jumpTabSelect(e) {
 	 * 修改工单
 	 */
 	 bindUpdateOrder(e) {
-		let id = e.currentTarget.dataset.id; //订单 order_num
-
+		let id = e.currentTarget.dataset.id; //订单 id
+		let order_num = e.currentTarget.dataset.ordernum; //订单  order_num
 		// 普通用户只能修改一次 弹框提示
 		if (this.data.role == 0) {
 			this.setData({
 				showDialog: true,
-				update_order_num: id
+				update_order_id: id,
+				update_order_num: order_num
 			});
 		} else {
 			// 管理员可重复修改
-			// wx.navigateTo({
-			// 	url.
-			// });
+			wx.navigateTo({
+				url: `/pages/createOrder/createOrder?isUpdate=1&id=${this.data.update_order_id}&ordernum=${this.data.update_order_num}`
+			});
 		}
 	},
 	dialogCancel() {
@@ -269,9 +271,9 @@ jumpTabSelect(e) {
 		this.setData({
 			showDialog: false
 		});
-		// wx.navigateTo({
-			// 	url.
-			// });
+		wx.navigateTo({
+			url: `/pages/createOrder/createOrder?isUpdate=1&id=${this.data.update_order_id}&ordernum=${this.data.update_order_num}`
+		});
 	},
 	/**
 	 * 关闭工单
@@ -299,7 +301,7 @@ jumpTabSelect(e) {
 			order_num: that.data.close_order_num,
 			close_order_reason: e.detail  //关闭原因
 		}
-		request.request_get('/instrument/supprot/closeOrderInfo.hn', data, function (res) {
+		request.request_new_test('/instrument/supprot/closeOrderInfo.hn', data, function (res) {
 			if (res) {
 				if (res.success) {
           that.setData({

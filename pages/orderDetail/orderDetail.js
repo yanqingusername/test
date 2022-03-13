@@ -67,7 +67,8 @@ Page({
 		deleteShowDialog: false,
     delete_order_num: '',
     reagent_count: "",
-    update_order_num: ''
+    update_order_num: '',
+    update_order_id: ''
   },
 
   /**
@@ -86,7 +87,10 @@ Page({
       role:app.globalData.userInfo.role,
       userInfoID:app.globalData.userInfo.id,
     })
-    that.getOrderInfo();
+    // that.getOrderInfo();
+  },
+  onShow(){
+    this.getOrderInfo();
   },
   //SN号显示全部
   showAll:function(){
@@ -243,7 +247,7 @@ Page({
     var id = that.data.id; //订单id
     var supportId = app.globalData.userInfo.id;
 
-    request.request_get('/instrument/supprot/Orders.hn', {
+    request.request_new_test('/instrument/supprot/Orders.hn', {
       id: id,
       supportId: supportId
     }, function (res) {
@@ -302,7 +306,7 @@ Page({
       support_name: support_name,
       order_num: order_num
     }
-    request.request_get('/instrument/supprot/dispatch.hn', data, function (res) {
+    request.request_new_test('/instrument/supprot/dispatch.hn', data, function (res) {
       console.info('回调', res)
       if (res) {
         if (res.success) {
@@ -359,7 +363,7 @@ Page({
     var sceneArr = that.data.scene_arr;
     var reagent_count = that.data.reagent_count;
     console.log(processing_feedback)
-    request.request_get('/instrument/supprot/updateOrder.hn', {
+    request.request_new_test('/instrument/supprot/updateOrder.hn', {
       id: id,
       formType: formType,
       // service_status: service_status,
@@ -654,19 +658,23 @@ Page({
 	 * 修改工单
 	 */
 	bindUpdateOrder(e) {
-		let id = e.currentTarget.dataset.id; //订单 order_num
-
+		let id = e.currentTarget.dataset.id; //订单 id 
+    let order_num = e.currentTarget.dataset.ordernum;
+    this.setData({
+      isShowClose: false
+    })
 		// 普通用户只能修改一次 弹框提示
 		if (this.data.role == 0) {
 			this.setData({
 				showDialog: true,
-				update_order_num: id
+        update_order_id: id,
+				update_order_num: order_num
 			});
 		} else {
 			// 管理员可重复修改
-			// wx.navigateTo({
-			// 	url.
-			// });
+			wx.navigateTo({
+        url: `/pages/createOrder/createOrder?isUpdate=1&id=${this.data.update_order_id}&ordernum=${this.data.update_order_num}`
+      });
 		}
 	},
 	dialogCancel() {
@@ -678,9 +686,9 @@ Page({
 		this.setData({
 			showDialog: false
 		});
-		// wx.navigateTo({
-			// 	url.
-			// });
+		wx.navigateTo({
+			url: `/pages/createOrder/createOrder?isUpdate=1&id=${this.data.update_order_id}&ordernum=${this.data.update_order_num}`
+		});
 	},
 	/**
 	 * 关闭工单
@@ -709,7 +717,7 @@ Page({
 			order_num: that.data.close_order_num,
 			close_order_reason: e.detail  //关闭原因
 		}
-		request.request_get('/instrument/supprot/closeOrderInfo.hn', data, function (res) {
+		request.request_new_test('/instrument/supprot/closeOrderInfo.hn', data, function (res) {
 			if (res) {
 				if (res.success) {
           wx.navigateBack({
@@ -747,7 +755,7 @@ Page({
      var data = {
        order_num: that.data.delete_order_num,
      }
-     request.request_get('/instrument/supprot/deleteOrderInfo.hn', data, function (res) {
+     request.request_new_test('/instrument/supprot/deleteOrderInfo.hn', data, function (res) {
        if (res) {
          if (res.success) {
           wx.navigateBack({

@@ -353,7 +353,7 @@ radio-group{
     align-items: center;
     width:100%;
     bottom:0%;
-    z-index: 999;
+    z-index: 222;
     position:fixed;
     height: 140rpx;
     background: #FFFFFF;

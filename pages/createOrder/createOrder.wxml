@@ -1,7 +1,7 @@
 <!--pages/createOrder/createOrder.wxml-->
 <cu-custom isBack="{{true}}" bgColor="bg-white" >
   <view slot="backText"></view>
-  <view slot="content">创建工单</view>
+  <view slot="content">{{title}}</view>
 </cu-custom>
 <!-- <cu-custom bgColor="bg-gradual-white" isBack="{{false}}" isCustom="{{true}}"><view slot="content">我的工单</view></cu-custom> -->
 
@@ -131,7 +131,7 @@
       </view>
       
     </view>
-    <view class="P5 app_flex">
+    <view class="P5 app_flex" wx:if="{{!support_id}}">
       <view class="P5_1 app_font">是否接单</view>
       <view class='P5_2 app_font' style="width: 70%;">
         <!-- <radio-group class="radio-group" bindchange="handleChange">

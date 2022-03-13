@@ -38,7 +38,8 @@ Page({
 		order_num: '', // 派单参数 订单id
 		order_type: '', // 派单参数 订单id
 		close_order_num: '',
-		update_order_num: ''
+		update_order_num: '',
+		update_order_id: ''
 	},
 
 	onLoad: function (options) {
@@ -181,7 +182,7 @@ Page({
 		let id = e.currentTarget.dataset.id; //订单id
 		var supportId = app.globalData.userInfo.id;
 
-		request.request_get('/instrument/supprot/Orders.hn', {
+		request.request_new_test('/instrument/supprot/Orders.hn', {
 			id: id,
 			supportId: supportId
 		}, function (res) {
@@ -221,19 +222,23 @@ Page({
 	 * 修改工单
 	 */
 	bindUpdateOrder(e) {
-		let id = e.currentTarget.dataset.id; //订单 order_num
-
+		let id = e.currentTarget.dataset.id; //订单 id
+		let order_num = e.currentTarget.dataset.ordernum; //订单 order_num
+		this.setData({
+			isShowClose: false
+		})
 		// 普通用户只能修改一次 弹框提示
 		if (this.data.role == 0) {
 			this.setData({
 				showDialog: true,
-				update_order_num: id
+				update_order_num: order_num,
+				update_order_id: id
 			});
 		} else {
 			// 管理员可重复修改
-			// wx.navigateTo({
-			// 	url.
-			// });
+			wx.navigateTo({
+				url: `/pages/createOrder/createOrder?isUpdate=1&id=${this.data.update_order_id}&ordernum=${this.data.update_order_num}`
+			});
 		}
 	},
 	dialogCancel() {
@@ -245,9 +250,9 @@ Page({
 		this.setData({
 			showDialog: false
 		});
-		// wx.navigateTo({
-			// 	url.
-			// });
+		wx.navigateTo({
+			url: `/pages/createOrder/createOrder?isUpdate=1&id=${this.data.update_order_id}&ordernum=${this.data.update_order_num}`
+		});
 	},
 	/**
 	 * 关闭工单
@@ -276,7 +281,7 @@ Page({
 			order_num: that.data.close_order_num,
 			close_order_reason: e.detail  //关闭原因
 		}
-		request.request_get('/instrument/supprot/closeOrderInfo.hn', data, function (res) {
+		request.request_new_test('/instrument/supprot/closeOrderInfo.hn', data, function (res) {
 			if (res) {
 				if (res.success) {
 					that.setData({
@@ -361,7 +366,7 @@ Page({
 			support_name: support_name,
 			order_num: order_num
 		}
-		request.request_get('/instrument/supprot/dispatch.hn', data, function (res) {
+		request.request_new_test('/instrument/supprot/dispatch.hn', data, function (res) {
 			console.info('回调', res)
 			if (res) {
 				if (res.success) {
