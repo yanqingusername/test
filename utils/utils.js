@@ -178,6 +178,13 @@ function checkInput(str){
     str =  str.replace(reg,"");
     return str;
 }
+
+// 禁止输入表情或特殊字符 添加姓名
+function checkInputName(str){
+    var reg = /[^a-zA-Z0-9\u4e00-\u9fa5\u3002\uff0c\uff1a\uff08\uff09\uff1f\u201c\u201d\u3001\uff01,/.!:()·' '?_""—-]/g;
+    str =  str.replace(reg,"");
+    return str;
+}
 /*函数节流*/
 function throttle(fn, interval) {
     var enterTime = 0;//触发的时间
@@ -203,5 +210,6 @@ module.exports = {
     upload_file:upload_file,
     upload:upload,
     checkInput:checkInput,
-    throttle:throttle
+    throttle:throttle,
+    checkInputName: checkInputName
 }

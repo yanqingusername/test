@@ -127,7 +127,9 @@ page{
 }
 
 .text_title{
-  font-size: 24rpx;
+  font-family: PingFangSC-Regular, PingFang SC;
+font-weight: 400;
+  font-size: 28rpx;
   color: rgba(3, 3, 3, 1);
 }
 

@@ -14,17 +14,17 @@
       </view>
       <view class="detail_center">
         <view class="P5_1 app_font" style="padding-left:30rpx;color: #333333;">企业名称</view>
-        <input class='P5_2 app_font' type="text" bindinput="bindSetData1" placeholder='请填写企业名称' name="company_name" value="{{company_name}}"></input>
+        <input class='P5_2 app_font' type="text" bindinput="bindSetData1" placeholder-class="app_font" placeholder='请填写企业名称' name="company_name" value="{{company_name}}"></input>
       </view>
       <view class="line"></view>
       <view class="detail_center">
         <view class="P5_1 app_font" style="padding-left:30rpx;color: #333333;">联系人</view>
-        <input class='P5_2 app_font' bindinput="bindSetData2" placeholder='请填写联系人姓名' type="text" name="name" value="{{name}}" ></input>
+        <input class='P5_2 app_font' bindinput="bindSetData2" placeholder-class="app_font" placeholder='请填写联系人姓名' type="text" name="name" value="{{name}}" ></input>
       </view>
       <view class="line"></view>
       <view class="detail_center">
         <view class="P5_1 app_font" style="padding-left:30rpx;color: #333333;">手机号</view>
-        <input class='P5_2 app_font' bindinput="bindSetData3" placeholder='请填写联系人手机号' maxlength="11"  type="number" name="phone" value="{{phone}}"></input>
+        <input class='P5_2 app_font' bindinput="bindSetData3" placeholder-class="app_font" placeholder='请填写联系人手机号' maxlength="11"  type="number" name="phone" value="{{phone}}"></input>
       </view>
       <view class="line"></view>
       <view class="detail_center">
@@ -32,7 +32,7 @@
         <view class="detail_center" style="width:70%;align-items: center;padding: 0rpx 30rpx 0rpx 0rpx;">
           <view class='P5_2 app_font' style="white-space:nowrap;width:100%;">
             <picker class="picker_1" bindchange="bindPickerChangeArea" value="{{areaIndex}}" range-key="{{'area_name'}}" range="{{areaList}}">
-              <view class="picker">
+              <view class="picker app_font">
                 {{areaList[areaIndex].area_name}}
               </view>
             </picker>

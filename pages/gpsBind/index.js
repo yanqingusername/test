@@ -19,11 +19,30 @@ Page({
     isShowInstrument: false,
     isShowPosition: false,
     noinstrumentsn: '',
-    nopositionsn: ''
+    nopositionsn: '',
+    instrumentSNLength: 12
   },
   onLoad: function (options) {
     this.setData({
       instrumentsn: options.instrumentsn
+    });
+    this.getInstrumentSNLength();
+  },
+  getInstrumentSNLength: function () {
+    var that = this;
+    var params = {}
+    request.request_new_test('/instrument/supprot/getInstrumentSNLength.hn', params, function (res) {
+      if (res) {
+        if (res.success) {
+          that.setData({
+            instrumentSNLength: res.length
+          });
+        } else {
+          box.showToast(res.msg);
+        }
+      } else {
+        box.showToast("网络不稳定，请重试");
+      }
     });
   },
   bindSetData2:function(e){
@@ -88,7 +107,7 @@ Page({
               console.log(item.line_content,item.line_content.length)
               if(item.line_content!= null && item.line_content != ""){
                 item.line_content = item.line_content.replace(reg, "")
-                if(item.line_content.length > 12){
+                if(item.line_content.length >= that.data.instrumentSNLength){
                   numberListNew.push(item);
                 }
               }  
@@ -237,7 +256,7 @@ Page({
                   console.log(item.line_content,item.line_content.length)
                   if(item.line_content!= null && item.line_content != ""){
                     item.line_content = item.line_content.replace(reg, "")
-                    if(item.line_content.length > 12){
+                    if(item.line_content.length >= that.data.instrumentSNLength){
                       inListNew.push(item);
                     }
                   }  
@@ -264,7 +283,7 @@ Page({
           var filePath = res.tempFilePaths[0];
             wx.uploadFile({
               url: 'https://www.prohealth-wch.com:8443/flash20AppletBackend/OrderController/upload.hn', //正式服务器
-              filePath: filePath[i],
+              filePath: filePath,
               name: 'imageFile',
               formData: data,
               header: {
@@ -312,7 +331,7 @@ Page({
                   console.log(item.line_content,item.line_content.length)
                   if(item.line_content!= null && item.line_content != ""){
                     item.line_content = item.line_content.replace(reg, "")
-                    if(item.line_content.length > 12){
+                    if(item.line_content.length >= that.data.instrumentSNLength){
                       poListNew.push(item);
                     }
                   }  

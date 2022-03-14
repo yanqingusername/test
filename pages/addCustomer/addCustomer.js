@@ -41,7 +41,7 @@ Page({
   },
   bindSetData2:function(e){
     var str = e.detail.value;
-    str = utils.checkInput(str);
+    str = utils.checkInputName(str);
     this.setData({
       name:str
     })
