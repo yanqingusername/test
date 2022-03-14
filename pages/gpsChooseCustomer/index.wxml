@@ -16,22 +16,37 @@
 </view>
 
 <view class='container'>
-  <block wx:if="{{flag1}}" wx:for="{{list}}" wx:key="index" >
-    <view class='container_view' data-name='{{item.company_name}}' data-account='{{item.account}}' 
-    data-address='{{item.address}}' data-locationname='{{item.locationName}}'
-    bindtap="bindCheckCompany">
-      <view class='text-content'>{{item.company_name}}</view>
-      <image src="../../image/icon_arrow_gray.png" class='text_img' />
-    </view> 
-  </block>
+  <view wx:if="{{flag1}}">
+    <block wx:if="{{list.length > 0}}" wx:for="{{list}}" wx:key="index" >
+      <view class='container_view' data-name='{{item.company_name}}' data-account='{{item.account}}' 
+      data-address='{{item.address}}' data-locationname='{{item.locationName}}'
+      bindtap="bindCheckCompany">
+        <view class='text-content'>{{item.company_name}}</view>
+        <image src="../../image/icon_arrow_gray.png" class='text_img' />
+      </view> 
+    </block>
 
-  <block wx:if="{{flag2}}" wx:for="{{listPlus}}" wx:key="index" >
-    <view class='container_view' data-name='{{item.company_name}}' data-account='{{item.account}}' 
-    data-address='{{item.address}}' data-locationname='{{item.locationName}}'
-    bindtap="bindCheckCompany">
-      <view class='text-content'>{{item.company_name}}</view>
-      <image src="../../image/icon_arrow_gray.png" class='text_img' />
-    </view> 
-  </block>
-  <view class="tip_style">{{tips}}</view>
+    <view wx:if="{{list.length == 0}}" class="empty_view">
+      <view class="tip_style">{{tips}}</view>
+      <view class="add_customer" bind:tap="addCustomer">添加客户</view>
+    </view>
+  </view>
+  
+  
+  <view wx:if="{{flag2}}">
+
+    <block wx:if="{{listPlus.length > 0}}" wx:for="{{listPlus}}" wx:key="index" >
+      <view class='container_view' data-name='{{item.company_name}}' data-account='{{item.account}}' 
+      data-address='{{item.address}}' data-locationname='{{item.locationName}}'
+      bindtap="bindCheckCompany">
+        <view class='text-content'>{{item.company_name}}</view>
+        <image src="../../image/icon_arrow_gray.png" class='text_img' />
+      </view> 
+    </block>
+
+    <view wx:if="{{listPlus.length == 0}}" class="empty_view">
+      <view class="tip_style">{{tips}}</view>
+      <view class="add_customer" bind:tap="addCustomer">添加客户</view>
+    </view>
+  </view>
 </view>

@@ -18,12 +18,17 @@ Page({
     areaList:[],
     areaIndex:0,
     area_name:'',
-    area_id:''
-    
-
+    area_id:'',
+    title: '添加客户',
+    isMCus: 0, // 判断是否从客户管理带过来的参数  默认为0  1代表从客户管理跳转过来  2代表从客户管理-客户详情跳转过来  3GPS管理过来
   },
   onLoad: function (options) {
     var that = this;
+    this.setData({
+      isMCus: options.isMCus,
+      title: options.title,
+    });
+
     that.getAreaList();
   },
   bindSetData1:function(e){
@@ -118,37 +123,74 @@ Page({
     }else if(that.data.area_id == '0'){
       box.showToast("请选择所属大区")
     }else{
-      var data = {
-        company_name: company_name,
-        name: name,
-        phone: phone,
-        create_person:app.globalData.userInfo.name,
-        area_id:that.data.area_id
-      }
-      request.request_get('/wxapi/CreateCompany.hn', data, function (res) { 
-        console.info('CreateCompany回调', res)
-        if (res) {
-          if (res.success) {
-            that.setData({
-              account: res.company_account
-            })
+      if(that.data.isMCus == 3){
+        var data = {
+          company_name: company_name,
+          name: name,
+          phone: phone,
+          create_person:app.globalData.userInfo.name,
+          area_id:that.data.area_id
+        }
+        request.request_get('/wxapi/CreateCompany.hn', data, function (res) { 
+          console.info('CreateCompany回调', res)
+          if (res) {
+            if (res.success) {
+              that.setData({
+                account: res.company_account
+              })
+              wx.showToast({
+                title: '保存成功',
+                icon: 'success',
+              })
+              wx.navigateBack({
+                delta: 1, //返回上个页面
+              });
+            } else {
+              wx.showToast({
+                icon: 'none',
+                title: res.msg,
+              })
+            }
+          }else{
             wx.showToast({
-              title: '保存成功',
-              icon: 'success',
-            })
-            that.bindCreateCompany();
-          } else {
-            wx.showToast({
-              icon: 'none',
-              title: res.msg,
+              title: '网络不稳定，请重试',
             })
           }
-        }else{
-          wx.showToast({
-            title: '网络不稳定，请重试',
-          })
+        })
+      } else {
+        var data = {
+          company_name: company_name,
+          name: name,
+          phone: phone,
+          create_person:app.globalData.userInfo.name,
+          area_id:that.data.area_id
+
         }
-      })
+        request.request_get('/wxapi/CreateCompany.hn', data, function (res) {
+          console.info('CreateCompany回调', res)
+          if (res) {
+            if (res.success) {
+              that.setData({
+                account: res.company_account
+              })
+              wx.showToast({
+                title: '保存成功',
+                icon: 'success',
+              })
+              that.bindCreateCompany();
+            } else {
+              wx.showToast({
+                icon: 'none',
+                title: res.msg,
+              })
+            }
+          }else{
+            wx.showToast({
+              title: '网络不稳定，请重试',
+            })
+          }
+        })
+      }
     }
   },
   

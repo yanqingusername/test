@@ -1,5 +1,5 @@
 <!--pages/myOrder/myOrder.wxml-->
-<cu-custom bgColor="bg-white" isBack="{{false}}" isCustom="{{true}}">
+<cu-custom bgColor="bg-white" isBack="{{false}}" isCustom="{{isCustom}}">
   <view slot="content">我的工单</view>
 </cu-custom>
 <scroll-view scroll-x class="bg-white nav text-center"

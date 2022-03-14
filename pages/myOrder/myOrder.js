@@ -20,42 +20,53 @@ Page({
     hasMoreData:true,
     alreadyChecked:false,
     tip:"暂无数据",
-		tip_temp:'暂无数据'
+		tip_temp:'暂无数据',
+    role:app.globalData.userInfo.role,
+    isCustom: true
   },
 
   onShow:function(){
-   var that = this;
-   console.log('成功onshow+++++++++++')
-   wx.getStorage({//获取本地缓存
-    key:"jumpStatus",
-    success:function(res){
-      console.log(res.data);
-      if(res.data == 1){
-        that.jumpTabSelect(1);
-      } else if (res.data == 2){
-        that.jumpTabSelect(2);
-      }
-    }})	
-  
+    if(this.data.role != 2){
+      var that = this;
+      console.log('成功onshow+++++++++++')
+      wx.getStorage({//获取本地缓存
+        key:"jumpStatus",
+        success:function(res){
+          console.log(res.data);
+          if(res.data == 1){
+            that.jumpTabSelect(1);
+          } else if (res.data == 2){
+            that.jumpTabSelect(2);
+          }
+        }})	
+    }
 },
 onLoad:function(){
+  if(this.data.role != 2){
+    var that = this;
+    var support_id = app.globalData.userInfo.id;
+    
+    that.setData({
+      support_id:support_id,
+      page:1,
+      orderList:[],
+      hasMoreData:true
+    })
+    that.getOrderList();
+  }else{
+    this.setData({
+      isCustom: false
+    });
+  }
   
-  var that = this;
-  var support_id = app.globalData.userInfo.id;
-  
-  that.setData({
-    support_id:support_id,
-    page:1,
-    orderList:[],
-    hasMoreData:true
-  })
-  that.getOrderList();
 },
 onReachBottom: function(){
-  console.log('成功下拉+++++++++++')
-  var that = this;
- 
-  that.getOrderList();
+  if(this.data.role != 2){
+    console.log('成功下拉+++++++++++')
+    var that = this;
+  
+    that.getOrderList();
+  }
 },
 
 //跳转专用tabSelect

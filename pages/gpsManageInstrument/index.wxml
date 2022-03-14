@@ -16,28 +16,42 @@
 </view>
 
 <view class='container'>
-  <block wx:if="{{flag1}}" wx:for="{{list}}" wx:key="index" >
-    <view class='container_view'>
-      <view class='text-content'>
-        <view class='text-content_title'>{{item.instrument_SN}}</view>
-        <view class='text-content_lable'>{{item.position_SN}}</view>
-      </view>
-      <image wx:if="{{item.position_SN}}" data-instrumentsn='{{item.instrument_SN}}' bindtap="UniteCheckGPS" src="../../image/icon_untie.png" class='text_img' />
-      <image wx:else data-instrumentsn='{{item.instrument_SN}}' bindtap="bindCheckGPS" src="../../image/icon_binding.png" class='text_img' />
-    </view> 
-  </block>
+  <view wx:if="{{flag1}}">
+    <block wx:if="{{list.length > 0}}" wx:for="{{list}}" wx:key="index" >
+      <view class='container_view'>
+        <view class='text-content'>
+          <view class='text-content_title'>{{item.instrument_SN}}</view>
+          <view class='text-content_lable'>{{item.position_SN}}</view>
+        </view>
+        <image wx:if="{{item.position_SN}}" data-instrumentsn='{{item.instrument_SN}}' bindtap="UniteCheckGPS" src="../../image/icon_untie.png" class='text_img' />
+        <image wx:else data-instrumentsn='{{item.instrument_SN}}' bindtap="bindCheckGPS" src="../../image/icon_binding.png" class='text_img' />
+      </view> 
+    </block>
 
-  <block wx:if="{{flag2}}" wx:for="{{listPlus}}" wx:key="index" >
-    <view class='container_view'>
-      <view class='text-content'>
-        <view class='text-content_title'>{{item.instrument_SN}}</view>
-        <view class='text-content_lable'>{{item.position_SN}}</view>
-      </view>
-      <image wx:if="{{item.position_SN}}" data-instrumentsn='{{item.instrument_SN}}' bindtap="UniteCheckGPS" src="../../image/icon_untie.png" class='text_img' />
-      <image wx:else data-instrumentsn='{{item.instrument_SN}}' bindtap="bindCheckGPS" src="../../image/icon_binding.png" class='text_img' />
+    <view wx:if="{{list.length == 0}}" class="empty_view">
+      <view class="tip_style">{{tips}}</view>
+      <view class="add_customer" bind:tap="bindAddInstrument">添加仪器</view>
     </view>
-  </block>
-  <view class="tip_style">{{tips}}</view>
+  </view>
+
+  <view wx:if="{{flag2}}">
+
+    <block wx:if="{{listPlus.length > 0}}" wx:for="{{listPlus}}" wx:key="index" >
+      <view class='container_view'>
+        <view class='text-content'>
+          <view class='text-content_title'>{{item.instrument_SN}}</view>
+          <view class='text-content_lable'>{{item.position_SN}}</view>
+        </view>
+        <image wx:if="{{item.position_SN}}" data-instrumentsn='{{item.instrument_SN}}' bindtap="UniteCheckGPS" src="../../image/icon_untie.png" class='text_img' />
+        <image wx:else data-instrumentsn='{{item.instrument_SN}}' bindtap="bindCheckGPS" src="../../image/icon_binding.png" class='text_img' />
+      </view>
+    </block>
+
+    <view wx:if="{{listPlus.length == 0}}" class="empty_view">
+      <view class="tip_style">{{tips}}</view>
+      <view class="add_customer" bind:tap="bindAddInstrument">添加仪器</view>
+    </view>
+  </view>
 </view>
 <view style="height:0rpx;"></view>
 

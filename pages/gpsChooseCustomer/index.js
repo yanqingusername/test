@@ -41,10 +41,22 @@ Page({
           that.setData({
             list: list
           });
+
+          if (that.data.list.length == 0) {
+            that.setData({
+              tips: '还没有客户'
+            });
+          }
           //that.chooseCustomer(list[0].account)
           //that.searchChangeHandle(); 首次展示无需模糊查询
         } else {
-          box.showToast(res.msg);
+          if (res && res.msg.length == 0) {
+            that.setData({
+              tips: '还没有客户'
+            });
+          } else {
+            box.showToast(res.msg);
+          }
         }
       } else {
         box.showToast("网络不稳定，请重试");
@@ -87,7 +99,7 @@ Page({
 
       if (that.data.listPlus.length == 0) {
         that.setData({
-          tips: '没有搜索到该客户'
+          tips: '没有搜索到相关结果'
         });
       }
       //}
@@ -116,5 +128,16 @@ Page({
       flag2: false //关闭查询列表
     })
   },
-
+  addCustomer(){
+    let that = this;
+    that.setData({
+      searchText: '',
+      tips: '',
+      flag1: true, //显示原始列表
+      flag2: false //关闭查询列表
+    })
+    wx.navigateTo({
+      url: `/pages/addCustomer/addCustomer?isMCus=3`,
+    });
+  }
 })

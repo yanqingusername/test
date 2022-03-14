@@ -5,7 +5,7 @@ var request = require('../../utils/request.js')
 
 Page({
     data: {
-        roleList: ['技术支持', '管理员'],
+        roleList: ['技术支持', '管理员', '销售'],
         areaIndex: 0,
         areaName: "",
         roleIndex: 0,

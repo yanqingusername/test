@@ -15,7 +15,7 @@ Page({
     title: '仪器',
     companyIndex: -1,
     dialogData: {
-      title: "确认解绑GPS？",
+      title: "确认解绑GPS?",
       titles:  "解绑后将无法恢复",
       cancel: "取消",
       sure: "确认"
@@ -23,6 +23,7 @@ Page({
     showDialog: false,
     company_account:'',
     instrumentsn: '',
+    instrument_name: ''
   },
   onLoad: function (options) {
     var that = this;
@@ -47,8 +48,20 @@ Page({
           that.setData({
             list: list
           });
+
+          if (that.data.list.length == 0) {
+            that.setData({
+              tips: '还没有仪器'
+            });
+          }
         } else {
-          box.showToast(res.msg);
+          if (res && res.result_instrument.length == 0) {
+            that.setData({
+              tips: '还没有仪器'
+            });
+          } else {
+            box.showToast(res.msg);
+          }
         }
       } else {
         box.showToast("网络不稳定，请重试");
@@ -91,7 +104,7 @@ Page({
 
       if (that.data.listPlus.length == 0) {
         that.setData({
-          tips: '暂无仪器'
+          tips: '没有搜索到相关结果'
         });
       }
       //}
@@ -168,5 +181,18 @@ Page({
         })
       }
     })
-  }
+  },
+  //添加仪器
+  bindAddInstrument: function(){
+    var that = this;
+    that.setData({
+      searchText: '',
+      tips: '',
+      flag1: true, //显示原始列表
+      flag2: false //关闭查询列表
+    });
+    wx.navigateTo({
+      url: `/pages/addInstrument/addInstrument?instrument_name=${this.data.instrument_name}&company_account=${this.data.company_account}&isMCus=3`
+    });
+  },
 })

@@ -10,23 +10,28 @@ Page({
 		page:1, //当前页数
 		pageSize:6, //每页六条
 		hasMoreData:true,
-		tip_temp:'暂无数据'
+		tip_temp:'暂无数据',
+		role:app.globalData.userInfo.role
 	},
 
 	onLoad: function (options) {
 		var that = this;
-		that.getOrderList()
+		if(this.data.role != 2){
+			that.getOrderList()
+		}
 	},
 	onShow: function () {
-		var that = this;
-		wx.getStorage({
-			key:"jumpStatus",
-			success(res){
-				if(res.data == 0){
-					that.jumpTabSelect(0);
+		if(this.data.role != 2){
+			var that = this;
+			wx.getStorage({
+				key:"jumpStatus",
+				success(res){
+					if(res.data == 0){
+						that.jumpTabSelect(0);
+					}
 				}
-			}
-		})
+			})
+		}
 	},
 	jumpTabSelect:function(e){
 		var that = this;

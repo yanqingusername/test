@@ -13,7 +13,7 @@ page{
   display: flex;
   flex-direction: column;
   width: 670rpx;
-  height: 210rpx;
+  /* height: 210rpx; */
   background: #FFFFFF;
   border-radius: 12rpx;
   margin-top: 40rpx;
@@ -31,6 +31,7 @@ page{
   justify-content: space-between;
   margin-top: 30rpx;
   height: 90rpx;
+  border-bottom: 1px solid #DDDDDD;
 }
 
 .gps_container_img{
@@ -142,4 +143,36 @@ page{
   width: 60rpx;
   height: 60rpx;
   z-index: 5;
+}
+
+.gps_img_view{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.gps_img_view_item{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.gps_img{
+  width: 156rpx;
+  height: 156rpx;
+}
+
+.gps_title{
+  margin-top: 10rpx;
+  font-size: 24rpx;
+color: #999999;
+}
+
+.gps_lable{
+  font-size: 24rpx;
+font-family: PingFangSC-Regular, PingFang SC;
+font-weight: 400;
+color: #C9024D;
+margin-top: 30rpx;
 }

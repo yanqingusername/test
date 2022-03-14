@@ -41,7 +41,7 @@
 <view style="background-color:#F5F5F5">
   <view wx:if="{{role == 1}}" style="height:50rpx"></view>
   <view class="P2" style="margin-bottom: 0rpx;">
-    <view class="item" style="height:250rpx" bindtap="bindStatistics">
+    <view class="item" style="height:250rpx" bindtap="bindStatistics" wx:if="{{role!=2}}">
       <view class="title">
         <text>数据统计</text>
         <text style="color:#9A9A9A">查看更多 ></text>
