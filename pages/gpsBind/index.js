@@ -66,6 +66,10 @@ Page({
     }
   },
   bindOCR: function () {
+    this.setData({
+      companyIndex: -1
+    });
+
     let that = this;
     var data = [];
     wx.chooseImage({
@@ -388,16 +392,25 @@ Page({
       }
     }
 
+    if(isTrue){
+      this.setData({
+        isShowPosition: false,
+        nopositionsn: ''
+      });
+    }
+
+    if(isTrueInstrument){
+      this.setData({
+        isShowInstrument: false,
+        noinstrumentsn: ''
+      });
+    }
+
     if(!isTrue || !isTrueInstrument){
       if(!isTrue){
         this.setData({
           isShowPosition: true,
           nopositionsn: nopositionsn
-        });
-      }else{
-        this.setData({
-          isShowPosition: false,
-          nopositionsn: ''
         });
       }
 
@@ -405,11 +418,6 @@ Page({
         this.setData({
           isShowInstrument: true,
           noinstrumentsn: noinstrumentsn
-        });
-      }else{
-        this.setData({
-          isShowInstrument: false,
-          noinstrumentsn: ''
         });
       }
       return;
@@ -433,9 +441,11 @@ Page({
         if (res) {
           if (res.success) {
             box.showToast('绑定成功')
-            wx.navigateBack({
-              delta: 1
-            });
+            setTimeout(()=>{
+              wx.navigateBack({
+                delta: 1
+              });
+            },2000);
           } else {
             box.showToast(res.msg)
           }
