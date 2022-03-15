@@ -11,7 +11,7 @@
     <view class="gps_container_title">GPS 信息</view>
     <view class="gps_container_bottom">
       <input wx:if="{{!isShow}}" class='P5_2 app_font' placeholder-class="app_font" bindinput="bindSetData2" placeholder='填写/扫描 GPS SN号' type="text" name="positionsn" value="{{positionsn}}" style="height: 120rpx;width: 90%;"></input>
-      <image src="../../image/icon_scan.png" class="gps_container_img" bind:tap="bindOCR" />
+      <image src="../../image/camera.png" class="gps_container_img" bind:tap="bindOCR" />
     </view>
     <view class="gps_container_title" style="margin: 24rpx 0rpx;">图片记录</view>
     <view class="gps_img_view">

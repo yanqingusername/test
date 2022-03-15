@@ -21,7 +21,7 @@
       <view class='container_view'>
         <view class='text-content'>
           <view class='text-content_title'>{{item.instrument_SN}}</view>
-          <view class='text-content_lable'>{{item.position_SN}}</view>
+          <view class='text-content_lable' wx:if="{{item.position_SN}}">GPS：{{item.position_SN}}</view>
         </view>
         <image wx:if="{{item.position_SN}}" data-instrumentsn='{{item.instrument_SN}}' bindtap="UniteCheckGPS" src="../../image/icon_untie.png" class='text_img' />
         <image wx:else data-instrumentsn='{{item.instrument_SN}}' bindtap="bindCheckGPS" src="../../image/icon_binding.png" class='text_img' />

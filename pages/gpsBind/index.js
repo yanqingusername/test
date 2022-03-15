@@ -20,7 +20,8 @@ Page({
     isShowPosition: false,
     noinstrumentsn: '',
     nopositionsn: '',
-    instrumentSNLength: 12
+    instrumentSNLength: 12,
+    instrumentGPSLength: 11
   },
   onLoad: function (options) {
     this.setData({
@@ -35,7 +36,8 @@ Page({
       if (res) {
         if (res.success) {
           that.setData({
-            instrumentSNLength: res.length
+            instrumentSNLength: res.length,
+            instrumentGPSLength: res.gps_length
           });
         } else {
           box.showToast(res.msg);
@@ -103,8 +105,13 @@ Page({
             for(let i =0;i< that.data.numberList.length;i++){
               let item = that.data.numberList[i];
               if(item.line_content!= null && item.line_content != ""){
-                item.line_content = item.line_content.replace(reg, "")
-                if(item.line_content.length >= that.data.instrumentSNLength){
+                if(item.line_content.indexOf(":") >=0 || item.line_content.indexOf("：")>=0){
+                  item.line_content = item.line_content.split(":")[1] || item.line_content.split("：")[1];
+                  item.line_content = item.line_content.replace(reg, "")
+                }else{
+                  item.line_content = item.line_content.replace(reg, "")
+                }
+                if(item.line_content.length >= that.data.instrumentGPSLength){
                   numberListNew.push(item);
                 }
               }  
@@ -243,7 +250,12 @@ Page({
                 for(let i =0;i< that.data.instrument_sn_List.length;i++){
                   let item = that.data.instrument_sn_List[i];
                   if(item.line_content!= null && item.line_content != ""){
-                    item.line_content = item.line_content.replace(reg, "")
+                    if(item.line_content.indexOf(":") >=0 || item.line_content.indexOf("：")>=0){
+                      item.line_content = item.line_content.split(":")[1] || item.line_content.split("：")[1];
+                      item.line_content = item.line_content.replace(reg, "")
+                    }else{
+                      item.line_content = item.line_content.replace(reg, "")
+                    }
                     if(item.line_content.length >= that.data.instrumentSNLength){
                       inListNew.push(item);
                     }
@@ -313,8 +325,13 @@ Page({
                 for(let i =0;i< that.data.position_sn_List.length;i++){
                   let item = that.data.position_sn_List[i];
                   if(item.line_content!= null && item.line_content != ""){
-                    item.line_content = item.line_content.replace(reg, "")
-                    if(item.line_content.length >= that.data.instrumentSNLength){
+                    if(item.line_content.indexOf(":") >=0 || item.line_content.indexOf("：")>=0){
+                      item.line_content = item.line_content.split(":")[1] || item.line_content.split("：")[1];
+                      item.line_content = item.line_content.replace(reg, "")
+                    }else{
+                      item.line_content = item.line_content.replace(reg, "")
+                    }
+                    if(item.line_content.length >= that.data.instrumentGPSLength){
                       poListNew.push(item);
                     }
                   }  
@@ -359,15 +376,6 @@ Page({
         nopositionsn = position_sn_List[i].line_content;
       }
     }
-    if(!isTrue){
-      this.setData({
-        isShowPosition: true,
-        nopositionsn: nopositionsn
-      });
-      return;
-    }
-   
-
     let instrument_sn_List = that.data.instrument_sn_List;
     let instrumentsn = this.data.instrumentsn;
     let isTrueInstrument = false;
@@ -379,11 +387,31 @@ Page({
         noinstrumentsn = instrument_sn_List[i].line_content;
       }
     }
-    if(!isTrueInstrument){
-      this.setData({
-        isShowInstrument: true,
-        noinstrumentsn: noinstrumentsn
-      });
+
+    if(!isTrue || !isTrueInstrument){
+      if(!isTrue){
+        this.setData({
+          isShowPosition: true,
+          nopositionsn: nopositionsn
+        });
+      }else{
+        this.setData({
+          isShowPosition: false,
+          nopositionsn: ''
+        });
+      }
+
+      if(!isTrueInstrument){
+        this.setData({
+          isShowInstrument: true,
+          noinstrumentsn: noinstrumentsn
+        });
+      }else{
+        this.setData({
+          isShowInstrument: false,
+          noinstrumentsn: ''
+        });
+      }
       return;
     }
 
