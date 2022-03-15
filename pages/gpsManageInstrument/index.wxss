@@ -40,7 +40,7 @@
 }
 
 #search_checked{
-  width:52%;
+  width:340rpx;
   /* text-align: center; */
 }
 
