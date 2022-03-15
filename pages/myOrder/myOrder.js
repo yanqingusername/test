@@ -21,7 +21,7 @@ Page({
     alreadyChecked:false,
     tip:"暂无数据",
 		tip_temp:'暂无数据',
-    role:app.globalData.userInfo.role,
+    role: '',
     isCustom: true
   },
 
@@ -42,7 +42,8 @@ Page({
     }
 },
 onLoad:function(){
-  if(this.data.role != 2){
+  let role = app.globalData.userInfo.role;
+  if(role != 2){
     var that = this;
     var support_id = app.globalData.userInfo.id;
     
@@ -50,12 +51,14 @@ onLoad:function(){
       support_id:support_id,
       page:1,
       orderList:[],
-      hasMoreData:true
+      hasMoreData:true,
+      role: role
     })
     that.getOrderList();
   }else{
     this.setData({
-      isCustom: false
+      isCustom: false,
+      role: role
     });
   }
   

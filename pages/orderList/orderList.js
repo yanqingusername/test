@@ -11,12 +11,16 @@ Page({
 		pageSize:6, //每页六条
 		hasMoreData:true,
 		tip_temp:'暂无数据',
-		role:app.globalData.userInfo.role
+		role: ''
 	},
 
 	onLoad: function (options) {
 		var that = this;
-		if(this.data.role != 2){
+		let role = app.globalData.userInfo.role;
+		that.setData({
+			role: role
+		});
+		if(role != 2){
 			that.getOrderList()
 		}
 	},
