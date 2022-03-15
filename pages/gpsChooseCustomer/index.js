@@ -92,7 +92,6 @@ Page({
           arr.push(list[i]);
         }
       }
-      console.log(arr);
       that.setData({
         listPlus: arr
       });

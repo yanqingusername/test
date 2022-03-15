@@ -92,9 +92,7 @@ Page({
           },
           success: function (res) {
             //上传成功
-            console.log(res)
             var obj = JSON.parse(res.data)
-            console.log(obj.text_info)
             that.setData({
               isShow: true,
               numberList: obj.text_info
@@ -104,7 +102,6 @@ Page({
             var reg = /[^a-z\d]/ig;
             for(let i =0;i< that.data.numberList.length;i++){
               let item = that.data.numberList[i];
-              console.log(item.line_content,item.line_content.length)
               if(item.line_content!= null && item.line_content != ""){
                 item.line_content = item.line_content.replace(reg, "")
                 if(item.line_content.length >= that.data.instrumentSNLength){
@@ -131,9 +128,7 @@ Page({
             "chartset": "utf-8"
           },
           success: function (returnRes) {
-            console.log(returnRes)
             var data = JSON.parse(returnRes.data)
-            console.log(data.msg)
             that.setData({
               position_sn_img_old: data.msg
             });
@@ -187,9 +182,7 @@ Page({
                 "chartset": "utf-8"
               },
               success: function (returnRes) {
-                console.log(returnRes)
                 var data = JSON.parse(returnRes.data)
-                console.log(data.msg)
                 that.setData({
                   bind_GPS_img: data.msg
                 });
@@ -215,9 +208,7 @@ Page({
                 "chartset": "utf-8"
               },
               success: function (returnRes) {
-                console.log(returnRes)
                 var data = JSON.parse(returnRes.data)
-                console.log(data.msg)
                 that.setData({
                   instrument_sn_img: data.msg
                 });
@@ -242,9 +233,7 @@ Page({
               },
               success: function (res) {
                 //上传成功
-                console.log(res)
                 var obj = JSON.parse(res.data)
-                console.log(obj.text_info)
                 that.setData({
                   instrument_sn_List: obj.text_info
                 });
@@ -253,7 +242,6 @@ Page({
                 var reg = /[^a-z\d]/ig;
                 for(let i =0;i< that.data.instrument_sn_List.length;i++){
                   let item = that.data.instrument_sn_List[i];
-                  console.log(item.line_content,item.line_content.length)
                   if(item.line_content!= null && item.line_content != ""){
                     item.line_content = item.line_content.replace(reg, "")
                     if(item.line_content.length >= that.data.instrumentSNLength){
@@ -290,9 +278,7 @@ Page({
                 "chartset": "utf-8"
               },
               success: function (returnRes) {
-                console.log(returnRes)
                 var data = JSON.parse(returnRes.data)
-                console.log(data.msg)
                 that.setData({
                   position_sn_img: data.msg
                 });
@@ -317,9 +303,7 @@ Page({
               },
               success: function (res) {
                 //上传成功
-                console.log(res)
                 var obj = JSON.parse(res.data)
-                console.log(obj.text_info)
                 that.setData({
                   position_sn_List: obj.text_info
                 });
@@ -328,7 +312,6 @@ Page({
                 var reg = /[^a-z\d]/ig;
                 for(let i =0;i< that.data.position_sn_List.length;i++){
                   let item = that.data.position_sn_List[i];
-                  console.log(item.line_content,item.line_content.length)
                   if(item.line_content!= null && item.line_content != ""){
                     item.line_content = item.line_content.replace(reg, "")
                     if(item.line_content.length >= that.data.instrumentSNLength){
@@ -418,7 +401,6 @@ Page({
         instrument_sn_img: that.data.instrument_sn_img,
         position_sn_img: that.data.position_sn_img
       }
-      console.log('--->:',data)
       request.request_new_test('/position/instrument/bindInstrumentPositionSN.hn', data, function (res) { 
         if (res) {
           if (res.success) {
