@@ -290,7 +290,7 @@ Page({
               //https://api-cn.faceplusplus.com/imagepp/v2/generalocr
               url: 'https://api-cn.faceplusplus.com/imagepp/v2/generalocr',
               //小程序本地的路径
-              filePath: tempFilePaths,
+              filePath: filePath,
               //后台获取我们图片的key
               name: 'image_file',
               header: {

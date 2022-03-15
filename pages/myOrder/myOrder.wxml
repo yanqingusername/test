@@ -3,12 +3,12 @@
   <view slot="content">我的工单</view>
 </cu-custom>
 <scroll-view scroll-x class="bg-white nav text-center" wx:if="{{role != 2}}"
-  style="background-color: #FFF;position:fixed;top:10%;z-index:9999;">
+  style="background-color: #FFF;position:fixed;top:11%;z-index:9999;">
   <view class="cu-item {{index==TabCur?'text-blue cur':''}}" wx:for="{{statusList}}" wx:key bindtap="tabSelect"   data-id="{{index}}">
     {{statusList[index]}}
   </view>
 </scroll-view>
-<view class="page" style="position:absolute;top: 15%;">
+<view class="page" style="position:absolute;top: 16%;">
   <view class="P1">
 
     <block wx:for="{{orderList}}">
