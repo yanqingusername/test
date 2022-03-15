@@ -4,7 +4,7 @@
 </cu-custom>
 <view class="page"> 
     <view class="P1">
-        <block wx:for="{{orderList}}">
+        <block wx:for="{{orderList}}" wx:if="{{role != 2}}">
             <view class="P2 app_font" bindtap="toInfo" data-id = "{{item.id}}" data-type="{{item.type}}">
                 <view style="display:flex;align-items:center;flex-wrap:wrap;border-bottom: 1px solid #F9F9F9;">
                     <view class="title" wx:if="{{item.type==1}}">

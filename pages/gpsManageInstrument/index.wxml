@@ -7,7 +7,7 @@
   <view class='search'>
     <view class="search_view">
       <icon type="search" size="20" bindtap="searchHandle"/>
-      <input id="search_checked" type='text' placeholder='请输入仪器序列号/GPS序列号' placeholder-class="center" confirm-type='search' value="{{searchText}}" bindinput='searchChangeHandle' bindconfirm='searchHandle'></input>
+      <input id="search_checked" type='text' placeholder='请输入仪器/GPS序列号' placeholder-class="center" confirm-type='search' value="{{searchText}}" bindinput='searchChangeHandle' bindconfirm='searchHandle'></input>
     </view>
     <view class="weui-icon-clear" wx:if="{{searchText}}" bindtap="clearSearchHandle">
       <icon type="clear" size="20" />
