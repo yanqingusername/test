@@ -2,14 +2,14 @@
 <cu-custom bgColor="bg-white" isBack="{{false}}" isCustom="{{isCustom}}">
   <view slot="content">我的工单</view>
 </cu-custom>
-<scroll-view scroll-x class="bg-white nav text-center"  wx:if="{{role != 2}}" style="background-color: #FFF;position:fixed;top:11%;z-index:9999;">
+<scroll-view scroll-x class="bg-white nav text-center"  wx:if="{{role != 2}}" style="background-color: #FFF;position:fixed;z-index:9999;">
   <view class="cu-item {{index==TabCur?'text-blue cur':''}}" style="border-bottom: none;" wx:for="{{statusList}}" wx:key="index" catchtap="tabSelect" data-id="{{index}}">
       <span >{{statusList[index]}}</span>
       <span wx:if="{{index==0}}">({{statusNumber}})</span>
   </view>
 </scroll-view>
 <view class="page" style="position:absolute;top: 16%;">
-    <view class="new_p1">
+    <view class="new_p1" style="margin-top: 20rpx;">
         <block wx:for="{{orderList}}" wx:key="index" wx:if="{{orderList.length > 0}}">
             <view class="new_p1_view" bindtap="toInfo" data-id = "{{item.id}}" data-type="{{item.type}}">
                 <view class="new_p2" style="align-items: center;">

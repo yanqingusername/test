@@ -205,3 +205,8 @@
     left: -10rpx;
     border-radius: 6rpx;
   }
+
+  .page_top{
+    position:absolute;
+    top: 16%;
+  }

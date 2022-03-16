@@ -13,7 +13,7 @@
         </view>
       </view>
       <view class="detail_center">
-        <view class="P5_1 app_font" style="padding-left:30rpx;color: #333333;">客户名称</view>
+        <view class="P5_1 app_font" style="padding-left:30rpx;color: #333333;">姓名</view>
         <input class='P5_2 app_font' bindinput="bindSetData2" placeholder='请填写联系人姓名' type="text" name="name" value="{{name}}"></input>
       </view>
       <view class="line"></view>
