@@ -50,21 +50,20 @@ Page({
     })
 
     if(options && options.SN){
-      let remarkIndex = 0;
-      if(options.remark){
-        for(let i=0;i<this.data.remarkList.length;i++){
-          let reagent_name = this.data.remarkList[i].reagent_name;
-          if(options.remark == reagent_name){
-            remarkIndex = i;
-          }
-        }
-      }
+      // let remarkIndex = 0;
+      // if(options.remark){
+      //   for(let i=0;i<this.data.remarkList.length;i++){
+      //     let reagent_name = this.data.remarkList[i].instrument_attribute_name;
+      //     if(options.remark == reagent_name){
+      //       remarkIndex = i;
+      //     }
+      //   }
+      // }
       this.setData({
         SN: options.SN,
         remark: options.remark,
         old_SN: options.SN,
-        old_remark: options.remark,
-        remarkIndex: remarkIndex
+        old_remark: options.remark
       },()=>{
         this.checkSubmitStatus()
       });
@@ -85,6 +84,19 @@ Page({
           that.setData({
             remarkList: res.result
           });
+
+          if(that.data.remark){
+            let remarkIndex = 0;
+              for(let i=0;i<that.data.remarkList.length;i++){
+                let reagent_name = that.data.remarkList[i].instrument_attribute_name;
+                if(that.data.remark == reagent_name){
+                  remarkIndex = i;
+                }
+              }
+              that.setData({
+                remarkIndex: remarkIndex
+              });
+          }
         } else { 
           box.showToast(res.msg)
         }
