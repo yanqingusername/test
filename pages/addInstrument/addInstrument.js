@@ -176,6 +176,7 @@ Page({
           instrument_name: that.data.instrument_name,
           company_account: that.data.company_account,
           create_person: app.globalData.userInfo.name,
+          phone: app.globalData.userInfo.phone,
           remark:remark,
           replaced_SN:that.data.replaced_SN
         }
@@ -203,6 +204,7 @@ Page({
           instrument_name: that.data.instrument_name,
           company_account: that.data.company_account,
           create_person: app.globalData.userInfo.name,
+          phone: app.globalData.userInfo.phone,
           remark:remark,
           replaced_SN:that.data.replaced_SN
         }
@@ -272,6 +274,7 @@ Page({
           instrument_name: that.data.instrument_name,
           company_account: that.data.company_account,
           create_person: app.globalData.userInfo.name,
+          phone: app.globalData.userInfo.phone,
           remark:remark,
           replaced_SN:that.data.replaced_SN
         }

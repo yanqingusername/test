@@ -357,5 +357,6 @@ Page({
     this.setData({
       locationName: str
     })
+    this.checkSubmitStatus()
   },
 })

@@ -180,8 +180,8 @@
         <view class="new_p3_more_view">
           <view class="new_p4_gray" catch:tap="bindMore" wx:if="{{role==1 || (role==0 && creator_id==userInfoID)}}">更多</view>
           <view class="new_p3_more_dialog" wx:if="{{isShowClose}}">
-            <view class="new_p3_more" style="font-size: 28rpx;" wx:if="{{role==1 || (role==0 && creator_id==userInfoID && info.allow_update==0)}}" catch:tap="bindUpdateOrder" data-id="{{info.id}}" data-ordernum="{{info.order_num}}">修改工单</view>
-            <view class="new_p3_more" style="font-size: 28rpx;margin-top:20rpx;" wx:if="{{role==1 || (role==0 && creator_id==userInfoID)}}" catch:tap="bindCloseOrder" data-id="{{info.order_num}}">关闭工单</view>
+            <view class="new_p3_more" style="font-size: 28rpx;margin-bottom:20rpx;" wx:if="{{role==1 || (role==0 && creator_id==userInfoID && info.allow_update==0)}}" catch:tap="bindUpdateOrder" data-id="{{info.id}}" data-ordernum="{{info.order_num}}">修改工单</view>
+            <view class="new_p3_more" style="font-size: 28rpx;" wx:if="{{role==1 || (role==0 && creator_id==userInfoID)}}" catch:tap="bindCloseOrder" data-id="{{info.order_num}}">关闭工单</view>
             <view class="new_p3_more_"></view>
           </view>
         </view>
@@ -203,8 +203,8 @@
         <view class="new_p3_more_view" wx:else>
           <view class="new_p4_gray" catch:tap="bindMore" wx:if="{{role==1 || (role==0 && creator_id==userInfoID)}}">更多</view>
           <view class="new_p3_more_dialog" wx:if="{{isShowClose}}">
-            <view class="new_p3_more" style="font-size: 28rpx;" wx:if="{{role==1 || (role==0 && creator_id==userInfoID && info.allow_update==0)}}" catch:tap="bindUpdateOrder" data-id="{{info.id}}" data-ordernum="{{info.order_num}}">修改工单</view>
-            <view class="new_p3_more" style="font-size: 28rpx;margin-top:20rpx;" wx:if="{{role==1 || (role==0 && creator_id==userInfoID)}}" catch:tap="bindCloseOrder" data-id="{{info.order_num}}">关闭工单</view>
+            <view class="new_p3_more" style="font-size: 28rpx;margin-bottom:20rpx;" wx:if="{{role==1 || (role==0 && creator_id==userInfoID && info.allow_update==0)}}" catch:tap="bindUpdateOrder" data-id="{{info.id}}" data-ordernum="{{info.order_num}}">修改工单</view>
+            <view class="new_p3_more" style="font-size: 28rpx;" wx:if="{{role==1 || (role==0 && creator_id==userInfoID)}}" catch:tap="bindCloseOrder" data-id="{{info.order_num}}">关闭工单</view>
             <view class="new_p3_more_"></view>
           </view>
         </view>

@@ -137,3 +137,9 @@
   left: 75rpx;
   width: 80% !important;
 }
+
+.tip_style{
+  text-align: center;
+  font-size: 35rpx;
+  margin-top: 50rpx;
+}

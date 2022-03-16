@@ -111,7 +111,7 @@ Page({
              recordInfoList: res.result
           });
         } else {
-          box.showToast(res.msg);
+          // box.showToast(res.msg);
         }
       }
     })

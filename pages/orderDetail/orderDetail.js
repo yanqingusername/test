@@ -87,10 +87,12 @@ Page({
       role:app.globalData.userInfo.role,
       userInfoID:app.globalData.userInfo.id,
     })
-    // that.getOrderInfo();
+    that.getOrderInfo();
   },
   onShow(){
-    this.getOrderInfo();
+    if(this.data.flag == false){
+      this.getOrderInfo();
+    }
   },
   //SN号显示全部
   showAll:function(){
@@ -668,9 +670,13 @@ Page({
 			this.setData({
 				showDialog: true,
         update_order_id: id,
-				update_order_num: order_num
+				update_order_num: order_num,
+        flag: false
 			});
 		} else {
+      this.setData({
+        flag: false
+      });
 			// 管理员可重复修改
 			wx.navigateTo({
         url: `/pages/createOrder/createOrder?isUpdate=1&id=${this.data.update_order_id}&ordernum=${this.data.update_order_num}`
@@ -684,7 +690,8 @@ Page({
 	},
 	dialogSure() {
 		this.setData({
-			showDialog: false
+			showDialog: false,
+      flag: false
 		});
 		wx.navigateTo({
 			url: `/pages/createOrder/createOrder?isUpdate=1&id=${this.data.update_order_id}&ordernum=${this.data.update_order_num}`
