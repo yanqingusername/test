@@ -24,6 +24,7 @@ Page({
       cancel: "取消",
       sure: "确认"
     },
+    old_name: '',  // 编辑联系人  保存之前的联系人
   },
   onLoad: function (options) {
     var that = this;
@@ -38,7 +39,8 @@ Page({
       that.setData({
         name: options.name,
         phone: options.phone,
-        old_phone: options.phone
+        old_phone: options.phone,
+        old_name: options.name
       },()=>{
         this.checkSubmitStatus()
       });
@@ -92,7 +94,8 @@ Page({
           company_account:account,
           name: name,
           phone: phone,
-          old_phone:that.data.old_phone
+          old_phone:that.data.old_phone,
+          old_name: this.data.old_name
         }
         request.request_new_test('/instrument/supprot/updateCompanyContactInfo.hn', params, function (res) { 
           console.info('createCustodian回调', res)
@@ -192,7 +195,8 @@ Page({
     let that = this;
     let params = {
       company_account:this.data.account,
-      old_phone:this.data.old_phone
+      old_phone:this.data.old_phone,
+      old_name: this.data.old_name
     }
     request.request_new_test('/instrument/supprot/deleteCompanyContactInfo.hn', params, function (res) { 
       if (res) {
