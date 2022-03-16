@@ -168,14 +168,10 @@ jumpTabSelect(e) {
 					}
 					
 					that.setData({
-						orderList: orderListTemp 
+						orderList: orderListTemp,
+						statusNumber: res.total_order
 					});
 
-          if(that.data.order_status==1){
-            that.setData({
-              statusNumber: orderListTemp.length
-            });
-          }
 				} else {
 					box.showToast(res.msg);
 				}
