@@ -8,7 +8,9 @@
 //var apiurl = 'http://localhost:8080/flash20AppletBackend'         // 本地测试
 //8.130.48.31
 
-var apiurl = 'https://scldev.coyotebio-lab.com:8443/flash20AppletBackend'//测试服务器 孙仕豪
+// var apiurl = 'https://scldev.coyotebio-lab.com:8443/flash20AppletBackend'//测试服务器 孙仕豪
+
+var apiurl = 'http://xmr.coyotebio-lab.com:8080/flash20AppletBackend'//测试服务器 肖老师
 
 
 //var apiurl = 'http://8.130.25.5:8080/flash20AppletBackend' // 测试服务器 宋彦睿
@@ -41,7 +43,7 @@ function request_get(controller, data, cb) {
 }
 
 function request_new_test(controller, data, cb) {
-    let apiurl = 'http://xmr.coyotebio-lab.com:8080/flash20Management'//测试服务器 肖老师
+    // let apiurl = 'http://xmr.coyotebio-lab.com:8080/flash20Management'//测试服务器 肖老师
     var url = apiurl + controller;
     wx.request({
         url: url,

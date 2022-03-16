@@ -22,7 +22,7 @@ Page({
     title: '添加客户',
     address: "",
     locationName: "",
-    isMCus: 0, // 判断是否从客户管理带过来的参数  默认为0  1代表从客户管理跳转过来  2代表从客户管理-客户详情跳转过来
+    isMCus: 0, // 判断是否从客户管理带过来的参数  默认为0  1代表从客户管理跳转过来  2代表从客户管理-客户详情跳转过来  3GPS管理过来
     company_account: ''
   },
   onLoad: function (options) {
@@ -57,7 +57,7 @@ Page({
   },
   bindSetData2:function(e){
     var str = e.detail.value;
-    str = utils.checkInput(str);
+    str = utils.checkInputName(str);
     this.setData({
       name:str
     })
@@ -139,7 +139,43 @@ Page({
     }else if(that.data.area_id == '0'){
       box.showToast("请选择所属大区")
     }else{
-      if(that.data.isMCus == 1){
+      if(that.data.isMCus == 3){
+        let data = {
+          company_name: company_name,
+          name: name,
+          phone: phone,
+          create_person:app.globalData.userInfo.name,
+          area_id:that.data.area_id,
+          address: that.data.address,
+          locationName: that.data.locationName,
+        }
+        request.request_get('/instrument/supprot/addCompanyInfo.hn', data, function (res) { 
+          console.info('CreateCompany回调', res)
+          if (res) {
+            if (res.success) {
+              that.setData({
+                account: res.company_account
+              })
+              wx.showToast({
+                title: '保存成功',
+                icon: 'success',
+              })
+              wx.navigateBack({
+                delta: 1, //返回上个页面
+              });
+            } else {
+              wx.showToast({
+                icon: 'none',
+                title: res.msg,
+              })
+            }
+          }else{
+            wx.showToast({
+              title: '网络不稳定，请重试',
+            })
+          }
+        })
+      } else if(that.data.isMCus == 1){
         var params = {
           company_name: company_name,
           name: name,

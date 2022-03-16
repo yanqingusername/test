@@ -25,7 +25,10 @@
     "pages/detailCustomer/index",
     "pages/manageAddInstrument/index",
     "pages/tagsLog/index",
-    "pages/recordInfoLog/index"
+    "pages/recordInfoLog/index",
+    "pages/gpsChooseCustomer/index",
+    "pages/gpsManageInstrument/index",
+    "pages/gpsBind/index"
   ],
   "window": {
     "navigationBarTitleText": "Color UI",

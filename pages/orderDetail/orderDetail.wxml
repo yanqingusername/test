@@ -153,14 +153,14 @@
                     <view class="new_p2_gray" style="font-size: 32rpx;color: #333333;">{{info.createTime}}</view>
                 </view>
 
-                <view class="new_p2" style="margin-top:30rpx;" wx:if="{{info.receive_order_time}}">
+                <view class="new_p2" style="margin-top:30rpx;" wx:if="{{info.receiveordertime}}">
                     <view class="new_p2_black" style="color: #999999;">接单时间</view>
-                    <view class="new_p2_gray" style="font-size: 32rpx;color: #333333;">{{info.receive_order_time}}</view>
+                    <view class="new_p2_gray" style="font-size: 32rpx;color: #333333;">{{info.receiveordertime}}</view>
                 </view>
 
-                <view class="new_p2" style="margin-top:30rpx;" wx:if="{{info.alter_order_time}}">
+                <view class="new_p2" style="margin-top:30rpx;" wx:if="{{info.alterordertime}}">
                     <view class="new_p2_black" style="color: #999999;">修改时间</view>
-                    <view class="new_p2_gray" style="font-size: 32rpx;color: #333333;">{{info.alter_order_time}}</view>
+                    <view class="new_p2_gray" style="font-size: 32rpx;color: #333333;">{{info.alterordertime}}</view>
                 </view>
 
                 <view wx:if="{{status == 2}}" class="new_p2" style="margin-top:30rpx;">

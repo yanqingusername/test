@@ -14,23 +14,23 @@
       </view>
       <view class="detail_center">
         <view class="P5_1 app_font" style="padding-left:30rpx;color: #333333;">企业名称</view>
-        <input class='P5_2 app_font' type="text" bindinput="bindSetData1" placeholder='请填写企业名称' name="company_name" value="{{company_name}}"></input>
+        <input class='P5_2 app_font' type="text" bindinput="bindSetData1" placeholder-class="app_font" placeholder='请填写企业名称' name="company_name" value="{{company_name}}"></input>
       </view>
       <view class="line"></view>
       <view class="detail_center">
         <view class="P5_1 app_font" style="padding-left:30rpx;color: #333333;">联系人</view>
-        <input class='P5_2 app_font' bindinput="bindSetData2" placeholder='请填写联系人姓名' type="text" name="name" value="{{name}}" ></input>
+        <input class='P5_2 app_font' bindinput="bindSetData2" placeholder-class="app_font" placeholder='请填写联系人姓名' type="text" name="name" value="{{name}}" ></input>
       </view>
       <view class="line"></view>
       <view class="detail_center">
         <view class="P5_1 app_font" style="padding-left:30rpx;color: #333333;">手机号</view>
-        <input class='P5_2 app_font' bindinput="bindSetData3" placeholder='请填写联系人手机号' maxlength="11"  type="number" name="phone" value="{{phone}}"></input>
+        <input class='P5_2 app_font' bindinput="bindSetData3" placeholder-class="app_font" placeholder='请填写联系人手机号' maxlength="11"  type="number" name="phone" value="{{phone}}"></input>
       </view>
       <view class="line"></view>
       <view class="detail_center">
         <view class="P5_1 app_font" style="padding-left:30rpx;color: #333333;">所在地区</view>
         <view class="detail_center" style="width:70%;">
-          <input class='P5_2 app_font' placeholder='请选择客户所在地区' bindtap="showMap" name="address" type="text" style="width: 80%;" disabled="true" value="{{address}}"></input>
+          <input class='P5_2 app_font' placeholder='请选择客户所在地区' placeholder-class="app_font" bindtap="showMap" name="address" type="text" style="width: 80%;" disabled="true" value="{{address}}"></input>
           <view style="width: 20%;display: flex;align-items: center;justify-content: center;">
             <image src="../../image/icon_position.png" style="width:36rpx;height:44rpx;" bindtap="showMap"/>
           </view>
@@ -39,7 +39,7 @@
       <view class="line"></view>
       <view class="detail_center">
         <view class="P5_1 app_font" style="padding-left:30rpx;color: #333333;padding-top:0rpx;">详细地址</view>
-        <textarea style="width: 70%;color: #333333;text-align: left;" auto-height placeholder='请填写详细地址' name="locationName"  bindinput="updateLocation" value="{{locationName}}" ></textarea>
+        <textarea style="width: 70%;color: #333333;text-align: left;" auto-height placeholder-class="app_font" placeholder='请填写详细地址' name="locationName"  bindinput="updateLocation" value="{{locationName}}" ></textarea>
       </view>
 
     </view>
@@ -52,6 +52,11 @@
   </view>
 
 </form>
+
+<view class="icon-box-ctn">
+      <icon class="weui-icon-search_in-box" type="warn" size="14" bindtap="searchHandle"/>
+      <view class="icon-box-desc">信息提交后不可修改，如需修改请联系管理员</view>
+</view>
 
 <!-- <form bindsubmit="submit">
   <view class="P5 app_flex">

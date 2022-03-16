@@ -9,7 +9,7 @@
     <view class="detail_header">
       <view class="detail_title">基本信息</view>
       <view class="detail_right" bind:tap="bindManageUpdateInstrument" data-item="{{company_result[0]}}">
-        <image src="../../image/icon_edit.png" class='detail_right_img' />
+        <image src="../../image/icon_detail_edit.png" class='detail_right_img' />
         <view class='detail_right_text'>编辑</view>
       </view>
     </view>
@@ -31,7 +31,7 @@
     <view class="detail_header">
       <view class="detail_title">联系人</view>
       <view class="detail_right" bind:tap="bindAddCustodian">
-        <image src="../../image/add.png" class='detail_right_img' />
+        <image src="../../image/icon_detail_add.png" class='detail_right_img' />
         <view class='detail_right_text'>添加</view>
       </view>
     </view>
@@ -39,7 +39,7 @@
       <view class="detail_center" wx:if="{{nameList.length > 0}}">
         <view class="detail_black" style="width:20%;">{{item.name}}</view>
         <view class="detail_black" style="width:60%;">{{item.phone}}</view>
-        <view class="detail_img" style="width:20%;" bind:tap="bindUpdateCustodian" data-name="{{item.name}}" data-phone="{{item.phone}}"><image src="../../image/icon_edit.png" class='detail_right_img' /></view>
+        <view class="detail_img" style="width:20%;" bind:tap="bindUpdateCustodian" data-name="{{item.name}}" data-phone="{{item.phone}}"><image src="../../image/icon_detail_edit_gray.png" class='detail_right_img' /></view>
       </view>
     </block>
     <view wx:if="{{nameList.length == 0}}" class="tip_style">{{tips}}</view>
@@ -49,7 +49,7 @@
     <view class="detail_header">
       <view class="detail_title">设备信息</view>
       <view class="detail_right" bind:tap="bindAddInstrument">
-        <image src="../../image/add.png" class='detail_right_img' />
+        <image src="../../image/icon_detail_add.png" class='detail_right_img' />
         <view class='detail_right_text'>添加</view>
       </view>
     </view>
@@ -60,8 +60,8 @@
           <view class="detail_black" style="width:50%;">{{item.instrument_SN}}</view>
           <view class="detail_img" style="width:18%;justify-content: center;">
             <view class="detail_img" style="width:100%;justify-content: space-between;">
-              <image src="../../image/myOrder.png" class='detail_right_img' bind:tap="bindTagLog" data-instrumentsn="{{item.instrument_SN}}"/>
-              <image src="../../image/icon_edit.png" class='detail_right_img' bind:tap="bindUpdateInstrument" data-instrumentsn="{{item.instrument_SN}}" data-instrumentname="{{item.instrument_name}}" data-remark="{{item.remark}}"/>
+              <image src="../../image/icon_detail_note.png" class='detail_right_img' bind:tap="bindTagLog" data-instrumentsn="{{item.instrument_SN}}"/>
+              <image src="../../image/icon_detail_edit_gray.png" class='detail_right_img' bind:tap="bindUpdateInstrument" data-instrumentsn="{{item.instrument_SN}}" data-instrumentname="{{item.instrument_name}}" data-remark="{{item.remark}}"/>
             </view>
           </view>
         </view>
@@ -76,7 +76,7 @@
           <view class="detail_gray" style="width:32%;">{{item.instrument_name}}</view>
           <view class="detail_gray" style="width:50%;">{{item.instrument_SN}}</view>
           <view class="detail_img" style="width:18%;">
-              <image src="../../image/myOrder.png" class='detail_right_img' bind:tap="bindTagLog" data-instrumentsn="{{item.instrument_SN}}"/>
+              <image src="../../image/icon_detail_note.png" class='detail_right_img' bind:tap="bindTagLog" data-instrumentsn="{{item.instrument_SN}}"/>
           </view>
         </view>
         <view class="line" wx:if="{{index != (instrument_result_delete.length -1)}}"></view>

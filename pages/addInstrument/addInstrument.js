@@ -19,16 +19,17 @@ Page({
     ifAccept:0,
     flag_1:false,
     replaced_SN:'',
-    isMCus: 0, // 默认为0  1-则代表从客户详情设备信息跳转页面(添加仪器) 2-则代表从客户详情设备信息跳转页面(编辑仪器) 
+    isMCus: 0, // 默认为0  1-则代表从客户详情设备信息跳转页面(添加仪器) 2-则代表从客户详情设备信息跳转页面(编辑仪器)  3-GPS管理过来
     title: '添加仪器',
-    remarkList: [
-      {"reagent_name":'请选择设备属性'},
-      {"reagent_name":'自有'},
-      {"reagent_name":'备用机'},
-      {"reagent_name":'试用机'},
-      {"reagent_name":'投放机'},
-      {"reagent_name":'新机'}
-    ],
+    // remarkList: [
+    //   {"reagent_name":'请选择设备属性'},
+    //   {"reagent_name":'自有'},
+    //   {"reagent_name":'备用机'},
+    //   {"reagent_name":'试用机'},
+    //   {"reagent_name":'投放机'},
+    //   {"reagent_name":'新机'}
+    // ],
+    remarkList: [],
     remarkIndex: 0,
     old_SN:'',
     old_remark:'',
@@ -68,6 +69,29 @@ Page({
         this.checkSubmitStatus()
       });
     }
+  },
+  onShow(){
+    this.getInstrumentAttributeList();
+  },
+  getInstrumentAttributeList(){
+    let that = this;
+    let data = {}
+    request.request_new_test('/instrument/supprot/getInstrumentAttributeList.hn', data, function (res) { 
+      if (res) {
+        if (res.success) {
+          var remarkList = res.result;
+          var remarkListHead = {instrument_attribute_id:"0",instrument_attribute_name:'请选择设备属性'};
+          remarkList.unshift(remarkListHead);
+          that.setData({
+            remarkList: res.result
+          });
+        } else { 
+          box.showToast(res.msg)
+        }
+      }else{
+        box.showToast('网络不稳定，请重试')
+      }
+    })
   },
   //是否为替换机
   handleChange: function (e) {
@@ -116,8 +140,10 @@ Page({
     var SN = objData.SN;
     let remark = this.data.remark;
 
-    if(remark == '请选择设备属性'){
-      remark = '';
+    if(remark == '请选择设备属性' || remark == ''){
+      // remark = '';
+      box.showToast('请选择设备属性');
+      return;
     }
 
     if(that.data.flag_1 == true){
@@ -138,14 +164,38 @@ Page({
     var re=/^[A-Za-z0-9]*$/;  
     
     if(re.test(SN) == false){
-      wx.showToast({
-        icon:'none',
-        title: '请输入正确的序列号',
-      })
+      box.showToast('请输入正确的序列号')
     } else {
 
       // 根据isMCus来判断
-      if(that.data.isMCus == 1){
+      if(that.data.isMCus == 3){
+        // 3-则代表从GPS跳转页面(添加仪器) 
+
+        var params = {
+          instrument_sn: SN,
+          instrument_name: that.data.instrument_name,
+          company_account: that.data.company_account,
+          create_person: app.globalData.userInfo.name,
+          remark:remark,
+          replaced_SN:that.data.replaced_SN
+        }
+        request.request_get('/wxapi/create_instrument.hn', params, function (res) { 
+          console.info('新建仪器回调', res)
+          if (res) {
+            if (res.success) {
+              box.showToast('success')
+              wx.navigateBack({
+                delta: 1,
+              });
+            } else { 
+              box.showToast(res.msg)
+            }
+          }else{
+            box.showToast('网络不稳定，请重试')
+          }
+        })
+
+      } else if(that.data.isMCus == 1){
         // 1-则代表从客户详情设备信息跳转页面(添加仪器) 
 
         var params = {
@@ -285,6 +335,14 @@ Page({
      });
    },
    /**
+    * GPS跳转页面(添加仪器)
+    */
+    bindAddTypeGPS(){
+      wx.navigateTo({
+        url: `/pages/chooseInstrument/chooseInstrument?instrument_name=${this.data.instrument_name}&isMCus=3`
+      });
+    },
+   /**
     * 由原来的备注 ---> 设备属性
     */
    bindSelectrRemark: function (e) {
@@ -292,7 +350,7 @@ Page({
     console.log('picker发送选择改变，携带值为', e.detail.value)
     this.setData({
       remarkIndex: e.detail.value,
-      remark: that.data.remarkList[e.detail.value].reagent_name
+      remark: that.data.remarkList[e.detail.value].instrument_attribute_name
     })
   },
   bindShowDialog(){

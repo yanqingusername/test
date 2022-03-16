@@ -543,8 +543,7 @@ Page({
               //   }
               // })
             } else {
-              console.log(res.msg);
-              box.showToast("修改失败，请检查网络连接！");
+              box.showToast(res.msg);
             }
           }else{
             box.showToast("网络不稳定，请重试");

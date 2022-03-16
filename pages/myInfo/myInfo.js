@@ -18,7 +18,8 @@ Page({
     //判断小程序的API，回调，参数，组件等是否在当前版本可用。
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
     isHide: false,
-    service_status:1
+    service_status:1,
+    areaList: []
   },
   //事件处理函数
   bindViewTap: function () {
@@ -108,9 +109,47 @@ Page({
       that.setData({
         area:'全国'
       })
+    }else{
+      this.getArea();
     }
   },
+  getArea: function () {
+    var that = this;
+    var data = {};
+    request.request_get('/support/getArea.hn', data, function (res) {
+        console.info('回调', res)
+        if (res) {
+            if (res.success) {
+                that.setData({
+                    areaList: res.msg
+                })
 
+                if(that.data.areaList.length > 0){
+                  let areaname = app.globalData.userInfo.area_id;
+                  let oldareaname = areaname.split(";");
+                  let newArr=oldareaname.filter(i=>i && i.trim())
+                  let newareaname = []
+                  for(let i = 0; i < that.data.areaList.length; i++){
+                    newareaname.push(that.data.areaList[i].value+"")
+                  }
+                  let isIncludes = that.includes(newArr,newareaname);
+                  if(isIncludes){
+                    that.setData({
+                      area:'全国'
+                    });
+                  }
+                }
+            } else {
+                box.showToast(res.msg);
+            }
+        }else{
+            box.showToast("网络不稳定，请重试");
+          }
+    })
+  },
+  includes(arr1, arr2) {
+    return arr2.every(val => arr1.includes(val));
+  },
   bindGetUserInfo: function (e) {
     if (e.detail.userInfo) {
       //用户按了允许授权按钮
@@ -179,6 +218,14 @@ Page({
   bindManageCustomer(){
     wx.navigateTo({
       url: `/pages/chooseCustomer/chooseCustomer?title=客户管理&isMCus=1`
+    });
+  },
+  /**
+   * GPS 管理
+   */
+  bindManageGPS(){
+    wx.navigateTo({
+      url: `/pages/gpsChooseCustomer/index`
     });
   }
 

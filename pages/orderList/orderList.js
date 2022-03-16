@@ -44,26 +44,30 @@ Page({
 
 	onLoad: function (options) {
 		var that = this;
+		let role = app.globalData.userInfo.role;
 		that.setData({
-			role: app.globalData.userInfo.role,
+			role: role,
 			userInfoID: app.globalData.userInfo.id,
 		});
-
-		that.getOrderList()
+		if(role != 2){
+			that.getOrderList()
+		}
 
 	},
 	onShow: function () {
-		var that = this;
-		wx.getStorage({
-			key: "jumpStatus",
-			success(res) {
-				if (res.data == 0) {
-					that.jumpTabSelect(0);
+		if(this.data.role != 2){
+			var that = this;
+			wx.getStorage({
+				key: "jumpStatus",
+				success(res) {
+					if (res.data == 0) {
+						that.jumpTabSelect(0);
+					}
 				}
-			}
-		})
+			})
 
-		that.getSupport();
+			that.getSupport();
+		}
 	},
 	jumpTabSelect: function (e) {
 		var that = this;
@@ -117,10 +121,10 @@ Page({
 					}
 
 					if(that.data.page > 1 && res.result_order.length == 0){
-						that.setData({
-							alreadyChecked_temp: true,
-							tip: "没有更多数据了"
-						});
+						// that.setData({
+						// 	alreadyChecked_temp: true,
+						// 	tip: "没有更多数据了"
+						// });
 					}
 					
 					that.setData({

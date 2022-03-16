@@ -41,7 +41,7 @@
 <view style="background-color:#F5F5F5">
   <view wx:if="{{role == 1}}" style="height:50rpx"></view>
   <view class="P2" style="margin-bottom: 0rpx;">
-    <view class="item" style="height:250rpx" bindtap="bindStatistics">
+    <view class="item" style="height:250rpx;margin-top:20rpx;" bindtap="bindStatistics" wx:if="{{role!=2}}">
       <view class="title">
         <text>数据统计</text>
         <text style="color:#9A9A9A">查看更多 ></text>
@@ -76,10 +76,20 @@
         </view>
       </view>
     </view>
+
+    <view bindtap="bindManageGPS" style="margin-top:40rpx;">
+      <view class="item">
+        <view class="title" >
+          <text>GPS 管理</text>
+          <text style="color:#9A9A9A">></text>
+        </view>
+      </view>
+    </view>
+
   </view>
 </view>
   <!-- 退出 -->
-  <view style="width: 100%;padding: 30rpx;display: flex;align-items: center;justify-content: center;background-color: #F5F5F5;" >
+  <view style="width: 100%;padding: 30rpx;display: flex;align-items: center;justify-content: center;background-color: #F5F5F5;margin-top: 30rpx;" >
     <view class="app_btn" bindtap="toExit"
       style="height: 88rpx;width: 400rpx;background-color: #FFFFFF;border-radius: 12rpx;border: 1px solid #307FF5;font-size: 32rpx;color: #307FF5;">退出登录</view>
   </view>

@@ -107,8 +107,8 @@
 }
 
 .picker_1{
-  position:absolute;
-  right:50rpx;
+  /* position:absolute;
+  right:50rpx; */
   color:#808080
 }
 
@@ -172,4 +172,9 @@ page{
 .icon-box-delete{
   font-size: 28rpx;
   color: #C9024D;
+}
+
+.text_img{
+  width: 20rpx;
+  height: 34rpx;
 }

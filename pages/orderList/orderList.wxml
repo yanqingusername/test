@@ -10,7 +10,7 @@
 </scroll-view>
 <view class="page" style="margin-top: {{role == 1 ? '90':'0'}}rpx;">
     <view class="new_p1">
-        <block wx:for="{{orderList}}" wx:key="index" wx:if="{{orderList.length > 0}}">
+        <block wx:for="{{orderList}}" wx:key="index" wx:if="{{orderList.length > 0 && role != 2}}">
             <view class="new_p1_view" bindtap="toInfo" data-id = "{{item.id}}" data-type="{{item.type}}">
                 <view class="new_p2" style="align-items: center;">
                     <view class="new_p2_1">

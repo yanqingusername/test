@@ -43,32 +43,47 @@ Page({
 		deleteShowDialog: false,
     delete_order_num: '',
 	update_order_num: '',
-	update_order_id: ''
+	update_order_id: '',
+    isCustom: true
 	},
 
 	onLoad: function (options) {
-		var that = this;
-		that.setData({
-			role: app.globalData.userInfo.role,
-			userInfoID: app.globalData.userInfo.id,
-		});
-
-		that.getOrderList()
-
+		let role = app.globalData.userInfo.role;
+  		if(role != 2){
+			var that = this;
+			var support_id = app.globalData.userInfo.id;
+		
+			that.setData({
+			  support_id:support_id,
+			  page:1,
+			  orderList:[],
+			  hasMoreData:true,
+			  role: role,
+			  userInfoID: app.globalData.userInfo.id,
+			})
+			that.getOrderList();
+		  }else{
+			this.setData({
+			  isCustom: false,
+			  role: role
+			});
+		  }
 	},
 	onShow: function () {
-		var that = this;
-    console.log('成功onshow+++++++++++')
-    wx.getStorage({//获取本地缓存
-      key:"jumpStatus",
-      success:function(res){
-        console.log(res.data);
-        if(res.data == 1){
-          that.jumpTabSelect(1);
-        } else if (res.data == 2){
-          that.jumpTabSelect(2);
-        }
-      }})	
+		if(this.data.role != 2){
+			var that = this;
+			console.log('成功onshow+++++++++++')
+			wx.getStorage({//获取本地缓存
+			key:"jumpStatus",
+			success:function(res){
+				console.log(res.data);
+				if(res.data == 1){
+				that.jumpTabSelect(1);
+				} else if (res.data == 2){
+				that.jumpTabSelect(2);
+				}
+			}})	
+		}
 	},
 	//跳转专用tabSelect
 jumpTabSelect(e) {
@@ -110,9 +125,11 @@ jumpTabSelect(e) {
   }
 },
 	onReachBottom: function () {
-		console.log('成功下拉+++++++++++')
-		var that = this;
-		that.getOrderList();
+		if(this.data.role != 2){
+			console.log('成功下拉+++++++++++')
+			var that = this;
+			that.getOrderList();
+		}
 	},
 	// 获取当前技术支持所属区域内未接单的工单
 	getOrderList: function () {
@@ -144,10 +161,10 @@ jumpTabSelect(e) {
 					}
 
 					if(that.data.page > 1 && res.result_order.length == 0){
-						that.setData({
-							alreadyChecked_temp: true,
-							tip: "没有更多数据了"
-						});
+						// that.setData({
+						// 	alreadyChecked_temp: true,
+						// 	tip: "没有更多数据了"
+						// });
 					}
 					
 					that.setData({

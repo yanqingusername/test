@@ -11,7 +11,8 @@ Page({
     tips:'',
     instrument_name:'',
     flag_1:true,
-    instrument_name_temp:''
+    instrument_name_temp:'',
+    isMCus: 0 // 0-默认  3-GPS管理
   },
   onLoad: function (options) {
     var that = this;
@@ -19,6 +20,12 @@ Page({
     that.setData({
       instrument_name: options.instrument_name
     })
+
+    if(options && options.isMCus){
+      that.setData({
+        isMCus: options.isMCus
+      });
+    }
     that.getInstrumentList();
   },
   //获取仪器类型列表
@@ -31,7 +38,9 @@ Page({
         if (res.success) {
           var instrumentList = res.result;
           var other = {instrument_name:'其他'}
-          instrumentList.push(other)
+          if(that.data.isMCus != 3){
+            instrumentList.push(other)
+          }
           that.setData({
             instrumentList: instrumentList,
           });

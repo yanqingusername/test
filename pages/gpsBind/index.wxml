@@ -1,0 +1,57 @@
+<!-- pages/addCustodian/addCustodian.wxml -->
+<cu-custom isBack="{{true}}" bgColor="bg-white">
+  <view slot="backText"></view>
+  <view slot="content">绑定 GPS</view>
+</cu-custom>
+<view class="gps_container">
+
+  <view class="gps_container_title" style="font-size:34rpx;margin-top:40rpx;width: 670rpx;">已选择序列号：{{instrumentsn}}</view>
+
+  <view class="gps_container_view">
+    <view class="gps_container_title">GPS 信息</view>
+    <view class="gps_container_bottom">
+      <input wx:if="{{!isShow}}" class='P5_2 app_font' placeholder-class="app_font" bindinput="bindSetData2" placeholder='填写/扫描 GPS SN号' type="text" name="positionsn" value="{{positionsn}}" style="height: 120rpx;width: 90%;"></input>
+      <image src="../../image/camera.png" class="gps_container_img" bind:tap="bindOCR" />
+    </view>
+    <view class="gps_container_title" style="margin: 24rpx 0rpx;">图片记录</view>
+    <view class="gps_img_view">
+      <view class="gps_img_view_item">
+        <image src="{{bind_GPS_img ? bind_GPS_img : '../../image/icon_add.png'}}" class="gps_img" bind:tap="bindImg"/>
+        <view class="gps_title">仪器、GPS合照</view>
+      </view>
+      
+      <view class="gps_img_view_item">
+        <image src="{{instrument_sn_img ? instrument_sn_img : '../../image/icon_add.png'}}" class="gps_img" bind:tap="bindImg1"/>
+        <view class="gps_title">仪器序列号</view>
+      </view>
+
+      <view class="gps_img_view_item">
+        <image src="{{position_sn_img ? position_sn_img : '../../image/icon_add.png'}}" class="gps_img" bind:tap="bindImg2"/>
+        <view class="gps_title">GPS 序列号</view>
+      </view>
+    </view>
+
+    <view class="gps_lable" wx:if="{{isShowInstrument}}">仪器序列号不一致：{{noinstrumentsn}}</view>
+    <view class="gps_lable" wx:if="{{isShowPosition}}">GPS 列号不一致：{{nopositionsn}}</view>
+
+  </view>
+  <view class="gps_container_botton" bind:tap="submit">保存</view>
+</view>
+
+<!-- 遮罩 -->
+  <view wx:if="{{isShow}}" class='cover'>
+    <view class='cover_child'>
+      <view class="child-title">识别结果</view>
+      <scroll-view scroll-y="{{true}}" class="scroll-view">
+        <block wx:for="{{numberList}}" wx:key="index">
+          <view class="child-row" catchtap="bindSelect" data-linecontent="{{item.line_content}}" data-index="{{index}}">
+            <view class="text_title">{{item.line_content}}</view>
+            <image wx:if="{{companyIndex == index}}" src="../../image/icon_selected.png" class='text_img' />
+          </view>
+        </block>
+      </scroll-view>
+      <view class="gps_sure" catchtap="bindSure">确定</view>
+    </view>
+    <image catchtap="hideCover" class="cross" src="../../image/deleteTest.png " />
+    <view catchtap="hideCover" wx:if="{{isShow}}" class='bg'></view>
+  </view>

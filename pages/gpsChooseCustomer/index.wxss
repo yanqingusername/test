@@ -1,0 +1,104 @@
+ /* 搜索框样式 */
+.manage_search{
+  width: 100%;
+  margin-top: 40rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.search{
+  display: flex;
+  flex-direction: row;
+  justify-content:center;
+  align-items: center;
+  width: 670rpx;
+  height: 80rpx;
+  background: #F5F5F5;
+  border-radius: 12rpx;
+  position: relative;
+}
+
+.search_view{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* 搜索框提示文字样式 */
+.search .search_view input
+{
+  font-size:27rpx;
+  font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  /* padding-left:30rpx;  */
+}
+.weui-icon-clear{
+  position: absolute;
+  right: 30rpx;
+  display: flex;
+}
+
+#search_checked{
+  width:70%;
+  /* text-align: center; */
+}
+
+.container{
+  padding: 10px 20px;
+  align-content: center;
+}
+.container_view{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 670rpx;
+  padding: 38rpx 20rpx 38rpx 0rpx;
+  background: #FFFFFF;
+  border-bottom: 1px solid #DDDDDD;
+}
+.text-content{
+  display: flex;
+  width: 90%;
+  font-size: 32rpx;
+  color: #333333;
+  line-height: 44rpx;
+}
+
+.text_img{
+  width: 20rpx;
+  height: 34rpx;
+}
+
+.button-bottom{
+  background-color: #1673EC;
+  color:#FFFFFF;
+  position: fixed;
+  bottom: 20rpx;
+  left: 75rpx;
+  width: 80% !important;
+}
+
+.tip_style{
+  text-align: center;
+  margin-top: 30rpx;
+}
+.empty_view{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20rpx;
+  flex-direction: column;
+}
+
+.add_customer{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 60rpx;
+  width: 280rpx;
+height: 88rpx;
+background: #307FF5;
+border-radius: 12rpx;
+font-size: 32rpx;
+color: #FFFFFF;
+}
