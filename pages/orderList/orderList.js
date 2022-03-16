@@ -39,7 +39,9 @@ Page({
 		order_type: '', // 派单参数 订单id
 		close_order_num: '',
 		update_order_num: '',
-		update_order_id: ''
+		update_order_id: '',
+		total_order_admin_not: 0,
+		total_order_admin_now: 0
 	},
 
 	onLoad: function (options) {
@@ -128,7 +130,9 @@ Page({
 					}
 					
 					that.setData({
-						orderList: orderListTemp
+						orderList: orderListTemp,
+						total_order_admin_not: res.total_order_admin_not,
+						total_order_admin_now: res.total_order_admin_now
 					});
 				} else {
 					box.showToast(res.msg);

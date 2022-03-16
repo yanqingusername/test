@@ -5,7 +5,8 @@
 <scroll-view wx:if="{{role == 1}}" scroll-x class="bg-white nav text-center" style="background-color: #FFF;position:fixed;z-index:9999;">
   <view class="cu-item {{index==TabCur?'text-blue cur':''}}" style="border-bottom: none;" wx:for="{{statusList}}" wx:key="index" catchtap="tabSelect" data-id="{{index}}">
       <span >{{statusList[index]}}</span>
-      <span wx:if="{{index!=2}}">({{orderList.length}})</span>
+      <span wx:if="{{index==0}}">({{total_order_admin_not}})</span>
+      <span wx:if="{{index==1}}">({{total_order_admin_now}})</span>
   </view>
 </scroll-view>
 <view class="page {{role == 1 ? 'page_top': ''}}">

@@ -80,7 +80,10 @@ Page({
         
         //***  直接返回 
         // 测试账号登录，免验证码
-        if(phone == '13678901238' ){
+        if(phone == '15568429280' ){
+            login.toLogin(phone); 
+            return    
+        }else if(phone == '13678901238' ){
             login.toLogin(phone); 
             return    
         }else{
