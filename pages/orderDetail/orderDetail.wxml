@@ -38,7 +38,7 @@
                     <block wx:if="{{status != 1}}"> 
                       <block wx:if="{{scene_arr.length!=0}}">
                         <view class="img_box" style="margin:10rpx 0rpx 20rpx 20rpx;margin-left:0rpx;width: 74%;">
-                          <view class="img_item" style="width:120rpx;height:120rpx;margin-right: 5%;margin-bottom: 5%;" wx:for="{{scene_arr}}" wx:for-item="item">
+                          <view class="img_item" style="width:120rpx;height:120rpx;margin-right: 5%;margin-bottom: 5%;" wx:for="{{scene_arr}}" wx:for-item="item" wx:key="index">
                             <image bindtap="previewScene" data-src="{{item}}" class="img_item_i" data-index='{{index}}'
                               src="{{item}}" mode="aspectFill"></image>
                           </view>
@@ -48,7 +48,7 @@
                     <block wx:if="{{status==1}}">
                       <view class="img_box" style="margin:10rpx 0rpx 20rpx 20rpx;margin-left:0rpx;width: 74%;">
                         <block wx:if="{{scene_arr.length!=0}}">
-                          <view class="img_item" style="width:120rpx;height:120rpx;margin-right: 5%;margin-bottom: 5%;" wx:for="{{scene_arr}}" wx:for-item="item">
+                          <view class="img_item" style="width:120rpx;height:120rpx;margin-right: 5%;margin-bottom: 5%;" wx:for="{{scene_arr}}" wx:for-item="item" wx:key="index">
                             <image bindtap="previewScene" data-src="{{item}}" class="img_item_i" data-index='{{index}}' src="{{item}}"
                               mode="aspectFill"></image>
                             <block >
@@ -110,7 +110,7 @@
                       <view wx:if="{{info.instrument_SN.length > 1}}">
                         <view wx:if="{{show_flag1}}">{{info.instrument_SN[0]}}</view>
                         <view wx:if="{{show_flag1}}" style="color:#307FF5" bindtap="showAll">显示全部</view>
-                        <block wx:if="{{show_flag2}}" wx:for="{{info.instrument_SN}}">
+                        <block wx:if="{{show_flag2}}" wx:for="{{info.instrument_SN}}" wx:key="index">
                           <view>{{item}}</view>
                         </block>
                       </view>
@@ -127,7 +127,7 @@
                     <view class="new_p2_gray" style="font-size: 32rpx;color: #333333;">
                       <block wx:if="{{img_arr.length!=0}}">
                         <view class="img_box" style="margin:10rpx 0rpx 20rpx 20rpx;margin-left:0rpx;">
-                          <view class="img_item" style="width:120rpx;height:120rpx;margin-right: 5%;margin-bottom: 5%;" wx:for="{{img_arr}}" wx:for-item="item">
+                          <view class="img_item" style="width:120rpx;height:120rpx;margin-right: 5%;margin-bottom: 5%;" wx:for="{{img_arr}}" wx:for-item="item" wx:key="index">
                             <image bindtap="previewImg" data-src="{{item}}" class="img_item_i" data-index='{{index}}'
                               src="{{item}}" mode="aspectFill"></image>
                           </view>

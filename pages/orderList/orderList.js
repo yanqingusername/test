@@ -245,7 +245,7 @@ Page({
 		} else {
 			// 管理员可重复修改
 			wx.navigateTo({
-				url: `/pages/createOrder/createOrder?isUpdate=1&id=${this.data.update_order_id}&ordernum=${this.data.update_order_num}`
+				url: `/pages/createOrder/createOrder?isUpdate=1&id=${id}&ordernum=${order_num}`
 			});
 		}
 	},

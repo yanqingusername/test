@@ -210,7 +210,7 @@ Page({
             type: info.type,
             img_arr: imgArr, //接单图片
             scene_arr: sceneArr, //现场拍照
-            account: info.account,
+            account: info.company_account,
             status: info.status,
             // endSubmit: endSubmit,
             customerList: info.customer_img,
@@ -679,7 +679,7 @@ Page({
       });
 			// 管理员可重复修改
 			wx.navigateTo({
-        url: `/pages/createOrder/createOrder?isUpdate=1&id=${this.data.update_order_id}&ordernum=${this.data.update_order_num}`
+        url: `/pages/createOrder/createOrder?isUpdate=1&id=${id}&ordernum=${order_num}`
       });
 		}
 	},
