@@ -101,15 +101,10 @@ Page({
           console.info('createCustodian回调', res)
           if (res) {
             if (res.success) {
-              wx.showToast({
-                title: '保存成功',
-                icon: 'success',
-              })
+              box.showToast('保存成功')
               that.bindCreateCus();
             } else {
-              wx.showToast({
-                title: res.msg,
-              })
+              box.showToast(res.msg)
             }
           }else{
             wx.showToast({
@@ -128,19 +123,14 @@ Page({
           console.info('createCustodian回调', res)
           if (res) {
             if (res.success) {
-              wx.showToast({
-                title: '保存成功',
-                icon: 'success',
-              })
+              box.showToast('保存成功')
               if(that.data.isMCus == 1){
                 that.bindCreateCus();
               }else{
                 that.bindCreateCustodian();
               }
             } else {
-              wx.showToast({
-                title: res.msg,
-              })
+              box.showToast(res.msg)
             }
           }else{
             wx.showToast({
@@ -201,15 +191,10 @@ Page({
     request.request_new_test('/instrument/supprot/deleteCompanyContactInfo.hn', params, function (res) { 
       if (res) {
         if (res.success) {
-          wx.showToast({
-            title: '删除成功',
-            icon: 'success',
-          });
+          box.showToast('删除成功')
           that.bindCreateCus();
         } else {
-          wx.showToast({
-            title: res.msg,
-          });
+          box.showToast(res.msg)
         }
       }else{
         wx.showToast({
