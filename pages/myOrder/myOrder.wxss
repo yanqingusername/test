@@ -52,8 +52,6 @@ margin-top: 20rpx;
 .page{
   width:100%;
   overflow-x:hidden;
-  position: absolute;
-  margin-top: 90rpx
 }
 
 /**
