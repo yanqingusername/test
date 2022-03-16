@@ -39,7 +39,7 @@
     </view> -->
   </view>
 <view style="background-color:#F5F5F5">
-  <view wx:if="{{role == 1}}" style="height:50rpx"></view>
+  <!-- <view wx:if="{{role == 1}}" style="height:50rpx"></view> -->
   <view class="P2" style="margin-bottom: 0rpx;">
     <view class="item" style="height:250rpx;margin-top:20rpx;" bindtap="bindStatistics" wx:if="{{role!=2}}">
       <view class="title">
@@ -67,8 +67,8 @@
       </view>
     </view>
 
-    <view wx:if="{{role == 1}}" class="hr"></view>
-    <view wx:if="{{role == 1}}" bindtap="addAccount">
+    <!-- <view wx:if="{{role == 1}}" class="hr"></view> -->
+    <view wx:if="{{role == 1}}" bindtap="addAccount" style="margin-top:40rpx;">
       <view class="item">
         <view class="title" >
           <text>添加账号</text>
