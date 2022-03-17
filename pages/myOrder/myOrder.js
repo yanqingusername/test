@@ -44,7 +44,8 @@ Page({
     delete_order_num: '',
 	update_order_num: '',
 	update_order_id: '',
-    isCustom: true
+    isCustom: true,
+	isFlag: true
 	},
 
 	onLoad: function (options) {
@@ -82,7 +83,11 @@ Page({
 				} else if (res.data == 2){
 				that.jumpTabSelect(2);
 				}
-			}})	
+			}})
+			
+			if(!this.data.isFlag){
+				that.jumpTabSelect(1);
+			}
 		}
 	},
 	//跳转专用tabSelect
@@ -269,6 +274,9 @@ jumpTabSelect(e) {
 				update_order_num: order_num
 			});
 		} else {
+			this.setData({
+				isFlag: false
+			});
 			// 管理员可重复修改
 			wx.navigateTo({
 				url: `/pages/createOrder/createOrder?isUpdate=1&id=${id}&ordernum=${order_num}`
@@ -282,7 +290,8 @@ jumpTabSelect(e) {
 	},
 	dialogSure() {
 		this.setData({
-			showDialog: false
+			showDialog: false,
+			isFlag: false
 		});
 		wx.navigateTo({
 			url: `/pages/createOrder/createOrder?isUpdate=1&id=${this.data.update_order_id}&ordernum=${this.data.update_order_num}`
