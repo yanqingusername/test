@@ -141,7 +141,13 @@ Page({
 						total_order_admin_now: res.total_order_admin_now
 					});
 				} else {
-					box.showToast(res.msg);
+					if (that.data.page == 1 && res.result_order.length == 0){
+						that.setData({
+							alreadyChecked: true
+						});
+					}else{
+						box.showToast(res.msg);
+					}
 				}
 			} else {
 				box.showToast("网络不稳定，请重试");
