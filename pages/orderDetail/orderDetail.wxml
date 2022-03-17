@@ -218,7 +218,7 @@
     <view class="new_p4" wx:if="{{status==4 || status == 5}}">
       <view class="new_p4_left"></view>
       <view class="new_p4_right">
-        <view class="new_p3_2" style="margin-right: 0rpx;" catch:tap="deleteInfo" data-id = "{{item.order_num}}">删除</view>
+        <view class="new_p3_2" style="margin-right: 0rpx;" catch:tap="deleteInfo" data-id="{{info.order_num}}">删除</view>
       </view>
     </view>
 

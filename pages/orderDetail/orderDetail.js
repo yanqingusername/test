@@ -765,9 +765,12 @@ Page({
      request.request_new_test('/instrument/supprot/deleteOrderInfo.hn', data, function (res) {
        if (res) {
          if (res.success) {
-          wx.navigateBack({
-            delta: 1,
-          })
+          // wx.navigateBack({
+          //   delta: 1,
+          // })
+          wx.switchTab({
+            url: '../myOrder/myOrder'
+          });
          } else {
            box.showToast(res.msg);
          }

@@ -47,7 +47,7 @@
                     <view class="new_p3_right">
                       <view class="new_p3_2" wx:if="{{item.is_send_order != 1}}" catch:tap="bindCloseOrder" data-id="{{item.order_num}}">关闭工单</view>
                       <view class="new_p3_2" wx:if="{{item.is_send_order != 1 && item.allow_update==0}}" catch:tap="bindUpdateOrder" data-id="{{item.id}}" data-ordernum="{{item.order_num}}">修改工单</view>
-                      <view class="new_p3_1" bindtap="formSubmit" data-value="2" data-feedback="{{item.processing_feedback}}" data-scenepic="{{item.scene_pic}}">完成服务</view>
+                      <view class="new_p3_1" catch:tap="formSubmit" data-value="2" data-id="{{item.id}}" data-feedback="{{item.processing_feedback}}" data-scenepic="{{item.scene_pic}}">完成服务</view>
                     </view>
                 </view>
 
@@ -56,7 +56,7 @@
                     <view class="new_p3_right">
                       <view class="new_p3_2" catch:tap="bindCloseOrder" data-id="{{item.order_num}}">关闭工单</view>
                       <view class="new_p3_2" catch:tap="bindUpdateOrder" data-id="{{item.id}}" data-ordernum="{{item.order_num}}">修改工单</view>
-                      <view class="new_p3_1" bindtap="formSubmit" data-value="2" data-feedback="{{item.processing_feedback}}" data-scenepic="{{item.scene_pic}}">完成服务</view>
+                      <view class="new_p3_1" catch:tap="formSubmit" data-value="2" data-id="{{item.id}}"  data-feedback="{{item.processing_feedback}}" data-scenepic="{{item.scene_pic}}">完成服务</view>
                     </view>
                 </view>
 
@@ -70,7 +70,7 @@
                 <view class="new_p3" wx:if="{{item.status == 5}}">
                     <view class="new_p3_more_view"></view>
                     <view class="new_p3_right">
-                        <view class="new_p3_2" catch:tap="deleteInfo" data-id = "{{item.order_num}}" style="margin-right: 0rpx;">删除</view>
+                        <view class="new_p3_2" catch:tap="deleteInfo" data-id="{{item.order_num}}" style="margin-right: 0rpx;">删除</view>
                     </view>
                 </view>
             </view>
