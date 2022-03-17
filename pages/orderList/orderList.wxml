@@ -114,7 +114,7 @@
 
 
 <!-- 弹框 -->
-<dialog-cus showDialog='{{showCloseDialog}}' datas="{{dialogCloseData}}" catch:dialogCloseCancel="dialogCloseCancel" catch:dialogCloseSure="dialogCloseSure" types="1"/>
+<dialog-cus id="closeOrderId" showDialog='{{showCloseDialog}}' datas="{{dialogCloseData}}" catch:dialogCloseCancel="dialogCloseCancel" catch:dialogCloseSure="dialogCloseSure" types="1"/>
 
 
 <!-- <view class="page"> 

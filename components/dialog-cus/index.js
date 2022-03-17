@@ -54,7 +54,8 @@ Component({
     },
     dialogCloseCancel() {
       this.setData({
-        showDialog: false
+        showDialog: false,
+        description: ""
       })
       this.triggerEvent('dialogCloseCancel', '')
     },
@@ -77,5 +78,8 @@ Component({
         });
       }
     },
+    empty(){
+      this.setData({ description: ""});
+    }
   }
 })

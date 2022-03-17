@@ -265,7 +265,7 @@
 <dialog-cus showDialog='{{deleteShowDialog}}' datas="{{deleteDialogData}}" catch:dialogCancel="deleteDialogCancel" catch:dialogSure="deleteDialogSure"/>
 
 <!-- 弹框 -->
-<dialog-cus showDialog='{{showCloseDialog}}' datas="{{dialogCloseData}}" catch:dialogCloseCancel="dialogCloseCancel" catch:dialogCloseSure="dialogCloseSure" types="1"/>
+<dialog-cus id="closeOrderId" showDialog='{{showCloseDialog}}' datas="{{dialogCloseData}}" catch:dialogCloseCancel="dialogCloseCancel" catch:dialogCloseSure="dialogCloseSure" types="1"/>
 
 
 <!-- <view style="background-color:#F5F5F5">

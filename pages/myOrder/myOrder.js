@@ -326,12 +326,14 @@ jumpTabSelect(e) {
 		request.request_new_test('/instrument/supprot/closeOrderInfo.hn', data, function (res) {
 			if (res) {
 				if (res.success) {
-          that.setData({
-            page: 1,
-            orderList: [],
-            tip: '',
-            alreadyChecked: false
-          });
+					that.setData({
+						page: 1,
+						orderList: [],
+						tip: '',
+						alreadyChecked: false
+					});
+					let closeEmpty = that.selectComponent("#closeOrderId");
+    				closeEmpty.empty();
 					that.getOrderList();
 				} else {
 					box.showToast(res.msg);

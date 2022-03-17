@@ -726,6 +726,8 @@ Page({
 		request.request_new_test('/instrument/supprot/closeOrderInfo.hn', data, function (res) {
 			if (res) {
 				if (res.success) {
+          let closeEmpty = that.selectComponent("#closeOrderId");
+    			closeEmpty.empty();
           wx.navigateBack({
             delta: 1,
           })

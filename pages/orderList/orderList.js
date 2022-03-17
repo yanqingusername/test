@@ -306,7 +306,9 @@ Page({
 						orderList: [],
 						tip: '',
 						alreadyChecked: false
-					  });
+					});
+					let closeEmpty = that.selectComponent("#closeOrderId");
+    				closeEmpty.empty();
 					that.getOrderList();
 				} else {
 					box.showToast(res.msg);
