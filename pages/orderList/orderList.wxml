@@ -83,7 +83,7 @@
                     <view class="new_p3_right">
                         <view class="new_p3_2" catch:tap="bindCloseOrder" data-id="{{item.order_num}}">关闭工单</view>
                         <view class="new_p3_2" catch:tap="bindUpdateOrder" data-id="{{item.id}}" data-ordernum="{{item.order_num}}" style="margin-right: {{item.creator_id==userInfoID ? '30':'0'}}rpx;">修改工单</view>
-                        <view class="new_p3_1" wx:if="{{item.creator_id==userInfoID}}" catch:tap="formSubmit" data-value="2" data-feedback="{{item.processing_feedback}}" data-scenepic="{{item.scene_pic}}">完成服务</view>
+                        <view class="new_p3_1" wx:if="{{item.creator_id==userInfoID}}" catch:tap="formSubmit" data-value="2" data-id="{{item.id}}" data-feedback="{{item.processing_feedback}}" data-scenepic="{{item.scene_pic}}">完成服务</view>
                     </view>
                 </view>
 

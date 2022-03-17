@@ -433,7 +433,7 @@ Page({
 			confirmText: '确定',
 			success: function (res) {
 				if (res.confirm) {
-					var id = that.data.id;
+					var id = e.currentTarget.dataset.id;
 					var formType = e.currentTarget.dataset.value; // 1保存（工单状态：处理中） 2提交（工单状态：已完成）
 					var processing_feedback = e.currentTarget.dataset.feedback;
 					var sceneArr = e.currentTarget.dataset.scenepic;
