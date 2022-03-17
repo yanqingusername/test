@@ -364,7 +364,6 @@ Page({
     var processing_feedback = that.data.processing_feedback;
     var sceneArr = that.data.scene_arr;
     var reagent_count = that.data.reagent_count;
-    console.log(processing_feedback)
     request.request_new_test('/instrument/supprot/updateOrder.hn', {
       id: id,
       formType: formType,
