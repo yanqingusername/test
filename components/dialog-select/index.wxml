@@ -8,7 +8,7 @@
     </view>
 
     <view class="new_view">
-        <view class="new_view_item">请选择</view>
+        <!-- <view class="new_view_item">请选择</view> -->
         <view class="new_view_item" style="color: {{instrumentIndex == 1 ? '#333333;':''}}" bindtap="bindSelect" data-number='1'>修改信息</view>
         <view class="new_view_item" style="color: {{instrumentIndex == 2 ? '#333333;':''}}" bindtap="bindSelect" data-number='2'>转移</view>
     </view>

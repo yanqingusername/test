@@ -4,7 +4,7 @@
   <view slot="content">选择仪器序列号</view>
 </cu-custom>
 <!-- <label for="searchTest"> -->
-<view  for="search_checked" class='search'>
+<!-- <view  for="search_checked" class='search'>
   
   <icon  style="position:relative;left:166rpx" type="search" size="20" />
     <input id="search_checked" type='text' placeholder='搜索序列号' confirm-type='search' value="{{searchText}}" bindinput='searchChangeHandle' >
@@ -15,8 +15,20 @@
   </view>
 
   <view class="search_close" wx:if="{{searchText}}" bindtap="clearSearchHandle">取消</view>
-</view>
+</view> -->
 <!-- </label> -->
+
+<view class="manage_search">
+  <view class='search'>
+    <view class="search_view">
+      <icon type="search" size="20" bindtap="searchHandle"/>
+      <input id="search_checked" type='text' placeholder='请输入仪器序列号' placeholder-class="center" confirm-type='search' value="{{searchText}}" bindinput='searchChangeHandle' bindconfirm='searchHandle'></input>
+    </view>
+    <view class="weui-icon-clear" wx:if="{{searchText}}" bindtap="clearSearchHandle">
+      <icon type="clear" size="20" />
+    </view>
+  </view>
+</view>
 
 <view class='container'>
   <checkbox-group bindchange="checkboxChange">

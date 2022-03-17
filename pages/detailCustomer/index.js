@@ -64,6 +64,11 @@ Page({
               instrument_result_status: listData,
               instrument_result_delete: listDataDelete
             });
+          }else{
+            that.setData({
+              instrument_result_status: [],
+              instrument_result_delete: []
+            });
           }
         } else {
           box.showToast(res.msg);

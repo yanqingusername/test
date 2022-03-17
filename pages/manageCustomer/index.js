@@ -38,8 +38,6 @@ Page({
         remark: options.remark,
         old_SN: options.SN,
         old_remark: options.remark
-      },()=>{
-        this.checkSubmitStatus()
       });
     }
 
