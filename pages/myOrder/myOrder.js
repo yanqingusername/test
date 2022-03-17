@@ -178,7 +178,13 @@ jumpTabSelect(e) {
 					});
 
 				} else {
-					box.showToast(res.msg);
+					if (that.data.page == 1 && res.result_order.length == 0){
+						that.setData({
+							alreadyChecked: true
+						});
+					}else{
+						box.showToast(res.msg);
+					}
 				}
 			} else {
 				box.showToast("网络不稳定，请重试");

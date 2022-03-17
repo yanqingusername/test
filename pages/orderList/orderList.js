@@ -96,6 +96,7 @@ Page({
 	onReachBottom: function () {
 		console.log('成功下拉+++++++++++')
 		var that = this;
+		this.setFalseMoreDialog();
 		that.getOrderList();
 	},
 	// 获取当前技术支持所属区域内未接单的工单
@@ -151,6 +152,7 @@ Page({
 	toInfo: function (e) {
 		var id = e.currentTarget.dataset.id;
 		var type = e.currentTarget.dataset.type;
+		this.setFalseMoreDialog();
 		wx.navigateTo({
 			url: '/pages/orderDetail/orderDetail?id=' + id,
 		})
@@ -192,6 +194,8 @@ Page({
 	 * 接单
 	 */
 	bindAcceptOrder(e) {
+		this.setFalseMoreDialog();
+
 		let id = e.currentTarget.dataset.id; //订单id
 		var supportId = app.globalData.userInfo.id;
 
@@ -235,11 +239,11 @@ Page({
 	 * 修改工单
 	 */
 	bindUpdateOrder(e) {
+		this.setFalseMoreDialog();
+
 		let id = e.currentTarget.dataset.id; //订单 id
 		let order_num = e.currentTarget.dataset.ordernum; //订单 order_num
-		this.setData({
-			isShowClose: false
-		})
+		
 		// 普通用户只能修改一次 弹框提示
 		if (this.data.role == 0) {
 			this.setData({
@@ -277,6 +281,7 @@ Page({
 	bindCloseOrder(e) {
 		let id = e.currentTarget.dataset.id; //订单order_num
 		this.setData({
+			indexClose: -1,
 			isShowClose: false,
 			showCloseDialog: true,
 			close_order_num: id
@@ -357,6 +362,8 @@ Page({
 	 * 派单
 	 */
 	nothing(e) {
+		this.setFalseMoreDialog();
+
 		this.setData({
 			order_id: e.currentTarget.dataset.id,
 			order_num: e.currentTarget.dataset.ordernum,
@@ -427,6 +434,8 @@ Page({
 	 * 完成服务
 	 */
 	formSubmit(e) {
+		this.setFalseMoreDialog();
+
 		var that = this;
 		wx.showModal({
 			title: '确认提交工单？',
@@ -496,4 +505,10 @@ Page({
 			}
 		})
 	},
+	setFalseMoreDialog(){
+		this.setData({
+			indexClose: -1,
+			isShowClose: false
+		});
+	}
 })
