@@ -18,8 +18,8 @@
                 <view class='title_black'>{{ jsondata.service_type}}</view>
                 <view class='title_black' style="margin-top:20rpx;">{{ jsondata.processing_feedback}}</view>
                 <view class='img_container' > 
-                  <block wx:for="{{jsondata.scene_pic}}" wx:key="{{indexs}}" wx:for-item="imgs"> 
-                    <image bindtap='perview' data-imgs='{{imgs}}' class='pic' src='{{imgs}}' />
+                  <block wx:for="{{jsondata.scene_pic}}" wx:key="indexs" wx:for-item="imgs"> 
+                    <image bindtap='previewImg' data-index='{{index}}' data-imgs='{{imgs}}' class='pic' src='{{imgs}}' />
                   </block> 
                   <view style="height: 10rpx;"></view>
                 </view> 

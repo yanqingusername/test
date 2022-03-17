@@ -119,6 +119,12 @@ Page({
       let address = e.currentTarget.dataset.address;
       let locationname = e.currentTarget.dataset.locationname;
       if(account){
+        this.setData({
+          searchText: '',
+          tips: '',
+          flag1: true,   //显示原始列表
+          flag2: false   //关闭查询列表
+        })
         wx.navigateTo({
           url: `/pages/detailCustomer/index?account=${account}`
         });

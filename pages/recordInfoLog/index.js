@@ -26,4 +26,17 @@ Page({
             });
     }
   },
+  // 预览图片
+  previewImg: function (e) {
+    //获取当前图片的下标
+    var index = e.currentTarget.dataset.index;
+    //所有图片
+    var img_arr = this.data.jsondata.scene_pic;
+    wx.previewImage({
+      //当前显示图片
+      current: img_arr[index],
+      //所有图片
+      urls: img_arr
+    })
+  },
 })
