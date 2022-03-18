@@ -23,7 +23,9 @@ Page({
     address: "",
     locationName: "",
     isMCus: 0, // 判断是否从客户管理带过来的参数  默认为0  1代表从客户管理跳转过来  2代表从客户管理-客户详情跳转过来  3GPS管理过来
-    company_account: ''
+    company_account: '',
+    phone_old: '',
+    name_old: ''
   },
   onLoad: function (options) {
     var that = this;
@@ -42,6 +44,8 @@ Page({
         locationName: jsondata.locationName,
         name: jsondata.name,
         phone: jsondata.phone,
+        phone_old: jsondata.phone,
+        name_old: jsondata.name,
       });
     }
 
@@ -221,6 +225,8 @@ Page({
           address: that.data.address,
           locationName: that.data.locationName,
           company_account: that.data.company_account,
+          phone_old: that.data.phone_old,
+          name_old: that.data.name_old,
         }
         request.request_new_test('/instrument/supprot/updateCompanyInfo.hn', paramdata, function (res) { 
           if (res) {

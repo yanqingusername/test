@@ -149,6 +149,7 @@ Page({
 						that.setData({
 							alreadyChecked: true,
 							total_order_admin_not: res.total_order_admin_not,
+							total_order_admin_now: res.total_order_admin_now
 						});
 					}else{
 						box.showToast(res.msg);
