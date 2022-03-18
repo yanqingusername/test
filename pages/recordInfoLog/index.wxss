@@ -31,6 +31,7 @@ page{
   margin-left: 30rpx;
   display: flex;
   flex-direction: column;
+  width: 520rpx;
   /* align-items: center; */
 }
 
@@ -63,6 +64,24 @@ page{
 }
 .img_container > .pic:nth-child(3n) {
   margin-right: 0;
+}
+
+.new_p2{
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.new_p2_gray{
+  font-size: 28rpx;
+  color: #999999;
+  width: 74%;
+}
+
+.new_p2_black{
+  font-size: 32rpx;
+  color: #333333;
+  width: 26%;
 }
 
   

@@ -120,6 +120,10 @@ Page({
 						that.setData({
 							alreadyChecked: true
 						});
+					}else{
+						that.setData({
+							alreadyChecked: false
+						});
 					}
 
 					if (res.result_order.length != 0){
@@ -143,7 +147,8 @@ Page({
 				} else {
 					if (that.data.page == 1 && res.result_order.length == 0){
 						that.setData({
-							alreadyChecked: true
+							alreadyChecked: true,
+							total_order_admin_not: res.total_order_admin_not,
 						});
 					}else{
 						box.showToast(res.msg);

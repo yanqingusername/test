@@ -157,6 +157,10 @@ jumpTabSelect(e) {
 						that.setData({
 							alreadyChecked: true
 						});
+					}else{
+						that.setData({
+							alreadyChecked: false
+						});
 					}
 
 					if (res.result_order.length != 0){
@@ -180,7 +184,8 @@ jumpTabSelect(e) {
 				} else {
 					if (that.data.page == 1 && res.result_order.length == 0){
 						that.setData({
-							alreadyChecked: true
+							alreadyChecked: true,
+							statusNumber: res.total_order
 						});
 					}else{
 						box.showToast(res.msg);

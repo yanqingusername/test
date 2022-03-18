@@ -6,7 +6,9 @@ const request = require('../../utils/request.js')
 Page({
   data: {
     title: '服务信息记录',
-    jsondata: ''
+    jsondata: '',
+    show_flag1:true,
+    show_flag2:false,
   },
   onLoad: function (options) {
     let that = this;
@@ -37,6 +39,22 @@ Page({
       current: img_arr[index],
       //所有图片
       urls: img_arr
+    })
+  },
+  //SN号显示全部
+  showAll:function(){
+    var that = this
+    that.setData({
+      show_flag1:false,
+      show_flag2:true
+    },()=>{
+      let query = wx.createSelectorQuery() 
+      query.select('#schedule').boundingClientRect() 
+      query.exec((ress) => { 
+        that.setData({ 
+          H: ress[0].height 
+        });
+      });
     })
   },
 })

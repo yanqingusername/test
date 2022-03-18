@@ -16,6 +16,21 @@
           </view> 
             <view class='right_container' id='schedule'>
                 <view class='title_black'>{{ jsondata.service_type}}</view>
+                <view wx:if="{{type != 4}}" class="new_p2" style="margin-top:30rpx;">
+                    <view class="new_p2_black" wx:if="{{jsondata.instrument_SN.length > 0}}">序列号</view>
+                    <view class="new_p2_gray" style="font-size: 32rpx;color: #333333;">
+                      <view wx:if="{{jsondata.instrument_SN.length == 1}}">
+                        <view >{{jsondata.instrument_SN[0]}}</view>
+                      </view>
+                      <view wx:if="{{jsondata.instrument_SN.length > 1}}">
+                        <view wx:if="{{show_flag1}}">{{jsondata.instrument_SN[0]}}</view>
+                        <view wx:if="{{show_flag1}}" style="color:#307FF5" bindtap="showAll">显示全部</view>
+                        <block wx:if="{{show_flag2}}" wx:for="{{jsondata.instrument_SN}}" wx:key="index">
+                          <view>{{item}}</view>
+                        </block>
+                      </view>
+                    </view>
+                </view>
                 <view class='title_black' style="margin-top:20rpx;">{{ jsondata.processing_feedback}}</view>
                 <view class='img_container' > 
                   <block wx:for="{{jsondata.scene_pic}}" wx:key="indexs" wx:for-item="imgs"> 
