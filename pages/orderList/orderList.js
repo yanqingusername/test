@@ -1,6 +1,7 @@
 const app = getApp()
 var request = require('../../utils/request.js')
-var box = require('../../utils/box.js')
+var box = require('../../utils/box.js');
+const utils = require('../../utils/utils.js');
 
 Page({
 	data: {
@@ -169,16 +170,16 @@ Page({
 			url: '/pages/orderDetail/orderDetail?id=' + id,
 		})
 	},
-	onTabItemTap: function (item) {
-		console.log(item)
-		var that = this;
-		that.setData({
-			tip: '',
-			orderList: [],
-			page: 1
-		})
-		that.getOrderList();
-	},
+	onTabItemTap: utils.throttle(function (item) {
+			console.log(item)
+			var that = this;
+			that.setData({
+				tip: '',
+				orderList: [],
+				page: 1
+			})
+			that.getOrderList();
+	},1500),
 	tabSelect(e) {
 		//order_status: '0', //all全部,0待接单,1进行中
 
