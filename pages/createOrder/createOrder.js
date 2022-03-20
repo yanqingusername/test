@@ -813,6 +813,8 @@ Page({
             support_id: info.support_id
           })
 
+          that.getChangeType(info.type);
+
           //问题描述中图片描述缓存
           wx.setStorage({
             key:"key",
@@ -828,6 +830,94 @@ Page({
         }
       }else{
         box.showToast("网络不稳定，请重试");
+      }
+    })
+  },
+  getChangeType:function(num){
+    var that = this;
+    if(num == 1){ //现场服务
+      that.setData({
+        flag_1:true,   //预约时间
+        flag_2:true,   //仪器类型
+        flag_3:true,   //序列号
+        flag_4:false,  //试剂类型
+        flag_5:true,    //问题描述
+        type:1,
+        service_type:'现场服务'
+      })
+    }else if(num == 2){ //返厂维修
+      that.setData({
+        flag_1:false,
+        flag_2:true,
+        flag_3:true,
+        flag_4:false,
+        flag_5:true,
+        type:2,
+        service_type:'返厂维修'
+      })
+    }else if(num == 3){ //装机培训
+      that.setData({
+        flag_1:true,
+        flag_2:true,
+        flag_3:true,
+        flag_4:false,
+        flag_5:false,
+        type:3,
+        service_type:'装机培训'
+      })
+    }else if(num == 4){ //试剂培训
+      that.getAllReagentList()
+      that.setData({
+        flag_1:true,
+        flag_2:false,
+        flag_3:false,
+        flag_4:true,
+        flag_5:false,
+        type:4,
+        service_type:'试剂培训'
+      })
+    }else if(num == 5){ //远程服务
+      that.setData({
+        flag_1:true,
+        flag_2:true,
+        flag_3:true,
+        flag_4:false,
+        flag_5:true,
+        type:5,
+        service_type:'远程服务'
+      })
+    }
+  },
+  getAllReagentList:function(){
+    var that = this;
+    var data = {}
+    request.request_get('/account/getReagentList.hn',data,function(res){
+      console.log('getReagentList回调',res);
+      if(res){
+        if(res.success){
+          var reagentList = res.result;
+          var reagentHead = {reagent_name:'请选择试剂类型'}
+          reagentList.unshift(reagentHead)
+          that.setData({
+            reagentList: reagentList
+          })
+
+          if(that.data.reagent_name){
+            let reagentIndex = 0;
+            for(let i = 0; i < that.data.reagentList.length; i++){
+              if(that.data.reagent_name == that.data.reagentList[i].reagent_name){
+                reagentIndex = i;
+              }
+            }
+            that.setData({
+              reagentIndex: reagentIndex
+            })
+          }
+        }else{
+         // box.showToast(res.msg);
+        }
+      }else{
+        //box.showToast("网络不稳定，请重试");
       }
     })
   },

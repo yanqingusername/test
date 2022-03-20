@@ -428,4 +428,48 @@ jumpTabSelect(e) {
 			}
 		})
 	},
+	//取消订单
+	bindCancleOrder:function(e){
+		var that = this
+		wx.showModal({
+		  title: '确认取消工单？',
+		  content: '取消后在列表中不再展示此工单',
+		  showCancel: true,
+		  confirmText: '确定',
+		  success: function (res) {
+			if (res.confirm) {
+			  var id = e.currentTarget.dataset.id;
+			  request.request_get('/OrderController/cancelOrder.hn',{
+				id:id
+			  },function(res){
+				console.info('cancelOrder回调',res)
+				if(res){
+				  if(res.success){
+					wx.showModal({
+					  title: '成功',
+					  content: '取消成功',
+					  showCancel: false,
+					  success: function (res) {
+						wx.setStorage({
+						  key:'jumpStatus',
+						  data:0
+						})
+						  wx.switchTab({
+							url: '../orderList/orderList'
+						  });
+					  }
+					})
+				  }else{
+					box.showToast(res.msg)
+				  }
+				}else{
+				  box.showToast('网络不稳定，请重试')
+				}
+			  })
+			}else if(res.cancel){
+			  console.log('用户点击取消')
+			}
+		  }
+		})
+	  },
 })
