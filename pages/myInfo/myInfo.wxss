@@ -151,3 +151,25 @@ page{
   border-radius: 100%;
   overflow: hidden;
 }
+
+.content_view{
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}
+.content_view_item{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.content_view_title{
+  font-size: 42rpx;
+  font-weight: 500;
+}
+
+.content_view_text{
+  color: #999999;
+  font-size: 28rpx;
+}

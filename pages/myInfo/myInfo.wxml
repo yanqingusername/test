@@ -46,7 +46,23 @@
         <text>数据统计</text>
         <text style="color:#9A9A9A">查看更多 ></text>
       </view>
-      <view class="content_test_1">
+      
+      <view class="content_view">
+        <view class="content_view_item">
+          <text class="content_view_title">{{uncatched}}</text>
+          <text class="content_view_text">待接单</text>
+        </view>
+        <view class="content_view_item">
+          <text class="content_view_title">{{ongoing}}</text>
+          <text class="content_view_text">进行中</text>
+        </view>
+        <view class="content_view_item">
+          <text class="content_view_title">{{today_done}}</text>
+          <text class="content_view_text">今日完成</text>
+        </view>
+      </view>
+
+      <!-- <view class="content_test_1">
         <text >{{uncatched}}</text> 
         <text >{{ongoing}}</text>
         <text >{{today_done}}</text>
@@ -55,7 +71,7 @@
         <text >待接单</text>
         <text >进行中</text>
         <text >今日完成</text>
-      </view>
+      </view> -->
     </view>
 
     <view bindtap="bindManageCustomer" style="margin-top:40rpx;">
