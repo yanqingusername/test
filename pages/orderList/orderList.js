@@ -43,7 +43,15 @@ Page({
 		update_order_id: '',
 		total_order_admin_not: 0,
 		total_order_admin_now: 0,
-		isFlag: true
+		isFlag: true,
+		deleteDialogData: {
+			title: "确认删除？",
+			titles: "删除后数据将无法恢复",
+			cancel: "取消",
+			sure: "确认"
+		},
+		deleteShowDialog: false,
+    	delete_order_num: '',
 	},
 
 	onLoad: function (options) {
@@ -523,5 +531,48 @@ Page({
 			indexClose: -1,
 			isShowClose: false
 		});
-	}
+	},
+	/**
+  * 删除工单
+  */
+	 deleteInfo(e) {
+		let id = e.currentTarget.dataset.id; //订单id
+		  this.setData({
+		   deleteShowDialog: true,
+		   delete_order_num: id
+		  });
+	  },
+	  deleteDialogCancel() {
+		this.setData({
+		 deleteShowDialog: false
+		});
+	  },
+	  deleteDialogSure() {
+		this.setData({
+		 deleteShowDialog: false
+		});
+	 
+		var that = this;
+			 var data = {
+				 order_num: that.data.delete_order_num,
+			 }
+			 request.request_new_test('/instrument/supprot/deleteOrderInfo.hn', data, function (res) {
+				 if (res) {
+					 if (res.success) {
+						 that.setData({
+							 page: 1,
+							 orderList: [],
+							 tip: '',
+							 alreadyChecked: false
+						 });
+						 that.getOrderList();
+					 } else {
+						 box.showToast(res.msg);
+					 }
+				 } else {
+					 box.showToast("网络不稳定，请重试");
+				 }
+			 })
+	 
+	  },
 })

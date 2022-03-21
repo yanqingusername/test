@@ -93,6 +93,14 @@
                         <view class="new_p3_2" catch:tap="toInfo" data-id = "{{item.id}}" data-type="{{item.type}}" style="margin-right: 0rpx;">查看详情</view>
                     </view>
                 </view>
+
+                <view class="new_p3" wx:if="{{role == 1 && item.status == 5}}">
+                    <view class="new_p3_more_view"></view>
+                    <view class="new_p3_right">
+                        <view class="new_p3_2" catch:tap="deleteInfo" data-id="{{item.order_num}}" style="margin-right: 0rpx;">删除</view>
+                    </view>
+                </view>
+
             </view>
         </block>
         
@@ -111,6 +119,9 @@
 
 <!-- 弹框 -->
 <dialog-cus showDialog='{{showDialog}}' datas="{{dialogData}}" catch:dialogCancel="dialogCancel" catch:dialogSure="dialogSure"/>
+
+<!-- 弹框 -->
+<dialog-cus showDialog='{{deleteShowDialog}}' datas="{{deleteDialogData}}" catch:dialogCancel="deleteDialogCancel" catch:dialogSure="deleteDialogSure"/>
 
 
 <!-- 弹框 -->
