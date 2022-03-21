@@ -24,6 +24,27 @@ Page({
           img_arr:res.data
         });
       }})   
+
+      wx.getStorage({//获取本地缓存
+        key:"key_question_desc",
+        success:function(res){
+          console.log(res.data)
+          that.setData({
+            description:res.data
+          });
+          if(that.data.description.length <= 300){
+            that.setData({
+              count:that.data.description.length
+            })
+          }else{
+            that.setData({
+              count:300
+            })
+          }
+        }}) 
+        
+          console.log(that.data.description)
+          console.log(that.data.description.length)
     console.log(options)
   },
 
@@ -168,26 +189,26 @@ submit:function(e){
   onShow: function () {
     var that = this
    
-    wx.getStorage({//获取本地缓存
-      key:"key_question_desc",
-      success:function(res){
-        console.log(res.data)
-        that.setData({
-          description:res.data
-        });
-        if(that.data.description.length <= 300){
-          that.setData({
-            count:that.data.description.length
-          })
-        }else{
-          that.setData({
-            count:300
-          })
-        }
-      }}) 
+    // wx.getStorage({//获取本地缓存
+    //   key:"key_question_desc",
+    //   success:function(res){
+    //     console.log(res.data)
+    //     that.setData({
+    //       description:res.data
+    //     });
+    //     if(that.data.description.length <= 300){
+    //       that.setData({
+    //         count:that.data.description.length
+    //       })
+    //     }else{
+    //       that.setData({
+    //         count:300
+    //       })
+    //     }
+    //   }}) 
       
-        console.log(that.data.description)
-        console.log(that.data.description.length)
+    //     console.log(that.data.description)
+    //     console.log(that.data.description.length)
   }
 
 })

@@ -53,26 +53,26 @@ Page({
 			role: role,
 			userInfoID: app.globalData.userInfo.id,
 		});
-		if(role != 2){
-			that.getOrderList()
-		}
+		// if(role != 2){
+		// 	that.getOrderList()
+		// }
 
 	},
 	onShow: function () {
 		if(this.data.role != 2){
 			var that = this;
-			wx.getStorage({
-				key: "jumpStatus",
-				success(res) {
-					if (res.data == 0) {
-						that.jumpTabSelect(0);
-					}
-				}
-			})
+			// wx.getStorage({
+			// 	key: "jumpStatus",
+			// 	success(res) {
+			// 		if (res.data == 0) {
+			// 			that.jumpTabSelect(0);
+			// 		}
+			// 	}
+			// })
 
-			if(!this.data.isFlag){
+			// if(!this.data.isFlag){
 				that.jumpTabSelect(0);
-			}
+			// }
 
 			that.getSupport();
 		}
@@ -170,16 +170,16 @@ Page({
 			url: '/pages/orderDetail/orderDetail?id=' + id,
 		})
 	},
-	onTabItemTap: utils.throttle(function (item) {
-			console.log(item)
-			var that = this;
-			that.setData({
-				tip: '',
-				orderList: [],
-				page: 1
-			})
-			that.getOrderList();
-	},1500),
+	// onTabItemTap: utils.throttle(function (item) {
+	// 		console.log(item)
+	// 		var that = this;
+	// 		that.setData({
+	// 			tip: '',
+	// 			orderList: [],
+	// 			page: 1
+	// 		})
+	// 		that.getOrderList();
+	// },1500),
 	tabSelect(e) {
 		//order_status: '0', //all全部,0待接单,1进行中
 

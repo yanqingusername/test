@@ -1,5 +1,5 @@
 <!--pages/chooseSN/chooseSN.wxml-->
-<cu-custom isBack="{{true}}" bgColor="bg-gradual-white">
+<cu-custom isBack="{{true}}" bgColor="bg-white">
   <view slot="backText" bindtap="bindBack"></view>
   <view slot="content">选择仪器序列号</view>
 </cu-custom>
@@ -49,6 +49,11 @@
   </checkbox-group> 
   <view class="tip_style">{{tips}}</view>
 </view>
-<checkbox class="bottom_1 round blue" checked="{{isAll}}" bindtap="checkAll"/><view class="bottom_view_1">全选</view>
-<button class="button-bottom_1" bindtap="bindAddInstrument">添加仪器</button>
-<button class="button-bottom_2" bindtap="bindCheckSN" >完成({{sn_count}})</button>
+<view style="height:120rpx;"></view>
+<view class="choose_view">
+  <checkbox class="bottom_1 round blue" checked="{{isAll}}" bindtap="checkAll"/>
+  <view class="bottom_view_1">全选</view>
+  <button class="button-bottom_1" bindtap="bindAddInstrument">添加仪器</button>
+  <button class="button-bottom_2" bindtap="bindCheckSN" >完成({{sn_count}})</button>
+</view>
+

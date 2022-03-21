@@ -399,6 +399,10 @@ Page({
             confirmText: '确定',
             success: function (res) {
               if (res.confirm) {
+                wx.setStorage({
+                  key:'jumpStatus',
+                  data:1
+                })
                 wx.switchTab({
                   url: '../myOrder/myOrder'
                 });
@@ -784,6 +788,10 @@ Page({
           // wx.navigateBack({
           //   delta: 1,
           // })
+          wx.setStorage({
+            key:'jumpStatus',
+            data:1
+          })
           wx.switchTab({
             url: '../myOrder/myOrder'
           });

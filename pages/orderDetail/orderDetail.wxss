@@ -333,6 +333,7 @@ radio-group{
     font-size: 28rpx;
     color: #999999;
     width: 74%;
+    word-break: break-all;
   }
 
   .new_p2_black{
