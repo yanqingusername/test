@@ -45,7 +45,16 @@ Page({
 	update_order_num: '',
 	update_order_id: '',
     isCustom: true,
-	isFlag: true
+	isFlag: true,
+
+	dialogCancelData: {
+		title: "请填写取消工单原因",
+		titles: "取消后在列表中不再展示此工单",
+		cancel: "取消",
+		sure: "确认"
+	},
+	showCancelDialog: false,
+	cancel_order_num: '',
 	},
 
 	onLoad: function (options) {
@@ -201,7 +210,7 @@ jumpTabSelect(e) {
 		var id = e.currentTarget.dataset.id;
 		var type = e.currentTarget.dataset.type;
 		wx.navigateTo({
-			url: '/pages/orderDetail/orderDetail?id=' + id,
+			url: `/pages/orderDetail/orderDetail?id=${id}&isMyOrder=1`,
 		})
 	},
 	tabSelect(e) {
@@ -355,6 +364,51 @@ jumpTabSelect(e) {
 		})
 	},
 	/**
+	 * 取消订单
+	 */
+	bindCancelOrder(e) {
+		let id = e.currentTarget.dataset.id; //订单id
+		this.setData({
+			showCancelDialog: true,
+			cancel_order_num: id
+		});
+	},
+	dialogCancelCancel() {
+		this.setData({
+			showCancelDialog: false
+		});
+	},
+	dialogCancelSure(e) {
+		this.setData({
+			showCancelDialog: false
+		});
+		//
+		var that = this;
+		var data = {
+			id: that.data.cancel_order_num,
+			cancel_order_reason: e.detail  //取消工单原因
+		}
+		request.request_get('/OrderController/cancelOrder.hn', data, function (res) {
+			if(res){
+				if(res.success){
+					that.setData({
+						page: 1,
+						orderList: [],
+						tip: '',
+						alreadyChecked: false
+					});
+					let closeEmpty = that.selectComponent("#cancelOrderId");
+					closeEmpty.empty();
+					that.getOrderList();
+				}else{
+				  box.showToast(res.msg)
+				}
+			}else{
+				box.showToast('网络不稳定，请重试')
+			}
+		})
+	},
+	/**
 	 * 
 	 * 完成服务
 	 */
@@ -428,48 +482,48 @@ jumpTabSelect(e) {
 			}
 		})
 	},
-	//取消订单
-	bindCancleOrder:function(e){
-		var that = this
-		wx.showModal({
-		  title: '确认取消工单？',
-		  content: '取消后在列表中不再展示此工单',
-		  showCancel: true,
-		  confirmText: '确定',
-		  success: function (res) {
-			if (res.confirm) {
-			  var id = e.currentTarget.dataset.id;
-			  request.request_get('/OrderController/cancelOrder.hn',{
-				id:id
-			  },function(res){
-				console.info('cancelOrder回调',res)
-				if(res){
-				  if(res.success){
-					wx.showModal({
-					  title: '成功',
-					  content: '取消成功',
-					  showCancel: false,
-					  success: function (res) {
-						wx.setStorage({
-						  key:'jumpStatus',
-						  data:0
-						})
-						  wx.switchTab({
-							url: '../orderList/orderList'
-						  });
-					  }
-					})
-				  }else{
-					box.showToast(res.msg)
-				  }
-				}else{
-				  box.showToast('网络不稳定，请重试')
-				}
-			  })
-			}else if(res.cancel){
-			  console.log('用户点击取消')
-			}
-		  }
-		})
-	  },
+	// //取消订单
+	// bindCancelOrder:function(e){
+	// 	var that = this
+	// 	wx.showModal({
+	// 	  title: '确认取消工单？',
+	// 	  content: '取消后在列表中不再展示此工单',
+	// 	  showCancel: true,
+	// 	  confirmText: '确定',
+	// 	  success: function (res) {
+	// 		if (res.confirm) {
+	// 		  var id = e.currentTarget.dataset.id;
+	// 		  request.request_get('/OrderController/cancelOrder.hn',{
+	// 			id:id
+	// 		  },function(res){
+	// 			console.info('cancelOrder回调',res)
+	// 			if(res){
+	// 			  if(res.success){
+	// 				wx.showModal({
+	// 				  title: '成功',
+	// 				  content: '取消成功',
+	// 				  showCancel: false,
+	// 				  success: function (res) {
+	// 					wx.setStorage({
+	// 					  key:'jumpStatus',
+	// 					  data:0
+	// 					})
+	// 					  wx.switchTab({
+	// 						url: '../orderList/orderList'
+	// 					  });
+	// 				  }
+	// 				})
+	// 			  }else{
+	// 				box.showToast(res.msg)
+	// 			  }
+	// 			}else{
+	// 			  box.showToast('网络不稳定，请重试')
+	// 			}
+	// 		  })
+	// 		}else if(res.cancel){
+	// 		  console.log('用户点击取消')
+	// 		}
+	// 	  }
+	// 	})
+	//},
 })

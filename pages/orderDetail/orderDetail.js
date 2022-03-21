@@ -68,7 +68,16 @@ Page({
     delete_order_num: '',
     reagent_count: "",
     update_order_num: '',
-    update_order_id: ''
+    update_order_id: '',
+
+	dialogCancelData: {
+		title: "请填写取消工单原因",
+		titles: "取消后在列表中不再展示此工单",
+		cancel: "取消",
+		sure: "确认"
+	},
+	showCancelDialog: false,
+  isMyOrder: 0, // 0 默认  1 从我的工单
   },
 
   /**
@@ -87,6 +96,12 @@ Page({
       role:app.globalData.userInfo.role,
       userInfoID:app.globalData.userInfo.id,
     })
+
+    if(options && options.isMyOrder){
+      this.setData({
+        isMyOrder: options.isMyOrder
+      });
+    }
     that.getOrderInfo();
   },
   onShow(){
@@ -781,4 +796,43 @@ Page({
      })
  
   },
+  /**
+	 * 取消订单
+	 */
+	bindCancelOrder(e) {
+		this.setData({
+			showCancelDialog: true
+		});
+	},
+	dialogCancelCancel() {
+		this.setData({
+			showCancelDialog: false
+		});
+	},
+	dialogCancelSure(e) {
+		this.setData({
+			showCancelDialog: false
+		});
+		//
+		var that = this;
+		var data = {
+			id: that.data.id,
+			cancel_order_reason: e.detail  //取消工单原因
+		}
+		request.request_get('/OrderController/cancelOrder.hn', data, function (res) {
+			if(res){
+				if(res.success){
+				  let closeEmpty = that.selectComponent("#cancelOrderId");
+    			closeEmpty.empty();
+          wx.navigateBack({
+            delta: 1,
+          })
+				}else{
+				  box.showToast(res.msg)
+				}
+			}else{
+				box.showToast('网络不稳定，请重试')
+			}
+		})
+	},
 })

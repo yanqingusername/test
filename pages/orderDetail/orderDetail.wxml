@@ -199,7 +199,7 @@
 
     <view class="new_p4" wx:if="{{status==1}}">
       <view class="new_p4_left">
-        <view wx:if="{{(info.is_send_order == 1 || creator_id!=userInfoID)}}" class="new_p4_gray" bindtap="cancelOrder">取消工单</view>
+        <view wx:if="{{isMyOrder == 1 && (info.is_send_order == 1 || creator_id!=userInfoID)}}" class="new_p4_gray" bindtap="bindCancelOrder">取消工单</view>
         <view class="new_p3_more_view" wx:else>
           <view class="new_p4_gray" catch:tap="bindMore" wx:if="{{role==1 || (role==0 && creator_id==userInfoID)}}">更多</view>
           <view class="new_p3_more_dialog" wx:if="{{isShowClose}}">
@@ -267,6 +267,8 @@
 <!-- 弹框 -->
 <dialog-cus id="closeOrderId" showDialog='{{showCloseDialog}}' datas="{{dialogCloseData}}" catch:dialogCloseCancel="dialogCloseCancel" catch:dialogCloseSure="dialogCloseSure" types="1"/>
 
+<!-- 取消工单 弹框 -->
+<dialog-cus id="cancelOrderId" showDialog='{{showCancelDialog}}' datas="{{dialogCancelData}}" catch:dialogCloseCancel="dialogCancelCancel" catch:dialogCloseSure="dialogCancelSure" types="1"/>
 
 <!-- <view style="background-color:#F5F5F5">
   <view style="height:800rpx;position:relative;">

@@ -46,7 +46,7 @@
                     <block wx:if="{{item.is_send_order != 1}}">
                       <view class="new_p3_more_view"></view>
                       <view class="new_p3_right">
-                        <view class="new_p3_2" wx:if="{{item.creator_id!=userInfoID}}" catch:tap="bindCancleOrder" data-id="{{item.id}}">取消工单</view>
+                        <view class="new_p3_2" wx:if="{{item.creator_id!=userInfoID}}" catch:tap="bindCancelOrder" data-id="{{item.id}}">取消工单</view>
                         <view class="new_p3_2" wx:if="{{item.creator_id==userInfoID}}" catch:tap="bindCloseOrder" data-id="{{item.order_num}}">关闭工单</view>
                         <view class="new_p3_2" wx:if="{{item.allow_update==0}}" catch:tap="bindUpdateOrder" data-id="{{item.id}}" data-ordernum="{{item.order_num}}">修改工单</view>
                         <view class="new_p3_1" catch:tap="formSubmit" data-value="2" data-id="{{item.id}}" data-feedback="{{item.processing_feedback}}" data-scenepic="{{item.scene_pic}}">完成服务</view>
@@ -56,7 +56,7 @@
                     <block wx:if="{{item.is_send_order == 1}}">
                       <view class="new_p3_more_view"></view>
                       <view class="new_p3_right">
-                        <view class="new_p3_2" catch:tap="bindCancleOrder" data-id="{{item.id}}">取消工单</view>
+                        <view class="new_p3_2" catch:tap="bindCancelOrder" data-id="{{item.id}}">取消工单</view>
                         <view class="new_p3_1" catch:tap="formSubmit" data-value="2" data-id="{{item.id}}" data-feedback="{{item.processing_feedback}}" data-scenepic="{{item.scene_pic}}">完成服务</view>
                       </view>
                     </block>
@@ -65,7 +65,7 @@
                 <view class="new_p3" wx:if="{{role == 1 && item.status == 1}}">
                     <view class="new_p3_more_view"></view>
                     <view class="new_p3_right">
-                      <view class="new_p3_2" wx:if="{{item.creator_id!=userInfoID}}" catch:tap="bindCancleOrder" data-id="{{item.id}}">取消工单</view>
+                      <view class="new_p3_2" wx:if="{{item.creator_id!=userInfoID}}" catch:tap="bindCancelOrder" data-id="{{item.id}}">取消工单</view>
                       <view class="new_p3_2" wx:if="{{item.creator_id==userInfoID}}" catch:tap="bindCloseOrder" data-id="{{item.order_num}}">关闭工单</view>
                       <view class="new_p3_2" catch:tap="bindUpdateOrder" data-id="{{item.id}}" data-ordernum="{{item.order_num}}">修改工单</view>
                       <view class="new_p3_1" catch:tap="formSubmit" data-value="2" data-id="{{item.id}}"  data-feedback="{{item.processing_feedback}}" data-scenepic="{{item.scene_pic}}">完成服务</view>
@@ -111,6 +111,9 @@
 <!-- 弹框 -->
 <dialog-cus id="closeOrderId" showDialog='{{showCloseDialog}}' datas="{{dialogCloseData}}" catch:dialogCloseCancel="dialogCloseCancel" catch:dialogCloseSure="dialogCloseSure" types="1"/>
 
+
+<!-- 取消工单 弹框 -->
+<dialog-cus id="cancelOrderId" showDialog='{{showCancelDialog}}' datas="{{dialogCancelData}}" catch:dialogCloseCancel="dialogCancelCancel" catch:dialogCloseSure="dialogCancelSure" types="1"/>
 
 <!-- <scroll-view scroll-x class="bg-white nav text-center"
   style="background-color: #FFF;position:fixed;top:10%;z-index:9999;">
