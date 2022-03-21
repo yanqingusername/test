@@ -26,7 +26,7 @@
                     <view class="new_p2_black">{{item.company_name}}</view>
                 </view>
 
-                <view class="new_p2" style="margin-top:30rpx;">
+                <view class="new_p2" style="margin-top:30rpx;" wx:if="{{item.type!=2}}">
                     <view class="new_p2_gray">预约时间：</view>
                     <view class="new_p2_black">{{item.time}}</view>
                 </view>
