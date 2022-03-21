@@ -6,7 +6,7 @@
 			<view class="explain_lable">{{datas.titles}}</view>
 		</view>
 		<view class="textarea_view">
-			<textarea maxlength="100" style="padding: 20rpx;" bindinput="textareaAInput" placeholder="请填写关闭工单原因" value="{{description}}">    </textarea>
+			<textarea maxlength="100" style="padding: 20rpx;" bindinput="textareaAInput" placeholder="{{datas.title}}" value="{{description}}">    </textarea>
 		</view>
 		<view class="details">
 			<view class="cancel" bind:tap="dialogCloseCancel">{{datas.cancel||"取消"}}</view>
