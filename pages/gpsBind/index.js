@@ -1,5 +1,7 @@
 const box = require('../../utils/box.js')
 const request = require('../../utils/request.js')
+const utils = require('../../utils/utils.js')
+const app = getApp()
 "use strict";
 
 Page({
@@ -21,11 +23,13 @@ Page({
     noinstrumentsn: '',
     nopositionsn: '',
     instrumentSNLength: 12,
-    instrumentGPSLength: 11
+    instrumentGPSLength: 11,
+    instrumentname: ''
   },
   onLoad: function (options) {
     this.setData({
-      instrumentsn: options.instrumentsn
+      instrumentsn: options.instrumentsn,
+      instrumentname: options.instrumentname
     });
     this.getInstrumentSNLength();
   },
@@ -353,7 +357,7 @@ Page({
       })
   },
   // 提交预约信息
-  submit(e) {
+  submit: utils.throttle(function(e) {
     var that = this;
     
     if(that.data.bind_GPS_img == ''){
@@ -435,7 +439,10 @@ Page({
         position_SN: that.data.positionsn,
         bind_GPS_img: that.data.bind_GPS_img,
         instrument_sn_img: that.data.instrument_sn_img,
-        position_sn_img: that.data.position_sn_img
+        position_sn_img: that.data.position_sn_img,
+        supportName: app.globalData.userInfo.name,
+        supportPhone: app.globalData.userInfo.phone,
+        instrument_name: that.data.instrumentname
       }
       request.request_new_test('/position/instrument/bindInstrumentPositionSN.hn', data, function (res) { 
         if (res) {
@@ -445,7 +452,7 @@ Page({
               wx.navigateBack({
                 delta: 1
               });
-            },2000);
+            },1500);
           } else {
             box.showToast(res.msg)
           }
@@ -454,5 +461,5 @@ Page({
         }
       });
     }
-  }
+  },3000)
 })

@@ -23,7 +23,8 @@ Page({
     showDialog: false,
     company_account:'',
     instrumentsn: '',
-    instrument_name: ''
+    instrument_name: '',
+    instrumentname: ''
   },
   onLoad: function (options) {
     var that = this;
@@ -124,15 +125,17 @@ Page({
   //选中绑定GPS
   bindCheckGPS: function (e) {
     let instrumentsn = e.currentTarget.dataset.instrumentsn;
-    if(instrumentsn){
+    let instrumentname = e.currentTarget.dataset.instrumentname;
+    if(instrumentsn && instrumentname){
       wx.navigateTo({
-        url: `/pages/gpsBind/index?instrumentsn=${instrumentsn}`
+        url: `/pages/gpsBind/index?instrumentsn=${instrumentsn}&instrumentname=${instrumentname}`
       });
     }
   },
   //解绑GPS
   UniteCheckGPS: function (e) {
     this.setData({
+      instrumentname: e.currentTarget.dataset.instrumentname,
       instrumentsn: e.currentTarget.dataset.instrumentsn,
       showDialog: true
     });
@@ -152,7 +155,8 @@ Page({
   unbindInstrumentPositionSN(){
     let that = this;
     var paramData = {
-      instrument_SN: that.data.instrumentsn
+      instrument_SN: that.data.instrumentsn,
+      instrument_name: that.data.instrumentname
     }
     request.request_new_test('/position/instrument/unbindInstrumentPositionSN.hn', paramData, function (res) { 
       if (res) {
