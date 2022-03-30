@@ -123,14 +123,14 @@ Page({
     })
   },
   // 提交预约信息
-  submit: function (e) {
+  submitBut: utils.throttle(function (e) {
     console.log(e)
-    var that = this,
-    objData = e.detail.value;
+    var that = this;
+    // objData = e.detail.value;
   
-    var company_name = objData.company_name;
-    var name = objData.name;
-    var phone = objData.phone;
+    var company_name = that.data.company_name;
+    var name = that.data.name;
+    var phone = that.data.phone;
     that.setData({
       name: name,
       phone: phone
@@ -287,7 +287,7 @@ Page({
         })
       }
     }
-  },
+  },2000),
   
   //新建客户并返回
   bindCreateCompany:function(){

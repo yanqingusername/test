@@ -145,11 +145,11 @@ Page({
     }
   },
   // 提交预约信息
-  submit: function (e) {
+  submitBut: utils.throttle(function (e) {
     console.log(e)
-    var that = this,
-    objData = e.detail.value;
-    var SN = objData.SN;
+    var that = this;
+    // objData = e.detail.value;
+    var SN = that.data.SN;
     let remark = this.data.remark;
 
     if(remark == '请选择设备属性' || remark == ''){
@@ -314,7 +314,7 @@ Page({
       }
     }     
     //console.log("userInfo" + app.globalData.userInfo)
-  },
+  },2000),
   
   //新建仪器并返回
   bindCreateInstrument:function(e){

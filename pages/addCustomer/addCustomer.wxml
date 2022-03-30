@@ -48,7 +48,7 @@
   </view>
 
   <view style="margin-top:100rpx;">
-    <button class='app_btn' style="width: 670rpx;height: 88rpx;background: {{submitState?'#999999':'#307FF5'}};border-radius: 12rpx;color:#FFFFFF;" form-type="submit" disabled="{{submitState}}">保存</button>
+    <button class='app_btn' bind:tap="submitBut" style="width: 670rpx;height: 88rpx;background: {{submitState?'#999999':'#307FF5'}};border-radius: 12rpx;color:#FFFFFF;" form-type="submit" disabled="{{submitState}}">保存</button>
   </view>
 
 </form>

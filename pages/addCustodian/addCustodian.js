@@ -72,13 +72,13 @@ Page({
     }
   },
   // 提交预约信息
-  submit: function (e) {
+  submitBut: utils.throttle(function (e) {
   //  console.log(e)
-    var that = this,
-    objData = e.detail.value;
+    var that = this;
+    // objData = e.detail.value;
   
-    var name = objData.name;
-    var phone = objData.phone;
+    var name = that.data.name;
+    var phone = that.data.phone;
     var account = that.data.account;
     that.setData({
       name: name,
@@ -140,7 +140,7 @@ Page({
         })
       }
     }
-  },
+  },2000),
   //新建联系人并返回
   bindCreateCustodian:function(){
     var that = this;
