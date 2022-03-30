@@ -163,6 +163,11 @@
                     <view class="new_p2_gray" style="font-size: 32rpx;color: #333333;">{{info.alterordertime}}</view>
                 </view>
 
+                <view class="new_p2" style="margin-top:30rpx;" wx:if="{{info.close_order_time}}">
+                    <view class="new_p2_black" style="color: #999999;">关闭时间</view>
+                    <view class="new_p2_gray" style="font-size: 32rpx;color: #333333;">{{info.close_order_time}}</view>
+                </view>
+
                 <view wx:if="{{status == 2}}" class="new_p2" style="margin-top:30rpx;">
                     <view class="new_p2_black" style="color: #999999;">完成时间</view>
                     <view class="new_p2_gray" style="font-size: 32rpx;color: #333333;">{{info.processingTime}}</view>
