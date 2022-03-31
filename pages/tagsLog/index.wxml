@@ -22,7 +22,7 @@
                   <view wx:if="{{item.instrument_attribute}}" class='title_gray' style="font-size: 28rpx;margin-top:20rpx;">设备属性：{{item.instrument_attribute}}</view> 
                   <view wx:if="{{item.instrument_attribute_old && (item.instrument_attribute_old != item.instrument_attribute)}}" class='title_gray' style="font-size: 28rpx;margin-top:20rpx;">原设备属性：{{item.instrument_attribute_old}}</view>
                   <view wx:if="{{item.instrument_SN}}" class='title_gray' style="font-size: 28rpx;margin-top:20rpx;">{{ (tools.subStringName(item.alter_type) == 1 && item.instrument_SN != item.instrument_SN_old) ? '替换仪器：':'仪器序列号：'}}{{item.instrument_SN}}</view>
-                  <view wx:if="{{item.instrument_SN_old && (item.instrument_SN != item.instrument_SN_old)}}" class='title_gray' style="font-size: 28rpx;margin-top:20rpx;">被替换仪器：{{item.instrument_SN_old}}</view>
+                  <view wx:if="{{item.instrument_SN_old && (item.instrument_SN != item.instrument_SN_old)}}" class='title_gray' style="font-size: 28rpx;margin-top:20rpx;">{{tools.subStringName(item.alter_type) == 2 ? '替换仪器：':'被替换仪器：'}}{{item.instrument_SN_old}}</view>
                   <view wx:if="{{item.company_name && (tools.subStringName(item.alter_type) == 3)}}" class='title_gray' style="font-size: 28rpx;margin-top:20rpx;">客户名称：{{item.company_name}}</view>
                   <view wx:if="{{item.company_name_old && (tools.subStringName(item.alter_type) == 3)}}" class='title_gray' style="font-size: 28rpx;margin-top:20rpx;">原客户名称：{{item.company_name_old}}</view>
                   <view wx:if="{{item.remark}}" class='title_gray' style="font-size: 28rpx;margin-top:20rpx;">备注：{{item.remark}}</view>

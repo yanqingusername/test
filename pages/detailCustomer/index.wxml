@@ -15,15 +15,15 @@
     </view>
     <view class="detail_center">
       <view class="detail_gray" style="width:30%;">客户名称</view>
-      <view class="detail_black" style="width:70%;">{{company_result[0].company_name}}</view>
+      <view class="detail_black" style="width:70%;flex-wrap: wrap;overflow-wrap: anywhere;word-break: break-all;">{{company_result[0].company_name}}</view>
     </view>
     <view class="detail_center">
       <view class="detail_gray" style="width:30%;">所在地区</view>
-      <view class="detail_black" style="width:70%;">{{company_result[0].address}}</view>
+      <view class="detail_black" style="width:70%;flex-wrap: wrap;overflow-wrap: anywhere;word-break: break-all;">{{company_result[0].address}}</view>
     </view>
      <view class="detail_center">
       <view class="detail_gray" style="width:30%;">详细地址</view>
-      <view class="detail_black" style="width:70%;">{{company_result[0].locationName}}</view>
+      <view class="detail_black" style="width:70%;flex-wrap: wrap;overflow-wrap: anywhere;word-break: break-all;">{{company_result[0].locationName}}</view>
     </view>
   </view>
 

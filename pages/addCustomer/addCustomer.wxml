@@ -15,9 +15,9 @@
       <view class="detail_center">
         <view class="P5_1 app_font" style="padding-top:0rpx;padding-bottom:0rpx;padding-left:30rpx;color: #333333;">企业名称</view>
         <!-- <input class='P5_2 app_font' type="text" bindinput="bindSetData1" placeholder-class="app_font" placeholder='请填写企业名称' name="company_name" value="{{company_name}}"></input> -->
-        <textarea style="width: 70%;color: #333333;text-align: left;" auto-height bindinput="bindSetData1" placeholder-class="app_font" placeholder='请填写企业名称' name="company_name" value="{{company_name}}"></textarea>
+        <textarea style="width: 70%;color: #333333;text-align: left;margin-right: 20rpx;" auto-height bindinput="bindSetData1" placeholder-class="app_font" placeholder='请填写企业名称' name="company_name" value="{{company_name}}"></textarea>
       </view>
-      <view class="line" style="margin-top:0rpx;"></view>
+      <view class="line" style="margin-top:{{company_name? '20':'0'}}rpx;"></view>
       <view class="detail_center">
         <view class="P5_1 app_font" style="padding-left:30rpx;color: #333333;">联系人</view>
         <input class='P5_2 app_font' bindinput="bindSetData2" placeholder-class="app_font" placeholder='请填写联系人姓名' type="text" name="name" value="{{name}}" ></input>
@@ -31,7 +31,7 @@
       <view class="detail_center">
         <view class="P5_1 app_font" style="padding-top:0rpx;padding-bottom:0rpx;padding-left:30rpx;color: #333333;">所在地区</view>
         <view class="detail_center" style="width:70%;">
-          <textarea style="width: 70%;color: #333333;text-align: left;" auto-height bindinput="showMap" placeholder-class="app_font" placeholder='请选择客户所在地区' name="address" value="{{address}}"></textarea>
+          <textarea style="width: 70%;color: #333333;text-align: left;" auto-height disabled="true" bindtap="showMap" placeholder-class="app_font" placeholder='请选择客户所在地区' name="address" value="{{address}}"></textarea>
           <!-- <input class='P5_2 app_font' placeholder='请选择客户所在地区' placeholder-class="app_font" bindtap="showMap" name="address" type="text" style="width: 80%;" disabled="true" value="{{address}}"></input> -->
           <view style="width: 20%;display: flex;justify-content: center;">
             <image src="../../image/icon_position.png" style="width:36rpx;height:44rpx;" bindtap="showMap"/>

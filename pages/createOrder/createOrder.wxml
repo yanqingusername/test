@@ -12,8 +12,8 @@
       <view class="P5_1 app_font" style="font-size:38rpx">客户信息</view>
       <view></view>
     </view>
-    <view class="P5 app_flex">
-      <view class="P5_1 app_font" >客户名称</view>
+    <view class="P5 app_flex" style="padding-bottom: {{company_name ? '20':'0'}}rpx;">
+      <view class="P5_1 app_font" style="padding-top:0rpx;">客户名称</view>
       <!-- <pickerinput list="{{list}}" style="width: 70%;" class="customPicker" _width="500rpx" _height="80rpx"
         bind:action="change" value="account" actualvalue="account" showvalue="company_name"></pickerinput> -->
        <!--<picker style="width: 70%;"  class="customPicker" _width="500rpx" _height="80rpx" bindchange="change" range-key="{{'company_name'}}" value="{{index}}" range="{{list}}">
@@ -24,7 +24,8 @@
             </view>
         </picker>
         -->
-        <input class="text-cut P5_2 app_font" placeholder="请选择客户" bindtap="bindChooseCustomerTest" value="{{company_name}}" disabled></input>
+        <textarea style="width: 66%;color: #333333;text-align: right;margin-right: 20rpx;" auto-height bindtap="bindChooseCustomerTest" placeholder='请选择客户' name="company_name" value="{{company_name}}" disabled></textarea>
+        <!-- <input class="text-cut P5_2 app_font" placeholder="请选择客户" bindtap="bindChooseCustomerTest" value="{{company_name}}" disabled></input> -->
     </view>
     <view class="P5 app_flex">
       <view class="P5_1 app_font">联系人</view>
@@ -41,14 +42,16 @@
       <view class="P5_1 app_font">手机号</view>
       <input class='P5_2 app_font' placeholder='联系人手机号' disabled="true" maxlength="11" value="{{phone}}"></input>
     </view>
-    <view class="P5 app_flex">
-      <view class="P5_1 app_font" style="width: 25%;">所在地区</view>
-      <input class='P5_2 app_font' placeholder='请选择客户所在地区' bindtap="showMap" name="address" type="text" style="width: 68%;" disabled="true" value="{{address}}"></input>
+    <view class="P5 app_flex1" style="padding-bottom: {{address ? '20':'0'}}rpx;">
+      <view class="P5_1 app_font" style="width: 25%;padding-top:0rpx;">所在地区</view>
+      <textarea style="width: 68%;color: #333333;text-align: right;" auto-height bindtap="showMap" placeholder='请选择客户所在地区' name="address" value="{{address}}" disabled="true"></textarea>
+      <!-- <input class='P5_2 app_font' placeholder='请选择客户所在地区' bindtap="showMap" name="address" type="text" style="width: 68%;" disabled="true" value="{{address}}"></input> -->
       <text class="cuIcon-locationfill lg text-gray" style="width: 7%;" bindtap="showMap"></text>
     </view>
-    <view class="P5 app_flex">
-      <view class="P5_1 app_font">详细地址</view>
-      <input class='P5_2 app_font' placeholder='请填写详细地址' name="locationName" type="text"  bindinput="updateLocation" value="{{locationName}}"></input>
+    <view class="P5 app_flex" style="padding-bottom: {{locationName ? '20':'0'}}rpx;">
+      <view class="P5_1 app_font" style="padding-top:0rpx;">详细地址</view>
+      <textarea style="width: 66%;color: #333333;text-align: right;margin-right: 20rpx;" auto-height placeholder='请填写详细地址' name="locationName"  bindinput="updateLocation" value="{{locationName}}" ></textarea>
+      <!-- <input class='P5_2 app_font' placeholder='请填写详细地址' name="locationName" type="text"  bindinput="updateLocation" value="{{locationName}}"></input> -->
     </view>
     </view>
     <!-- <view class="P5 app_flex">

@@ -29,7 +29,9 @@ Page({
     //   {"reagent_name":'投放机'},
     //   {"reagent_name":'新机'}
     // ],
-    remarkList: [],
+    remarkList: [
+      {instrument_attribute_id:"0",instrument_attribute_name:'请选择设备属性'}
+    ],
     remarkIndex: 0,
     old_SN:'',
     old_remark:'',
@@ -78,11 +80,16 @@ Page({
     request.request_new_test('/instrument/supprot/getInstrumentAttributeList.hn', data, function (res) { 
       if (res) {
         if (res.success) {
-          var remarkList = res.result;
-          var remarkListHead = {instrument_attribute_id:"0",instrument_attribute_name:'请选择设备属性'};
-          remarkList.unshift(remarkListHead);
+          // var remarkList = res.result;
+          // var remarkListHead = {instrument_attribute_id:"0",instrument_attribute_name:'请选择设备属性'};
+          // remarkList.unshift(remarkListHead);
+          // that.setData({
+          //   remarkList: remarkList
+          // });
+
+          var remarkList = that.data.remarkList.concat(res.result);
           that.setData({
-            remarkList: res.result
+            remarkList: remarkList
           });
 
           if(that.data.remark){

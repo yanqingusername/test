@@ -129,3 +129,9 @@ textarea{
   border: 8rpx solid #1673EC;
   border-radius: 15rpx;
 }
+
+.app_flex1{
+  display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
