@@ -45,27 +45,35 @@ Page({
   },
   //确认转移弹框
   bindSubmit: function () {
-    let dialogData = {
-      title: "确认转移？",
-      titles:  this.data.SN + " 转移至 " + this.data.company_name,
-      cancel: "取消",
-      sure: "确认"
+    if(this.data.company_name){
+      let dialogData = {
+        title: "确认转移？",
+        titles:  this.data.SN + " 转移至 " + this.data.company_name,
+        cancel: "取消",
+        sure: "确认"
+      }
+  
+      this.setData({
+        showDialog: true,
+        dialogData: dialogData
+      });
+    }else {
+      box.showToast('请选择转移目标客户');
     }
-
-    this.setData({
-      showDialog: true,
-      dialogData: dialogData
-    });
   },
   //取消
   bindCancel: function () {
     this.setData({
-      companyIndex: -1
+      companyIndex: -1,
+      company_name: '',
+      account: ''
     });
   },
   dialogCancel: function () {
     this.setData({
-      companyIndex: -1
+      companyIndex: -1,
+      company_name: '',
+      account: ''
     });
   },
   //确认转移
@@ -183,10 +191,21 @@ Page({
           wx.navigateBack({
             delta: 1,
           });
-        } else { 
-          wx.showToast({
-            icon:'none',
-            title: res.msg,
+        } else {
+          // wx.showToast({
+          //   icon:'none',
+          //   title: res.msg,
+          // })
+          wx.showModal({
+            title: '',
+            content: res.msg,
+            showCancel: false,
+            confirmText: '确定',
+            success: function (res) {
+                if (res.confirm) {
+                    
+                }
+            }
           })
         }
       }else{
