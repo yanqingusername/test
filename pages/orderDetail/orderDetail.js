@@ -435,11 +435,13 @@ Page({
           var formType = e.currentTarget.dataset.value; // 1保存（工单状态：处理中） 2提交（工单状态：已完成）
           var processing_feedback = that.data.processing_feedback;
           var sceneArr = that.data.scene_arr;
+          var reagent_count = that.data.reagent_count;
           request.request_get('/OrderController/updateOrder.hn', {
             id: id,
             formType: formType,
             processing_feedback: processing_feedback,
-            sceneArr: sceneArr
+            sceneArr: sceneArr,
+            reagent_count: reagent_count
           }, function (res) {
             console.info('回调', res)
             if (res) {
