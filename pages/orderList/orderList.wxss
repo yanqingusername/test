@@ -125,6 +125,9 @@
     font-size: 28rpx;
     color: #333333;
     width: 75%;
+    flex-wrap: wrap;
+    overflow-wrap: anywhere;
+    word-break: break-all;
   }
 
   .new_line{
