@@ -91,7 +91,7 @@
       </view>
     </view>
     <block wx:for="{{recordInfoList}}" wx:key="index" >
-      <view class="detail_center_view" wx:if="{{recordInfoList.length > 0}}" bind:tap="bindRecordInfo" data-item="{{item}}">
+      <view class="detail_center_view" wx:if="{{recordInfoList.length > 0}}" bind:tap="bindRecordInfo" data-item="{{item}}" data-id="{{item.id}}">
         <view class="detail_center">
           <view class="detail_black" style="width:45%;">{{item.service_type}}</view>
           <view class="detail_img" style="width:55%;justify-content: center;">

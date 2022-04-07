@@ -161,9 +161,11 @@ Page({
    },
    //1-则代表从客户详情联系人跳转页面(添加联系人) 2-则代表从客户详情联系人跳转页面(编辑联系人) 返回
    bindCreateCus(){
-     wx.navigateBack({
-       delete: 1
-     });
+    setTimeout(()=>{
+      wx.navigateBack({
+        delete: 1
+      });
+    },1200)
    },
    bindShowDialog(){
      this.setData({
@@ -191,7 +193,7 @@ Page({
     request.request_new_test('/instrument/supprot/deleteCompanyContactInfo.hn', params, function (res) { 
       if (res) {
         if (res.success) {
-          box.showToast('删除成功')
+          box.showToast('删除成功',"",1000)
           that.bindCreateCus();
         } else {
           box.showToast(res.msg)

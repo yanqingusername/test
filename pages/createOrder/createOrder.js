@@ -404,11 +404,11 @@ Page({
   },
   // 提交预约信息
   submit: utils.throttle(function (e) {
-    wx.showLoading({
-      title: '提交中...',
-      mask:true,
-      duration:3000
-    })
+    // wx.showLoading({
+    //   title: '提交中...',
+    //   mask:true,
+    //   duration:3000
+    // })
     var that = this;
     if(this.data.isUpdate == 1){
       var ifAccept = that.data.ifAccept;
@@ -526,9 +526,14 @@ Page({
           console.info('回调', res)
           if (res) {
             if (res.success) {  
-              wx.navigateBack({
-                delta: 1
-              });
+              box.showToast("修改成功","",1000);
+
+              setTimeout(()=>{
+                wx.navigateBack({
+                  delta: 1
+                });
+              },1200);
+              
               // wx.showModal({
               //   title: '成功',
               //   content: '提交成功',

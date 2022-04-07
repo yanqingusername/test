@@ -42,6 +42,9 @@ page{
 .title_gray {
   font-size: 20rpx;
   color: #999999;
+  flex-wrap: wrap;
+    overflow-wrap: anywhere;
+    word-break: break-all;
 }
 
 .tip_style{

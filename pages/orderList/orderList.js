@@ -327,6 +327,8 @@ Page({
 		request.request_new_test('/instrument/supprot/closeOrderInfo.hn', data, function (res) {
 			if (res) {
 				if (res.success) {
+					box.showToast("关闭成功");
+					
 					that.setData({
 						page: 1,
 						orderList: [],

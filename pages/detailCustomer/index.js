@@ -231,10 +231,16 @@ Page({
    * 服务记录
    */
   bindRecordInfo(e){
-    let item = e.currentTarget.dataset.item;
-    let jsondata = JSON.stringify(item)
-    wx.navigateTo({
-      url: `/pages/recordInfoLog/index?jsondata=${jsondata}`
-    });
+    // let item = e.currentTarget.dataset.item;
+    // let jsondata = JSON.stringify(item)
+    // wx.navigateTo({
+    //   url: `/pages/recordInfoLog/index?jsondata=${jsondata}`
+    // });
+    let id = e.currentTarget.dataset.id;
+    if(id){
+      wx.navigateTo({
+        url: `/pages/recordInfo/index?id=${id}`
+      });
+    }
   }
 })

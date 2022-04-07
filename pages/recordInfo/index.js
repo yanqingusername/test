@@ -747,14 +747,14 @@ Page({
 		request.request_new_test('/instrument/supprot/closeOrderInfo.hn', data, function (res) {
 			if (res) {
 				if (res.success) {
-          box.showToast("关闭成功","",1000);
+          box.showToast("关闭成功","",1500);
           let closeEmpty = that.selectComponent("#closeOrderId");
     			closeEmpty.empty();
           setTimeout(()=>{
             wx.navigateBack({
               delta: 1,
             })
-          },1200);
+          },2000);
 				} else {
 					box.showToast(res.msg);
 				}

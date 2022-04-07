@@ -28,7 +28,8 @@
     "pages/recordInfoLog/index",
     "pages/gpsChooseCustomer/index",
     "pages/gpsManageInstrument/index",
-    "pages/gpsBind/index"
+    "pages/gpsBind/index",
+    "pages/recordInfo/index"
   ],
   "window": {
     "navigationBarTitleText": "Color UI",

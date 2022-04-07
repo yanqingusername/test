@@ -25,7 +25,9 @@ Page({
     isMCus: 0, // 判断是否从客户管理带过来的参数  默认为0  1代表从客户管理跳转过来  2代表从客户管理-客户详情跳转过来  3GPS管理过来
     company_account: '',
     phone_old: '',
-    name_old: ''
+    name_old: '',
+    showDialog: false,
+    dialogData: {},
   },
   onLoad: function (options) {
     var that = this;
@@ -317,11 +319,11 @@ Page({
       if(this.data.flag == false){
       const location = chooseLocation.getLocation();
       if (location) {
-        let province = location.province;
+        let address = location.address;
         let area_id = 0;
         for(let i = 0; i< this.data.areaList.length;i++){
           let item = this.data.areaList[i]
-          if(item.area_name == province){
+          if(address.indexOf(item.area_name) >= 0){
             area_id = item.area_id;
           }
         }
@@ -365,4 +367,102 @@ Page({
     })
     this.checkSubmitStatus()
   },
+  // 编辑
+  editBut: utils.throttle(function (e) {
+    let that = this;
+    let paramdata = {
+      company_account: this.data.company_account
+    }
+    request.request_new_test('/instrument/supprot/checkCompanyOrder.hn', paramdata, function (res) { 
+      if (res) {
+        if (res.success) {
+          that.setEdit();
+        } else {
+          if(res.exist_order == 0){
+            that.setData({
+              showDialog: true,
+              dialogData: {
+                title: "确认修改？",
+                titles:  res.msg,
+                cancel: "取消",
+                sure: "确认"
+              },
+            });
+          }else{
+            box.showToast(res.msg)
+          }
+        }
+      }else{
+        wx.showToast({
+          title: '网络不稳定，请重试',
+        })
+      }
+    })
+  },2000),
+  dialogCancel(){
+   this.setData({
+    showDialog: false
+   });
+ },
+ dialogSure(){
+   this.setData({
+    showDialog: false
+   });
+   this.setEdit();
+ },
+ setEdit(){
+  var that = this;
+  
+  var company_name = that.data.company_name;
+  var name = that.data.name;
+  var phone = that.data.phone;
+  that.setData({
+    name: name,
+    phone: phone
+  })
+  console.log("userInfo" + app.globalData.userInfo)
+  console.log(company_name, name, phone);
+
+  if (!utils.checkContact(phone)) {
+    box.showToast("手机号格式不正确")
+  }else if(that.data.area_id == '0'){
+    box.showToast("请选择所属大区")
+  }else{
+    
+      var paramdata = {
+        company_name: that.data.company_name,
+        name: that.data.name,
+        phone: that.data.phone,
+        create_person:app.globalData.userInfo.name,
+        area_id: that.data.area_id,
+        address: that.data.address,
+        locationName: that.data.locationName,
+        company_account: that.data.company_account,
+        phone_old: that.data.phone_old,
+        name_old: that.data.name_old,
+      }
+      request.request_new_test('/instrument/supprot/updateCompanyInfo.hn', paramdata, function (res) { 
+        if (res) {
+          if (res.success) {
+            wx.showToast({
+              title: '保存成功',
+              icon: 'success',
+            })
+            wx.navigateBack({
+              delta: 1, //返回上个页面
+            });
+          } else {
+            wx.showToast({
+              icon: 'none',
+              title: res.msg,
+            })
+          }
+        }else{
+          wx.showToast({
+            title: '网络不稳定，请重试',
+          })
+        }
+      })
+  }
+ }
 })

@@ -1,0 +1,7 @@
+{
+  "usingComponents": {
+    "pickerinput": "../../components/hui-picker-input/hui-picker-input",
+    "dialog-cus": "/components/dialog-cus/index"
+  },
+  "navigationBarTitleText": "创建工单"
+}
