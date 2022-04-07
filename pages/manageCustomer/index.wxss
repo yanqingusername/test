@@ -61,7 +61,9 @@
   width: 90%;
   font-size: 32rpx;
   color: #333333;
-  line-height: 44rpx;
+  flex-wrap: wrap;
+    overflow-wrap: anywhere;
+    word-break: break-all;
 }
 
 .text_img{
