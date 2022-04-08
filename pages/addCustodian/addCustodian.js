@@ -25,6 +25,10 @@ Page({
       sure: "确认"
     },
     old_name: '',  // 编辑联系人  保存之前的联系人
+    showEditDialog: false,
+    dialogEditData: {},
+    showDeleteDialog: false,
+    dialogDeleteData: {},
   },
   onLoad: function (options) {
     var that = this;
@@ -167,11 +171,41 @@ Page({
       });
     },1200)
    },
-   bindShowDialog(){
-     this.setData({
-      showDialog: true
-     });
-   },
+   bindShowDialog: utils.throttle(function (e) {
+    let that = this;
+    let paramdata = {
+      company_account: this.data.account,
+      phone:this.data.old_phone,
+      name: this.data.old_name
+    }
+    request.request_new_test('/instrument/supprot/checkContactOrder.hn', paramdata, function (res) { 
+      if (res) {
+        if (res.success) {
+          that.setData({
+            showDialog: true
+           });
+        } else {
+          if(res.exist_order == 0){
+            that.setData({
+              showDeleteDialog: true,
+              dialogDeleteData: {
+                title: "确认删除且数据无法恢复？",
+                titles:  res.msg,
+                cancel: "取消",
+                sure: "确认"
+              },
+            });
+          }else{
+            box.showToast(res.msg)
+          }
+        }
+      }else{
+        wx.showToast({
+          title: '网络不稳定，请重试',
+        })
+      }
+    })
+   },2000),
    dialogCancel(){
     this.setData({
      showDialog: false
@@ -204,5 +238,85 @@ Page({
         });
       }
     });
-   }
+   },
+   // 编辑
+  editBut: utils.throttle(function (e) {
+    let that = this;
+    let paramdata = {
+      company_account: this.data.account,
+      phone:this.data.old_phone,
+      name: this.data.old_name
+    }
+    request.request_new_test('/instrument/supprot/checkContactOrder.hn', paramdata, function (res) { 
+      if (res) {
+        if (res.success) {
+          that.setEdit();
+        } else {
+          if(res.exist_order == 0){
+            that.setData({
+              showEditDialog: true,
+              dialogEditData: {
+                title: "确认修改？",
+                titles:  res.msg,
+                cancel: "取消",
+                sure: "确认"
+              },
+            });
+          }else{
+            box.showToast(res.msg)
+          }
+        }
+      }else{
+        wx.showToast({
+          title: '网络不稳定，请重试',
+        })
+      }
+    })
+  },2000),
+  dialogEditCancel(){
+   this.setData({
+    showEditDialog: false
+   });
+ },
+ dialogEditSure(){
+   this.setData({
+    showEditDialog: false
+   });
+   this.setEdit();
+ },
+ setEdit(){
+  var that = this;
+  let params = {
+    company_account:that.data.account,
+    name: that.data.name,
+    phone: that.data.phone,
+    old_phone:that.data.old_phone,
+    old_name: that.data.old_name
+  }
+  request.request_new_test('/instrument/supprot/updateCompanyContactInfo.hn', params, function (res) { 
+    if (res) {
+      if (res.success) {
+        box.showToast('修改成功',"",1000)
+        that.bindCreateCus();
+      } else {
+        box.showToast(res.msg)
+      }
+    }else{
+      wx.showToast({
+        title: '网络不稳定，请重试',
+      })
+    }
+  })
+  },
+  dialogDeleteCancel(){
+   this.setData({
+    showDeleteDialog: false
+   });
+ },
+ dialogDeleteSure(){
+   this.setData({
+    showDeleteDialog: false
+   });
+   this.deleteCompanyContactInfo();
+ },
 })

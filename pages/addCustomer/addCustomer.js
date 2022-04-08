@@ -162,13 +162,12 @@ Page({
               that.setData({
                 account: res.company_account
               })
-              wx.showToast({
-                title: '保存成功',
-                icon: 'success',
-              })
-              wx.navigateBack({
-                delta: 1, //返回上个页面
-              });
+              box.showToast('保存成功','',1000);
+              setTimeout(()=>{
+                wx.navigateBack({
+                  delta: 1, //返回上个页面
+                });
+              },1200)
             } else {
               wx.showToast({
                 icon: 'none',
@@ -197,13 +196,12 @@ Page({
               that.setData({
                 account: res.company_account
               });
-              wx.showToast({
-                title: '保存成功',
-                icon: 'success',
-              })
-              wx.navigateBack({
-                delta: 1, //返回上个页面
-              });
+              box.showToast('保存成功','',1000);
+              setTimeout(()=>{
+                wx.navigateBack({
+                  delta: 1, //返回上个页面
+                });
+              },1200)
             } else {
               wx.showToast({
                 icon: 'none',
@@ -233,13 +231,12 @@ Page({
         request.request_new_test('/instrument/supprot/updateCompanyInfo.hn', paramdata, function (res) { 
           if (res) {
             if (res.success) {
-              wx.showToast({
-                title: '保存成功',
-                icon: 'success',
-              })
-              wx.navigateBack({
-                delta: 1, //返回上个页面
-              });
+              box.showToast('保存成功','',1000);
+              setTimeout(()=>{
+                wx.navigateBack({
+                  delta: 1, //返回上个页面
+                });
+              },1200);
             } else {
               wx.showToast({
                 icon: 'none',
@@ -444,13 +441,12 @@ Page({
       request.request_new_test('/instrument/supprot/updateCompanyInfo.hn', paramdata, function (res) { 
         if (res) {
           if (res.success) {
-            wx.showToast({
-              title: '保存成功',
-              icon: 'success',
-            })
-            wx.navigateBack({
-              delta: 1, //返回上个页面
-            });
+            box.showToast('保存成功','',1000);
+            setTimeout(()=>{
+              wx.navigateBack({
+                delta: 1, //返回上个页面
+              });
+            },1200)
           } else {
             wx.showToast({
               icon: 'none',
