@@ -90,7 +90,11 @@ Page({
     })
     console.log("userInfo" + app.globalData.userInfo)
 
-    if (!utils.checkContact(phone)) {
+    if(that.data.name == ''){
+      box.showToast("请填写联系人姓名")
+    }else if(that.data.phone == ''){
+      box.showToast("请填写联系人手机号")
+    }else if (!utils.checkContact(phone)) {
       box.showToast("手机号格式不正确")
     }else {
       if(that.data.isMCus == 2){
@@ -167,7 +171,7 @@ Page({
    bindCreateCus(){
     setTimeout(()=>{
       wx.navigateBack({
-        delete: 1
+        delta: 1
       });
     },1200)
    },
@@ -286,28 +290,36 @@ Page({
  },
  setEdit(){
   var that = this;
-  let params = {
-    company_account:that.data.account,
-    name: that.data.name,
-    phone: that.data.phone,
-    old_phone:that.data.old_phone,
-    old_name: that.data.old_name
-  }
-  request.request_new_test('/instrument/supprot/updateCompanyContactInfo.hn', params, function (res) { 
-    if (res) {
-      if (res.success) {
-        box.showToast('修改成功',"",1000)
-        that.bindCreateCus();
-      } else {
-        box.showToast(res.msg)
-      }
-    }else{
-      wx.showToast({
-        title: '网络不稳定，请重试',
-      })
+  if(that.data.name == ''){
+    box.showToast("请填写联系人姓名")
+  }else if(that.data.phone == ''){
+    box.showToast("请填写联系人手机号")
+  }else if (!utils.checkContact(that.data.phone)) {
+    box.showToast("手机号格式不正确")
+  }else {
+    let params = {
+      company_account:that.data.account,
+      name: that.data.name,
+      phone: that.data.phone,
+      old_phone:that.data.old_phone,
+      old_name: that.data.old_name
     }
-  })
-  },
+    request.request_new_test('/instrument/supprot/updateCompanyContactInfo.hn', params, function (res) { 
+      if (res) {
+        if (res.success) {
+          box.showToast('修改成功',"",1000)
+          that.bindCreateCus();
+        } else {
+          box.showToast(res.msg)
+        }
+      }else{
+        wx.showToast({
+          title: '网络不稳定，请重试',
+        })
+      }
+    })
+  }
+ },
   dialogDeleteCancel(){
    this.setData({
     showDeleteDialog: false

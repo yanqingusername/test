@@ -10,14 +10,14 @@
 
 // var apiurl = 'https://scldev.coyotebio-lab.com:8443/flash20AppletBackend'//测试服务器 孙仕豪
 
-// var apiurl = 'http://xmr.coyotebio-lab.com:8080/flash20AppletBackend'//测试服务器 肖老师
+var apiurl = 'http://xmr.coyotebio-lab.com:8080/flash20AppletBackend'//测试服务器 肖老师
 
 
 //var apiurl = 'http://8.130.25.5:8080/flash20AppletBackend' // 测试服务器 宋彦睿
 //var apiurl = 'https://syrdev.coyotebio-lab.com/flash20AppletBackend/'
 //var apiurl = 'http://47.95.207.149:8080/flash20AppletBackend'    // 测试服务器
 //var apiurl = 'http://8.130.55.156:8080/flash20AppletBackend'    // 测试服务器  于光良
-var apiurl = 'https://www.prohealth-wch.com:8443/flash20AppletBackend'    //正式服务器
+// var apiurl = 'https://www.prohealth-wch.com:8443/flash20AppletBackend'    //正式服务器
 
 // 常用request get封装
 function request_get(controller, data, cb) {

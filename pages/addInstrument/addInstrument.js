@@ -42,6 +42,10 @@ Page({
       cancel: "取消",
       sure: "确认"
     },
+    showEditDialog: false,
+    dialogEditData: {},
+    showDeleteDialog: false,
+    dialogDeleteData: {},
   },
   onLoad: function (options) {
     this.setData({
@@ -203,10 +207,12 @@ Page({
           console.info('新建仪器回调', res)
           if (res) {
             if (res.success) {
-              box.showToast('success')
-              wx.navigateBack({
-                delta: 1,
-              });
+              box.showToast('保存成功',"",1000)
+              setTimeout(()=>{
+                wx.navigateBack({
+                  delta: 1
+                });
+              },1200)
             } else { 
               box.showToast(res.msg)
             }
@@ -231,13 +237,12 @@ Page({
           console.info('新建仪器回调', res)
           if (res) {
             if (res.success) {
-              wx.showToast({
-                title: '保存成功',
-                icon: 'success',
-              })
-              wx.navigateBack({
-                delta: 1,
-              });
+              box.showToast('保存成功',"",1000)
+              setTimeout(()=>{
+                wx.navigateBack({
+                  delta: 1
+                });
+              },1200)
             } else { 
               wx.showToast({
                 icon:'none',
@@ -267,13 +272,12 @@ Page({
         request.request_new_test('/instrument/supprot/updateInstrumentInfo.hn', paramData, function (res) { 
           if (res) {
             if (res.success) {
-              wx.showToast({
-                title: '编辑成功',
-                icon: 'success',
-              })
-              wx.navigateBack({
-                delta: 1,
-              });
+              box.showToast('编辑成功',"",1000)
+              setTimeout(()=>{
+                wx.navigateBack({
+                  delta: 1
+                });
+              },1200)
             } else { 
               wx.showToast({
                 icon:'none',
@@ -301,10 +305,7 @@ Page({
           console.info('新建仪器回调', res)
           if (res) {
             if (res.success) {
-              wx.showToast({
-                title: '保存成功',
-                icon: 'success',
-              })
+              box.showToast('保存成功',"",1000)
               that.bindCreateInstrument();
             } else { 
               wx.showToast({
@@ -375,11 +376,41 @@ Page({
       remark: that.data.remarkList[e.detail.value].instrument_attribute_name
     })
   },
-  bindShowDialog(){
-    this.setData({
-     showDialog: true
-    });
-  },
+  bindShowDialog: utils.throttle(function (e) {
+    let that = this;
+    let paramdata = {
+      company_account: that.data.company_account,
+      instrument_name: that.data.instrument_name,
+      instrument_SN: that.data.old_SN,
+    }
+    request.request_new_test('/instrument/supprot/checkInstrumentOrder.hn', paramdata, function (res) { 
+      if (res) {
+        if (res.success) {
+          that.setData({
+            showDialog: true
+           });
+        } else {
+          if(res.exist_order == 0){
+            that.setData({
+              showDeleteDialog: true,
+              dialogDeleteData: {
+                title: "确认删除且数据无法恢复？",
+                titles:  res.msg,
+                cancel: "取消",
+                sure: "确认"
+              },
+            });
+          }else{
+            box.showToast(res.msg)
+          }
+        }
+      }else{
+        wx.showToast({
+          title: '网络不稳定，请重试',
+        })
+      }
+    })
+   },2000),
   dialogCancel(){
    this.setData({
     showDialog: false
@@ -406,24 +437,144 @@ Page({
    request.request_new_test('/instrument/supprot/deleteInstrumentInfo.hn', paramData, function (res) { 
      if (res) {
        if (res.success) {
-         wx.showToast({
-           title: '删除成功',
-           icon: 'success',
-         });
+        box.showToast('删除成功',"",1000)
+        setTimeout(()=>{
           wx.navigateBack({
-            delta: 1,
+            delta: 1
           });
+        },1200)
        } else {
-         wx.showToast({
-           title: res.msg,
-         });
+        box.showToast(res.msg)
        }
      }else{
-       wx.showToast({
-         title: '网络不稳定，请重试',
-       });
+        box.showToast('网络不稳定，请重试')
      }
    });
-  }
+  },
+   // 编辑
+   editBut: utils.throttle(function (e) {
+    let that = this;
+    let paramdata = {
+      company_account: that.data.company_account,
+      instrument_name: that.data.instrument_name,
+      instrument_SN: that.data.old_SN,
+    }
+    request.request_new_test('/instrument/supprot/checkInstrumentOrder.hn', paramdata, function (res) { 
+      if (res) {
+        if (res.success) {
+          that.setEdit();
+        } else {
+          if(res.exist_order == 0){
+            that.setData({
+              showEditDialog: true,
+              dialogEditData: {
+                title: "确认修改？",
+                titles:  res.msg,
+                cancel: "取消",
+                sure: "确认"
+              },
+            });
+          }else{
+            box.showToast(res.msg)
+          }
+        }
+      }else{
+        wx.showToast({
+          title: '网络不稳定，请重试',
+        })
+      }
+    })
+  },2000),
+  dialogEditCancel(){
+   this.setData({
+    showEditDialog: false
+   });
+ },
+ dialogEditSure(){
+   this.setData({
+    showEditDialog: false
+   });
+   this.setEdit();
+ },
+ // 编辑
+  setEdit(){
+    console.log(e)
+    var that = this;
+    // objData = e.detail.value;
+    var SN = that.data.SN;
+    let remark = this.data.remark;
+
+    if(remark == '请选择设备属性' || remark == ''){
+      // remark = '';
+      box.showToast('请选择设备属性');
+      return;
+    }
+
+    if(that.data.flag_1 == true){
+      if(that.data.replaced_SN == ''){
+        wx.showToast({
+          icon:'none',
+          title: '请选择被替换仪器序列号',
+        })
+        return;
+      }
+    }
+    if(that.data.flag_1 == false){
+      that.setData({
+        replaced_SN:''
+      })
+    }
+    console.log('remard='+remark)
+    var re=/^[A-Za-z0-9]*$/;  
+    
+    if(re.test(SN) == false){
+      box.showToast('请输入正确的序列号')
+    } else {
+      // 2-则代表从客户详情设备信息跳转页面(编辑仪器)
+      var paramData = {
+        update_type: '0',
+        company_account: that.data.company_account,
+        instrument_name: that.data.instrument_name,
+        instrument_SN: that.data.old_SN,
+        instrument_SN_new: SN,
+        instrument_attribute: that.data.old_remark,
+        instrument_attribute_new: remark,
+        name: app.globalData.userInfo.name,
+        phone: app.globalData.userInfo.phone,
+      }
+      request.request_new_test('/instrument/supprot/updateInstrumentInfo.hn', paramData, function (res) { 
+        if (res) {
+          if (res.success) {
+            box.showToast('编辑成功',"",1000)
+            setTimeout(()=>{
+              wx.navigateBack({
+                delta: 1
+              });
+            },1200)
+          } else { 
+            wx.showToast({
+              icon:'none',
+              title: res.msg,
+            })
+          }
+        }else{
+          wx.showToast({
+            title: '网络不稳定，请重试',
+          })
+        }
+      })
+    }
+  },
+  dialogDeleteCancel(){
+   this.setData({
+    showDeleteDialog: false
+   });
+ },
+ dialogDeleteSure(){
+   this.setData({
+    showDeleteDialog: false
+   });
+   this.deleteCompanyContactInfo();
+ },
   
 })

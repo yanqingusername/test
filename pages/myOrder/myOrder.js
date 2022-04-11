@@ -55,6 +55,7 @@ Page({
 	},
 	showCancelDialog: false,
 	cancel_order_num: '',
+	isRequest: true
 	},
 
 	onLoad: function (options) {
@@ -71,7 +72,7 @@ Page({
 			  role: role,
 			  userInfoID: app.globalData.userInfo.id,
 			})
-			that.getOrderList();
+			that.getOrderList(2);
 		  }else{
 			this.setData({
 			  isCustom: false,
@@ -119,7 +120,7 @@ jumpTabSelect(e) {
         console.log(res)
       }
     })
-    that.getOrderList();
+    that.getOrderList(2);
   }else if (e == 2){ //跳转至已完成
     this.setData({
       TabCur: 1,
@@ -135,18 +136,18 @@ jumpTabSelect(e) {
         console.log(res)
       }
     })
-    that.getOrderList();
+    that.getOrderList(2);
   }
 },
 	onReachBottom: function () {
 		if(this.data.role != 2){
 			console.log('成功下拉+++++++++++')
 			var that = this;
-			that.getOrderList();
+			that.getOrderList(2);
 		}
 	},
 	// 获取当前技术支持所属区域内未接单的工单
-	getOrderList: function () {
+	getOrderList(number) {
 		var that = this;
 		console.log(that.data.page)
 		var data = {
@@ -190,6 +191,12 @@ jumpTabSelect(e) {
 						statusNumber: res.total_order
 					});
 
+					if(number == 1){
+						that.setData({
+							isRequest: true
+						});
+					}
+
 				} else {
 					if (that.data.page == 1 && res.result_order.length == 0){
 						that.setData({
@@ -199,8 +206,19 @@ jumpTabSelect(e) {
 					}else{
 						box.showToast(res.msg);
 					}
+
+					if(number == 1){
+						that.setData({
+							isRequest: true
+						});
+					}
 				}
 			} else {
+				if(number == 1){
+					that.setData({
+						isRequest: true
+					});
+				}
 				box.showToast("网络不稳定，请重试");
 			}
 		})
@@ -216,26 +234,29 @@ jumpTabSelect(e) {
 	tabSelect(e) {
 		//order_status: '1', //all全部 ,1进行中, 3已完成
 
-		var status = e.currentTarget.dataset.id;
-		console.log("tabSelect " + status)
-		var that = this;
-		if (status == 0) {
-			status = '1';
-		} else if (status == 1) {
-			status = '2';
-		} else {
-			status = 'all';
+		if(this.data.isRequest){
+			var status = e.currentTarget.dataset.id;
+			console.log("tabSelect " + status)
+			var that = this;
+			if (status == 0) {
+				status = '1';
+			} else if (status == 1) {
+				status = '2';
+			} else {
+				status = 'all';
+			}
+			this.setData({
+				TabCur: e.currentTarget.dataset.id,
+				order_status: status,
+				page: 1,
+				orderList: [],
+				tip: '',
+				alreadyChecked: false,
+				isRequest: false
+			},()=>{
+				that.getOrderList(1);
+    		})
 		}
-		this.setData({
-			TabCur: e.currentTarget.dataset.id,
-			order_status: status,
-			page: 1,
-			orderList: [],
-			tip: '',
-			alreadyChecked: false
-		},()=>{
-		  that.getOrderList();
-    })
 	},
 	/**
   * 删除工单
@@ -270,7 +291,7 @@ jumpTabSelect(e) {
 						tip: '',
 						alreadyChecked: false
 					});
-					that.getOrderList();
+					that.getOrderList(2);
 				} else {
 					box.showToast(res.msg);
 				}
@@ -356,7 +377,7 @@ jumpTabSelect(e) {
 					});
 					let closeEmpty = that.selectComponent("#closeOrderId");
     				closeEmpty.empty();
-					that.getOrderList();
+					that.getOrderList(2);
 				} else {
 					box.showToast(res.msg);
 				}
@@ -401,7 +422,7 @@ jumpTabSelect(e) {
 					});
 					let closeEmpty = that.selectComponent("#cancelOrderId");
 					closeEmpty.empty();
-					that.getOrderList();
+					that.getOrderList(2);
 				}else{
 				  box.showToast(res.msg)
 				}
@@ -449,7 +470,7 @@ jumpTabSelect(e) {
 												tip: '',
 												alreadyChecked: false
 											});
-											that.getOrderList();
+											that.getOrderList(2);
 											// wx.setStorage({
 											// 	key: 'jumpStatus',
 											// 	data: 2
@@ -464,7 +485,7 @@ jumpTabSelect(e) {
 												tip: '',
 												alreadyChecked: false
 											});
-											that.getOrderList();
+											that.getOrderList(2);
 											// wx.switchTab({
 											// 	url: '../myOrder/myOrder'
 											// });
