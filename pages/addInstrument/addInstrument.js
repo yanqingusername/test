@@ -498,7 +498,7 @@ Page({
  },
  // 编辑
   setEdit(){
-    console.log(e)
+    // console.log(e)
     var that = this;
     // objData = e.detail.value;
     var SN = that.data.SN;
