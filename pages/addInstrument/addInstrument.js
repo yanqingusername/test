@@ -74,9 +74,10 @@ Page({
         this.checkSubmitStatus()
       });
     }
+    this.getInstrumentAttributeList();
   },
   onShow(){
-    this.getInstrumentAttributeList();
+    
   },
   getInstrumentAttributeList(){
     let that = this;
